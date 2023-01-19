@@ -1,0 +1,9 @@
+﻿Type,Immune
+Normal,Ghost
+Ground,Flying
+Electric,Ground
+Fighting,Ghost
+Poison,Steel
+Psychic,Dark
+Ghost,Normal
+Dragon,Fairy
