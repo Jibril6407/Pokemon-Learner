@@ -1,11 +1,10 @@
 import sqlite3
 import pandas as pd
 
-df = pd.read_csv('Pokemon_Type_Immune.csv')
+df = pd.read_csv('Pokemon_Types.csv')
 
 df.columns = df.columns.str.strip()
 
 connection = sqlite3.connect('Pokemon.db')
 
-df.to_sql('Pokemon_Type_Immune', connection, if_exists='replace')
-
+df.to_sql('Pokemon_Types', connection, if_exists='replace')

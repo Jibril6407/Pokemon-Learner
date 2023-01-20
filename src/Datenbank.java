@@ -50,7 +50,7 @@ public class Datenbank {
 		}
 	});
 	}
-	public static void update1(String qry) {
+	public static void getTypes(String qry) {
 		Typen.clear();
         try {
         Statement stmt = con.createStatement();
