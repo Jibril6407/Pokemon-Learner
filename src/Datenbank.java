@@ -5,7 +5,7 @@ public class Datenbank {
 
 	private static Connection con;
 	private static final String dbPath ="Pokemon.db";
-	public static ArrayList<String> Typen = new ArrayList<String>();
+	public static ArrayList<String> Types = new ArrayList<String>();
 	
 	//Ladet den LDBC-Treiber(connection zur Datenbank)
 	static {
@@ -51,7 +51,7 @@ public class Datenbank {
 	});
 	}
 	public static void getTypes(String qry) {
-		Typen.clear();
+		Types.clear();
         try {
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(qry);
@@ -60,7 +60,7 @@ public class Datenbank {
 
         while(rs.next()) {
             for(int i = 1;i<=columns;i++) {
-                Typen.add(rs.getString(i));
+                Types.add(rs.getString(i));
             }
         }
         rs.close();
@@ -72,7 +72,7 @@ public class Datenbank {
         }
 
     }
-	 public static String getTypen(int i) {
-		  return Typen.get(i);
+	 public static String getTypes(int i) {
+		  return Types.get(i);
 	  }
 }
