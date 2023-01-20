@@ -74,10 +74,19 @@ public Fenster() {
     	
 		Typesbuttons.add(new JButton());
     }
+    Datenbank.getTypes("SELECT Types FROM Pokemon_Types");
     for(int i=0;i<3;i++) {
     	for(int j=0;j<6;j++) {
-    		Typesbuttons.get(count).setBounds(15*j+100,15*i+300,10,10);
+    		int temp_id = i*6+j;
+    		String temp_name = Datenbank.getTypes(count);
+    		Typesbuttons.get(count).setBounds(100*j+50,30*i+350,85,25);
     		Typesbuttons.get(count).setMargin(new Insets(2, 2, 2, 2));
+    		Typesbuttons.get(count).setText(Datenbank.getTypes(count));
+    		Typesbuttons.get(count).addActionListener(new ActionListener() { 
+    		      public void actionPerformed(ActionEvent evt) { 
+    		        Typesbuttons_ActionPerformed(evt, temp_id, temp_name);
+    		      }
+    		    });
     		cp.add(Typesbuttons.get(count));
     		count++;
     	}
@@ -121,6 +130,9 @@ public Fenster() {
 	  Datenbank.getTypes("SELECT Types FROM Pokemon_Types");
 	  int i = rand.nextInt(Datenbank.Types.size());
 	  jLabel1.setText(Datenbank.getTypes(i));
+  }
+  public void Typesbuttons_ActionPerformed(ActionEvent evt, int b_id, String abc) {
+	  System.out.println(Integer.toString(b_id) + " " + abc);
   } 
   
   // Ende Methoden
