@@ -11,7 +11,9 @@ public class Fenster extends JFrame {
 	private JButton jButton3 = new JButton();
 	private JButton jButton4 = new JButton();
 	private ArrayList<JButton> Typesbuttons = new ArrayList<JButton>();
+	private ArrayList<String> compareTypes = new ArrayList<String>();
 	Random rand = new Random();
+	int countRightTypes = 0;
 
 	public Fenster() {
 		// Frame-Initialisierung
@@ -31,6 +33,10 @@ public class Fenster extends JFrame {
 
 		jLabel1.setBounds(150, 140, 350, 50);
 		cp.add(jLabel1);
+		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
+		int randType = rand.nextInt(Datenbank.Types.size());
+		jLabel1.setText(Datenbank.getTypes(randType, 0));
+
 		jButton1.setBounds(150, 200, 100, 50);
 		jButton1.setText("Effective");
 		jButton1.setMargin(new Insets(2, 2, 2, 2));
@@ -75,16 +81,17 @@ public class Fenster extends JFrame {
 		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 6; j++) {
-				String temp_Types = Datenbank.getTypes(count, 0);
+				String tempTypes = Datenbank.getTypes(count, 0);
 				Typesbuttons.get(count).setBounds(100 * j + 50, 30 * i + 350, 85, 25);
 				Typesbuttons.get(count).setMargin(new Insets(2, 2, 2, 2));
 				Typesbuttons.get(count).setText(Datenbank.getTypes(count, 0));
 				Typesbuttons.get(count).addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						Typesbuttons_ActionPerformed(evt, temp_Types);
+						Typesbuttons_ActionPerformed(evt, tempTypes);
 					}
 				});
 				cp.add(Typesbuttons.get(count));
+				Typesbuttons.get(count).setVisible(false);
 				count++;
 			}
 		}
@@ -98,8 +105,16 @@ public class Fenster extends JFrame {
 		if (jButton1.getText() == "Effective") {
 			Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '" + Type + "'", 1);
 			int size = Datenbank.effective_against_Types.size();
+			compareTypes.clear();
 			for (int i = 0; i < size; i++) {
-				System.out.println(i +" "+ Datenbank.getTypes(i, 1));
+//				System.out.println(i + " " + Datenbank.getTypes(i, 1));
+				compareTypes.add(Datenbank.getTypes(i, 1));
+			}
+			jButton2.setVisible(false);
+			jButton3.setVisible(false);
+			jButton4.setVisible(false);
+			for (int i = 0; i < 18; i++) {
+				Typesbuttons.get(i).setVisible(true);
 			}
 		}
 	} // end of jButton1_ActionPerformed
@@ -110,8 +125,17 @@ public class Fenster extends JFrame {
 			Datenbank.getTypes("SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '" + Type + "'",
 					2);
 			int size = Datenbank.not_effective_against_Types.size();
+			compareTypes.clear();
 			for (int i = 0; i < size; i++) {
-				System.out.println(i +" "+ Datenbank.getTypes(i, 2));
+//				System.out.println(i + " " + Datenbank.getTypes(i, 2));
+				compareTypes.add(Datenbank.getTypes(i, 2));
+			}
+			System.out.println(compareTypes);
+			jButton1.setVisible(false);
+			jButton3.setVisible(false);
+			jButton4.setVisible(false);
+			for (int i = 0; i < 18; i++) {
+				Typesbuttons.get(i).setVisible(true);
 			}
 		}
 	}
@@ -121,20 +145,40 @@ public class Fenster extends JFrame {
 		if (jButton3.getText() == "Immune") {
 			Datenbank.getTypes("SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + Type + "'", 3);
 			int size = Datenbank.immune_Types.size();
+			compareTypes.clear();
 			for (int i = 0; i < size; i++) {
-				System.out.println(i +" "+ Datenbank.getTypes(i, 3));
+//				System.out.println(i + " " + Datenbank.getTypes(i, 3));
+				compareTypes.add(Datenbank.getTypes(i, 3));
+				
+			}
+			jButton1.setVisible(false);
+			jButton2.setVisible(false);
+			jButton4.setVisible(false);
+			for (int i = 0; i < 18; i++) {
+				Typesbuttons.get(i).setVisible(true);
 			}
 		}
 	}
 
 	public void jButton4_ActionPerformed(ActionEvent evt) {
-		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
-		int i = rand.nextInt(Datenbank.Types.size());
-		jLabel1.setText(Datenbank.getTypes(i, 0));
+//		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
+//		int i = rand.nextInt(Datenbank.Types.size());
+//		jLabel1.setText(Datenbank.getTypes(i, 0));
 	}
 
-	public void Typesbuttons_ActionPerformed(ActionEvent evt, String temp_Types) {
-		System.out.println(temp_Types);
+	public void Typesbuttons_ActionPerformed(ActionEvent evt, String tempTypes) {
+		for(int i = 0; i < compareTypes.size();i++) {
+			if(tempTypes.equals(compareTypes.get(i))) {
+				System.out.println("Right");
+				countRightTypes++;
+				
+			}
+		}
+		if(countRightTypes == compareTypes.size()) {
+			System.out.println("That was all");
+		}
+		
+		
 	}
 
 	// Ende Methoden
