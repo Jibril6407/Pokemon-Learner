@@ -6,6 +6,7 @@ import java.util.*;
 public class Fenster extends JFrame {
 
 	private JLabel jLabel1 = new JLabel();
+	private JButton backButton = new JButton();
 	private JButton jButton1 = new JButton();
 	private JButton jButton2 = new JButton();
 	private JButton jButton3 = new JButton();
@@ -36,7 +37,15 @@ public class Fenster extends JFrame {
 		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
 		int randType = rand.nextInt(Datenbank.Types.size());
 		jLabel1.setText(Datenbank.getTypes(randType, 0));
-
+		backButton.setBounds(0, 0, 100, 50);
+		backButton.setText("Back");
+		backButton.setMargin(new Insets(2, 2, 2, 2));
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				backButton_ActionPerformed(evt);
+			}
+		});
+		cp.add(backButton);
 		jButton1.setBounds(150, 200, 100, 50);
 		jButton1.setText("Effective");
 		jButton1.setMargin(new Insets(2, 2, 2, 2));
@@ -130,7 +139,7 @@ public class Fenster extends JFrame {
 //				System.out.println(i + " " + Datenbank.getTypes(i, 2));
 				compareTypes.add(Datenbank.getTypes(i, 2));
 			}
-			System.out.println(compareTypes);
+//			System.out.println(compareTypes);
 			jButton1.setVisible(false);
 			jButton3.setVisible(false);
 			jButton4.setVisible(false);
@@ -161,9 +170,9 @@ public class Fenster extends JFrame {
 	}
 
 	public void jButton4_ActionPerformed(ActionEvent evt) {
-//		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
-//		int i = rand.nextInt(Datenbank.Types.size());
-//		jLabel1.setText(Datenbank.getTypes(i, 0));
+		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
+		int i = rand.nextInt(Datenbank.Types.size());
+		jLabel1.setText(Datenbank.getTypes(i, 0));
 	}
 
 	public void Typesbuttons_ActionPerformed(ActionEvent evt, String tempTypes) {
@@ -172,13 +181,24 @@ public class Fenster extends JFrame {
 				System.out.println("Right");
 				countRightTypes++;
 				
+				
 			}
 		}
 		if(countRightTypes == compareTypes.size()) {
 			System.out.println("That was all");
+			countRightTypes = 0;
 		}
 		
 		
+	}
+	public void backButton_ActionPerformed(ActionEvent evt) {
+		jButton1.setVisible(true);
+		jButton2.setVisible(true);
+		jButton3.setVisible(true);
+		jButton4.setVisible(true);
+		for(int i = 0; i < 18; i++) {
+			Typesbuttons.get(i).setVisible(false);
+		}
 	}
 
 	// Ende Methoden
