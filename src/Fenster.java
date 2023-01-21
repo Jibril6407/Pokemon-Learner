@@ -15,7 +15,6 @@ public class Fenster extends JFrame {
 	private ArrayList<String> compareTypes = new ArrayList<String>();
 	private ArrayList<String> comparedTypes = new ArrayList<String>();
 	Random rand = new Random();
-	int countRightTypes = 0;
 
 	public Fenster() {
 		// Frame-Initialisierung
@@ -185,38 +184,29 @@ public class Fenster extends JFrame {
 	}
 
 	public void Typesbuttons_ActionPerformed(ActionEvent evt, String tempTypes) {
-		result: {
-		for (int i = 0; i < compareTypes.size(); i++) {
-			if (comparedTypes.size() != 0) {
-				for (int j = 0; j < comparedTypes.size(); j++) {
-
-					if (tempTypes.equals(compareTypes.get(i)) && !tempTypes.equals(comparedTypes.get(j))) {
-
-						comparedTypes.add(compareTypes.get(i));
-						System.out.println("Right");
-						countRightTypes++;
-						break result;
-
-					}
-
+		if (comparedTypes.size() != 0) {
+			for (int j = 0; j < comparedTypes.size(); j++) {
+				if(comparedTypes.get(j).equals(tempTypes)) {
+					return;
 				}
 			}
-			if (comparedTypes.size() == 0) {
-				comparedTypes.add(compareTypes.get(i));
+		}
+		for (int i = 0; i < compareTypes.size(); i++) {
+
+			if (tempTypes.equals(compareTypes.get(i))) {
+
+				comparedTypes.add(tempTypes);
 				System.out.println("Right");
-				countRightTypes++;
-				break;
+
 			}
 		}
-		}
-		
-		if (countRightTypes == compareTypes.size()) {
+
+		if (comparedTypes.size() == compareTypes.size()) {
 			System.out.println("That was all");
-			countRightTypes = 0;
+
 			comparedTypes.clear();
 		}
 
-	
 	}
 
 	public void backButton_ActionPerformed(ActionEvent evt) {
