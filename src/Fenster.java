@@ -15,7 +15,8 @@ public class Fenster extends JFrame {
 	private ArrayList<String> compareTypes = new ArrayList<String>();
 	private ArrayList<String> usedTypes = new ArrayList<String>();
 	private ArrayList<String> comparedTypes = new ArrayList<String>();
-	Random rand = new Random();
+	private Random rand = new Random();
+	private int mode = 0;
 
 	public Fenster() {
 		// Frame-Initialisierung
@@ -121,13 +122,14 @@ public class Fenster extends JFrame {
 
 	// Anfang Methoden
 	public void effectiveButton_ActionPerformed(ActionEvent evt) {
+		mode = 1;
 		String Type = currentType.getText();
 		if (effectiveButton.getText() == "Effective") {
 			Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '" + Type + "'", 1);
-			
+
 			compareTypes.clear();
 			compareTypes.addAll(Datenbank.effective_against_Types);
-			
+
 			notEffectiveButton.setVisible(false);
 			immuneButton.setVisible(false);
 			randomButton.setVisible(false);
@@ -138,14 +140,15 @@ public class Fenster extends JFrame {
 	} // end of jButton1_ActionPerformed
 
 	public void notEffectiveButton_ActionPerformed(ActionEvent evt) {
+		mode = 2;
 		String Type = currentType.getText();
 		if (notEffectiveButton.getText() == "Not Effective") {
 			Datenbank.getTypes("SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '" + Type + "'",
 					2);
-			
+
 			compareTypes.clear();
 			compareTypes.addAll(Datenbank.not_effective_against_Types);
-			
+
 			effectiveButton.setVisible(false);
 			immuneButton.setVisible(false);
 			randomButton.setVisible(false);
@@ -156,13 +159,14 @@ public class Fenster extends JFrame {
 	}
 
 	public void immuneButton_ActionPerformed(ActionEvent evt) {
+		mode = 3;
 		String Type = currentType.getText();
 		if (immuneButton.getText() == "Immune") {
 			Datenbank.getTypes("SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + Type + "'", 3);
-			
+
 			compareTypes.clear();
 			compareTypes.addAll(Datenbank.immune_Types);
-			
+
 			effectiveButton.setVisible(false);
 			notEffectiveButton.setVisible(false);
 			randomButton.setVisible(false);
@@ -182,17 +186,38 @@ public class Fenster extends JFrame {
 		if (comparedTypes.contains(tempTypes)) {
 			return;
 		}
+		switch (mode) {
+		case 1:
+			if (compareTypes.contains(tempTypes)) {
+				comparedTypes.add(tempTypes);
+				System.out.println("Right");
 
-		if (compareTypes.contains(tempTypes)) {
-			comparedTypes.add(tempTypes);
-			System.out.println("Right");
+				if (comparedTypes.size() == compareTypes.size()) {
+					System.out.println("That was all");
+					usedTypes.add(currentType.getText());
+					comparedTypes.clear();
+					int i = rand.nextInt(Datenbank.Types.size());
+					currentType.setText(Datenbank.getTypes(i, 0));
+					for (int j = 0; j < usedTypes.size(); j++) {
+						if (usedTypes.get(j).equals(Datenbank.getTypes(i, 0))) {
+							i = rand.nextInt(Datenbank.Types.size());
+							currentType.setText(Datenbank.getTypes(i, 0));
+							j = 0;
+						}
+					}
 
-			if (comparedTypes.size() == compareTypes.size()) {
-				System.out.println("That was all");
+					Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '"
+							+ Datenbank.getTypes(i, 0) + "'", 1);
+
+					compareTypes.clear();
+					compareTypes.addAll(Datenbank.effective_against_Types);
+					System.out.println(usedTypes);
+
+				}
+			}
+			if(compareTypes.size() == 0) {
 				usedTypes.add(currentType.getText());
-				comparedTypes.clear();
 				int i = rand.nextInt(Datenbank.Types.size());
-				currentType.setText(Datenbank.getTypes(i, 0));
 				for (int j = 0; j < usedTypes.size(); j++) {
 					if (usedTypes.get(j).equals(Datenbank.getTypes(i, 0))) {
 						i = rand.nextInt(Datenbank.Types.size());
@@ -200,20 +225,117 @@ public class Fenster extends JFrame {
 						j = 0;
 					}
 				}
-
 				Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '"
 						+ Datenbank.getTypes(i, 0) + "'", 1);
 
 				compareTypes.clear();
-	            compareTypes.addAll(Datenbank.effective_against_Types);
-				System.out.println(usedTypes);
-
+				compareTypes.addAll(Datenbank.effective_against_Types);
 			}
+			break;
+		case 2:
+			System.out.println(compareTypes);
+			if (compareTypes.contains(tempTypes)) {
+				comparedTypes.add(tempTypes);
+				System.out.println("Right");
+
+				if (comparedTypes.size() == compareTypes.size()) {
+					System.out.println("That was all");
+					usedTypes.add(currentType.getText());
+					comparedTypes.clear();
+					int i = rand.nextInt(Datenbank.Types.size());
+					currentType.setText(Datenbank.getTypes(i, 0));
+					for (int j = 0; j < usedTypes.size(); j++) {
+						if (usedTypes.get(j).equals(Datenbank.getTypes(i, 0))) {
+							i = rand.nextInt(Datenbank.Types.size());
+							currentType.setText(Datenbank.getTypes(i, 0));
+							j = 0;
+						}
+					}
+
+					Datenbank.getTypes("SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '"
+							+ Datenbank.getTypes(i, 0) + "'", 2);
+
+					compareTypes.clear();
+					compareTypes.addAll(Datenbank.not_effective_against_Types);
+					System.out.println(usedTypes);
+
+				}
+			}
+			if(compareTypes.size() == 0) {
+				usedTypes.add(currentType.getText());
+				int i = rand.nextInt(Datenbank.Types.size());
+				for (int j = 0; j < usedTypes.size(); j++) {
+					if (usedTypes.get(j).equals(Datenbank.getTypes(i, 0))) {
+						i = rand.nextInt(Datenbank.Types.size());
+						currentType.setText(Datenbank.getTypes(i, 0));
+						j = 0;
+					}
+				}
+				Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '"
+						+ Datenbank.getTypes(i, 0) + "'", 2);
+
+				compareTypes.clear();
+				compareTypes.addAll(Datenbank.not_effective_against_Types);
+			}
+			break;
+		case 3:
+			System.out.println(compareTypes);
+			if (compareTypes.contains(tempTypes)) {
+				comparedTypes.add(tempTypes);
+				System.out.println("Right");
+
+				if (comparedTypes.size() == compareTypes.size()) {
+					System.out.println("That was all");
+					usedTypes.add(currentType.getText());
+					comparedTypes.clear();
+					int i = rand.nextInt(Datenbank.Types.size());
+					currentType.setText(Datenbank.getTypes(i, 0));
+					for (int j = 0; j < usedTypes.size(); j++) {
+						if (usedTypes.get(j).equals(Datenbank.getTypes(i, 0))) {
+							i = rand.nextInt(Datenbank.Types.size());
+							currentType.setText(Datenbank.getTypes(i, 0));
+							j = 0;
+						}
+					}
+
+					Datenbank.getTypes(
+							"SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'",
+							3);
+
+					compareTypes.clear();
+					compareTypes.addAll(Datenbank.immune_Types);
+					System.out.println(usedTypes);
+
+				}
+			}
+			if(compareTypes.size() == 0) {
+				usedTypes.add(currentType.getText());
+				int i = rand.nextInt(Datenbank.Types.size());
+				for (int j = 0; j < usedTypes.size(); j++) {
+					if (usedTypes.get(j).equals(Datenbank.getTypes(i, 0))) {
+						i = rand.nextInt(Datenbank.Types.size());
+						currentType.setText(Datenbank.getTypes(i, 0));
+						j = 0;
+					}
+				}
+				Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Immune WHERE Type LIKE '"
+						+ Datenbank.getTypes(i, 0) + "'", 3);
+
+				compareTypes.clear();
+				compareTypes.addAll(Datenbank.immune_Types);
+			}
+			break;
+			default:
+				System.out.println("Default");
 		}
 
 	}
 
 	public void backButton_ActionPerformed(ActionEvent evt) {
+		mode = 0;
+		compareTypes.clear();
+		usedTypes.clear();
+		comparedTypes.clear();
 		effectiveButton.setVisible(true);
 		notEffectiveButton.setVisible(true);
 		immuneButton.setVisible(true);
