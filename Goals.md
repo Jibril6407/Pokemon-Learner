@@ -2,7 +2,7 @@
 ## Mindest Ziele: 
 1. Vokabeltrainer mit Pokémon Typen 
   * Es wird ein zufälliger Pokémon Typ vorgesetzt, mit dem man die Typen Anklicken soll, gegen die dieser Effektiv / nicht Effektiv ist, oder welcher Typ Immun gegen den zufälligen Typen ist.
-  * Am wird einem angezeigt wieviele man richtig bzw. falsch hatte. Auch soll am ende angezeigt werden, was man falsch hatte, um aus seinen Fehlern zu lernen.
+  * Am Ende wird einem angezeigt wieviele man richtig bzw. falsch hatte. Auch soll am ende angezeigt werden, was man falsch hatte, um aus seinen Fehlern zu lernen.
   * Am Ende eines Durchganges werden die richtigen Antworten, für die falsch gegebenen Antworten angezeigt.
 
 
