@@ -6,6 +6,7 @@ public class Datenbank {
 	private static Connection con;
 	private static final String dbPath = "Pokemon.db";
 	public static ArrayList<String> Types = new ArrayList<String>();
+	public static ArrayList<String> types_color = new ArrayList<String>();
 	public static ArrayList<String> effective_against_Types = new ArrayList<String>();
 	public static ArrayList<String> not_effective_against_Types = new ArrayList<String>();
 	public static ArrayList<String> immune_Types = new ArrayList<String>();
@@ -65,6 +66,7 @@ public class Datenbank {
 				while (rs.next()) {
 					for (int i = 1; i <= columns; i++) {
 						Types.add(rs.getString(i));
+						
 					}
 				}
 			}
@@ -89,6 +91,14 @@ public class Datenbank {
 				while (rs.next()) {
 					for (int i = 1; i <= columns; i++) {
 						immune_Types.add(rs.getString(i));
+					}
+				}
+			}
+			if (j == 4) {
+				types_color.clear();
+				while (rs.next()) {
+					for (int i = 1; i <= columns; i++) {
+						types_color.add(rs.getString(i));
 					}
 				}
 			}

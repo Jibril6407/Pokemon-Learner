@@ -96,12 +96,14 @@ public class Fenster extends JFrame {
 		}
 		// Typen Ersteller der Buttons
 		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
+		Datenbank.getTypes("SELECT Type_color FROM Pokemon_Types", 4);
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 6; j++) {
 				String tempTypes = Datenbank.getTypes(count, 0);
 				typesbuttons.get(count).setBounds(100 * j + 50, 30 * i + 350, 85, 25);
 				typesbuttons.get(count).setMargin(new Insets(2, 2, 2, 2));
 				typesbuttons.get(count).setText(Datenbank.getTypes(count, 0));
+				typesbuttons.get(count).setBackground(Color.decode(Datenbank.types_color.get(count)));
 				typesbuttons.get(count).addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						typesbuttons_ActionPerformed(evt, tempTypes);
