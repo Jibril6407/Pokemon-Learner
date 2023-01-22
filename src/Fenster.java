@@ -10,8 +10,8 @@ public class Fenster extends JFrame {
 	private JButton effectiveButton = new JButton();
 	private JButton notEffectiveButton = new JButton();
 	private JButton immuneButton = new JButton();
-	private JButton RandomButton = new JButton();
-	private ArrayList<JButton> Typesbuttons = new ArrayList<JButton>();
+	private JButton randomButton = new JButton();
+	private ArrayList<JButton> typesbuttons = new ArrayList<JButton>();
 	private ArrayList<String> compareTypes = new ArrayList<String>();
 	private ArrayList<String> usedTypes = new ArrayList<String>();
 	private ArrayList<String> comparedTypes = new ArrayList<String>();
@@ -79,37 +79,37 @@ public class Fenster extends JFrame {
 		});
 		cp.add(immuneButton);
 
-		RandomButton.setBounds(275, 275, 100, 50);
-		RandomButton.setText("Random");
-		RandomButton.setMargin(new Insets(2, 2, 2, 2));
-		RandomButton.addActionListener(new ActionListener() {
+		randomButton.setBounds(275, 275, 100, 50);
+		randomButton.setText("Random");
+		randomButton.setMargin(new Insets(2, 2, 2, 2));
+		randomButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				RandomButton_ActionPerformed(evt);
+				randomButton_ActionPerformed(evt);
 			}
 		});
-		cp.add(RandomButton);
+		cp.add(randomButton);
 
 		int count = 0;
 
 		for (int i = 0; i < 18; i++) {
-			Typesbuttons.add(new JButton());
+			typesbuttons.add(new JButton());
 		}
 		// Typen Ersteller der Buttons
 		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 6; j++) {
 				String tempTypes = Datenbank.getTypes(count, 0);
-				Typesbuttons.get(count).setBounds(100 * j + 50, 30 * i + 350, 85, 25);
-				Typesbuttons.get(count).setMargin(new Insets(2, 2, 2, 2));
-				Typesbuttons.get(count).setText(Datenbank.getTypes(count, 0));
-				Typesbuttons.get(count).addActionListener(new ActionListener() {
+				typesbuttons.get(count).setBounds(100 * j + 50, 30 * i + 350, 85, 25);
+				typesbuttons.get(count).setMargin(new Insets(2, 2, 2, 2));
+				typesbuttons.get(count).setText(Datenbank.getTypes(count, 0));
+				typesbuttons.get(count).addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						Typesbuttons_ActionPerformed(evt, tempTypes);
+						typesbuttons_ActionPerformed(evt, tempTypes);
 					}
 				});
-				cp.add(Typesbuttons.get(count));
+				cp.add(typesbuttons.get(count));
 
-				Typesbuttons.get(count).setVisible(false);
+				typesbuttons.get(count).setVisible(false);
 				count++;
 			}
 		}
@@ -122,17 +122,15 @@ public class Fenster extends JFrame {
 		String Type = currentType.getText();
 		if (effectiveButton.getText() == "Effective") {
 			Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '" + Type + "'", 1);
-			int size = Datenbank.effective_against_Types.size();
+			
 			compareTypes.clear();
-			for (int i = 0; i < size; i++) {
-//				System.out.println(i + " " + Datenbank.getTypes(i, 1));
-				compareTypes.add(Datenbank.getTypes(i, 1));
-			}
+			compareTypes.addAll(Datenbank.effective_against_Types);
+			
 			notEffectiveButton.setVisible(false);
 			immuneButton.setVisible(false);
-			RandomButton.setVisible(false);
+			randomButton.setVisible(false);
 			for (int i = 0; i < 18; i++) {
-				Typesbuttons.get(i).setVisible(true);
+				typesbuttons.get(i).setVisible(true);
 			}
 		}
 	} // end of jButton1_ActionPerformed
@@ -142,18 +140,15 @@ public class Fenster extends JFrame {
 		if (notEffectiveButton.getText() == "Not Effective") {
 			Datenbank.getTypes("SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '" + Type + "'",
 					2);
-			int size = Datenbank.not_effective_against_Types.size();
+			
 			compareTypes.clear();
-			for (int i = 0; i < size; i++) {
-//				System.out.println(i + " " + Datenbank.getTypes(i, 2));
-				compareTypes.add(Datenbank.getTypes(i, 2));
-			}
-//			System.out.println(compareTypes);
+			compareTypes.addAll(Datenbank.not_effective_against_Types);
+			
 			effectiveButton.setVisible(false);
 			immuneButton.setVisible(false);
-			RandomButton.setVisible(false);
+			randomButton.setVisible(false);
 			for (int i = 0; i < 18; i++) {
-				Typesbuttons.get(i).setVisible(true);
+				typesbuttons.get(i).setVisible(true);
 			}
 		}
 	}
@@ -162,69 +157,56 @@ public class Fenster extends JFrame {
 		String Type = currentType.getText();
 		if (immuneButton.getText() == "Immune") {
 			Datenbank.getTypes("SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + Type + "'", 3);
-			int size = Datenbank.immune_Types.size();
+			
 			compareTypes.clear();
-			for (int i = 0; i < size; i++) {
-//				System.out.println(i + " " + Datenbank.getTypes(i, 3));
-				compareTypes.add(Datenbank.getTypes(i, 3));
-
-			}
+			compareTypes.addAll(Datenbank.immune_Types);
+			
 			effectiveButton.setVisible(false);
 			notEffectiveButton.setVisible(false);
-			RandomButton.setVisible(false);
+			randomButton.setVisible(false);
 			for (int i = 0; i < 18; i++) {
-				Typesbuttons.get(i).setVisible(true);
+				typesbuttons.get(i).setVisible(true);
 			}
 		}
 	}
 
-	public void RandomButton_ActionPerformed(ActionEvent evt) {
+	public void randomButton_ActionPerformed(ActionEvent evt) {
 		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
 		int i = rand.nextInt(Datenbank.Types.size());
 		currentType.setText(Datenbank.getTypes(i, 0));
 	}
 
-	public void Typesbuttons_ActionPerformed(ActionEvent evt, String tempTypes) {
-		if (comparedTypes.size() != 0) {
-			for (int j = 0; j < comparedTypes.size(); j++) {
-				if (comparedTypes.get(j).equals(tempTypes)) {
-					return;
+	public void typesbuttons_ActionPerformed(ActionEvent evt, String tempTypes) {
+		if (comparedTypes.contains(tempTypes)) {
+			return;
+		}
+
+		if (compareTypes.contains(tempTypes)) {
+			comparedTypes.add(tempTypes);
+			System.out.println("Right");
+
+			if (comparedTypes.size() == compareTypes.size()) {
+				System.out.println("That was all");
+				usedTypes.add(currentType.getText());
+				comparedTypes.clear();
+				int i = rand.nextInt(Datenbank.Types.size());
+				currentType.setText(Datenbank.getTypes(i, 0));
+				for (int j = 0; j < usedTypes.size(); j++) {
+					if (usedTypes.get(j).equals(Datenbank.getTypes(i, 0))) {
+						i = rand.nextInt(Datenbank.Types.size());
+						currentType.setText(Datenbank.getTypes(i, 0));
+						j = 0;
+					}
 				}
+
+				Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '"
+						+ Datenbank.getTypes(i, 0) + "'", 1);
+
+				compareTypes.clear();
+	            compareTypes.addAll(Datenbank.effective_against_Types);
+				System.out.println(usedTypes);
+
 			}
-		}
-		for (int i = 0; i < compareTypes.size(); i++) {
-
-			if (tempTypes.equals(compareTypes.get(i))) {
-
-				comparedTypes.add(tempTypes);
-				System.out.println("Right");
-
-			}
-		}
-
-		if (comparedTypes.size() == compareTypes.size()) {
-			System.out.println("That was all");
-			usedTypes.add(currentType.getText());
-			comparedTypes.clear();
-			Datenbank.Types.remove(Datenbank.Types.indexOf(currentType.getText()));
-			int i = rand.nextInt(Datenbank.Types.size());
-			currentType.setText(Datenbank.getTypes(i, 0));
-//			for(int j = 0; j < usedTypes.size(); j++) {
-//				if (usedTypes.get(j).equals(Datenbank.getTypes(i, 0))) {
-//					i = rand.nextInt(Datenbank.Types.size());
-//					currentType.setText(Datenbank.getTypes(i, 0));
-//					j = 0;
-//				}
-//			}
-//
-			Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'",1);
-			
-			compareTypes.clear();
-			for (int j = 0; j < Datenbank.effective_against_Types.size(); j++) {
-				compareTypes.add(Datenbank.getTypes(j, 1));
-			}
-			System.out.println(usedTypes);
-			
 		}
 
 	}
@@ -233,9 +215,9 @@ public class Fenster extends JFrame {
 		effectiveButton.setVisible(true);
 		notEffectiveButton.setVisible(true);
 		immuneButton.setVisible(true);
-		RandomButton.setVisible(true);
+		randomButton.setVisible(true);
 		for (int i = 0; i < 18; i++) {
-			Typesbuttons.get(i).setVisible(false);
+			typesbuttons.get(i).setVisible(false);
 		}
 	}
 
