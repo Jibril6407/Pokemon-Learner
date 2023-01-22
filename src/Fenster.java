@@ -215,21 +215,28 @@ public class Fenster extends JFrame {
 
 				}
 			}
-			if(compareTypes.size() == 0) {
+			while (compareTypes.size() == 0) {
+				System.out.println("That was all");
 				usedTypes.add(currentType.getText());
+				comparedTypes.clear();
 				int i = rand.nextInt(Datenbank.Types.size());
+				currentType.setText(Datenbank.getTypes(i, 0));
 				for (int j = 0; j < usedTypes.size(); j++) {
-					if (usedTypes.get(j).equals(Datenbank.getTypes(i, 0))) {
+					if (usedTypes.contains(Datenbank.getTypes(i, 0))) {
 						i = rand.nextInt(Datenbank.Types.size());
 						currentType.setText(Datenbank.getTypes(i, 0));
 						j = 0;
 					}
 				}
-				Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '"
-						+ Datenbank.getTypes(i, 0) + "'", 1);
+
+				Datenbank.getTypes(
+						"SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'",
+						1);
 
 				compareTypes.clear();
 				compareTypes.addAll(Datenbank.effective_against_Types);
+				System.out.println(usedTypes);
+
 			}
 			break;
 		case 2:
@@ -261,21 +268,28 @@ public class Fenster extends JFrame {
 
 				}
 			}
-			if(compareTypes.size() == 0) {
+			while (compareTypes.size() == 0) {
+				System.out.println("That was all");
 				usedTypes.add(currentType.getText());
+				comparedTypes.clear();
 				int i = rand.nextInt(Datenbank.Types.size());
+				currentType.setText(Datenbank.getTypes(i, 0));
 				for (int j = 0; j < usedTypes.size(); j++) {
-					if (usedTypes.get(j).equals(Datenbank.getTypes(i, 0))) {
+					if (usedTypes.contains(Datenbank.getTypes(i, 0))) {
 						i = rand.nextInt(Datenbank.Types.size());
 						currentType.setText(Datenbank.getTypes(i, 0));
 						j = 0;
 					}
 				}
-				Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '"
-						+ Datenbank.getTypes(i, 0) + "'", 2);
+
+				Datenbank.getTypes(
+						"SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'",
+						2);
 
 				compareTypes.clear();
 				compareTypes.addAll(Datenbank.not_effective_against_Types);
+				System.out.println(usedTypes);
+
 			}
 			break;
 		case 3:
@@ -291,7 +305,7 @@ public class Fenster extends JFrame {
 					int i = rand.nextInt(Datenbank.Types.size());
 					currentType.setText(Datenbank.getTypes(i, 0));
 					for (int j = 0; j < usedTypes.size(); j++) {
-						if (usedTypes.get(j).equals(Datenbank.getTypes(i, 0))) {
+						if (usedTypes.contains(Datenbank.getTypes(i, 0))) {
 							i = rand.nextInt(Datenbank.Types.size());
 							currentType.setText(Datenbank.getTypes(i, 0));
 							j = 0;
@@ -308,25 +322,33 @@ public class Fenster extends JFrame {
 
 				}
 			}
-			if(compareTypes.size() == 0) {
+			
+			while (compareTypes.size() == 0) {
+				System.out.println("That was all");
 				usedTypes.add(currentType.getText());
+				comparedTypes.clear();
 				int i = rand.nextInt(Datenbank.Types.size());
+				currentType.setText(Datenbank.getTypes(i, 0));
 				for (int j = 0; j < usedTypes.size(); j++) {
-					if (usedTypes.get(j).equals(Datenbank.getTypes(i, 0))) {
+					if (usedTypes.contains(Datenbank.getTypes(i, 0))) {
 						i = rand.nextInt(Datenbank.Types.size());
 						currentType.setText(Datenbank.getTypes(i, 0));
 						j = 0;
 					}
 				}
-				Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Immune WHERE Type LIKE '"
-						+ Datenbank.getTypes(i, 0) + "'", 3);
+
+				Datenbank.getTypes(
+						"SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'",
+						3);
 
 				compareTypes.clear();
 				compareTypes.addAll(Datenbank.immune_Types);
+				System.out.println(usedTypes);
+
 			}
 			break;
-			default:
-				System.out.println("Default");
+		default:
+			System.out.println("Default");
 		}
 
 	}
