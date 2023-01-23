@@ -5,7 +5,8 @@ import java.util.*;
 
 public class Fenster extends JFrame {
 
-	private JLabel currentType = new JLabel();
+	private JLabel currentTypeLabel = new JLabel();
+	private String currentType;
 	private JButton backButton = new JButton();
 	private JButton effectiveButton = new JButton();
 	private JButton notEffectiveButton = new JButton();
@@ -35,12 +36,13 @@ public class Fenster extends JFrame {
 		Container cp = getContentPane();
 		cp.setLayout(null);
 
-		currentType.setBounds(150, 140, 350, 50);
-		cp.add(currentType);
+		currentTypeLabel.setBounds(150, 140, 350, 50);
+		cp.add(currentTypeLabel);
 
 		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
 		int randType = rand.nextInt(Datenbank.Types.size());
-		currentType.setText(Datenbank.getTypes(randType, 0));
+		currentType = Datenbank.getTypes(randType, 0);
+		currentTypeLabel.setText(currentType);
 		backButton.setBounds(0, 0, 100, 50);
 		backButton.setText("Back");
 		backButton.setMargin(new Insets(2, 2, 2, 2));
@@ -135,9 +137,8 @@ public class Fenster extends JFrame {
 	// Anfang Methoden
 	public void effectiveButton_ActionPerformed(ActionEvent evt) {
 		mode = 1;
-		String Type = currentType.getText();
 		if (effectiveButton.getText() == "Effective") {
-			Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '" + Type + "'", 1);
+			Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '" + currentType + "'", 1);
 
 			compareTypes.clear();
 			compareTypes.addAll(Datenbank.effective_against_Types);
@@ -155,9 +156,8 @@ public class Fenster extends JFrame {
 
 	public void notEffectiveButton_ActionPerformed(ActionEvent evt) {
 		mode = 2;
-		String Type = currentType.getText();
 		if (notEffectiveButton.getText() == "Not Effective") {
-			Datenbank.getTypes("SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '" + Type + "'",
+			Datenbank.getTypes("SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '" + currentType + "'",
 					2);
 
 			compareTypes.clear();
@@ -176,9 +176,8 @@ public class Fenster extends JFrame {
 
 	public void immuneButton_ActionPerformed(ActionEvent evt) {
 		mode = 3;
-		String Type = currentType.getText();
 		if (immuneButton.getText() == "Immune") {
-			Datenbank.getTypes("SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + Type + "'", 3);
+			Datenbank.getTypes("SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + currentType + "'", 3);
 
 			compareTypes.clear();
 			compareTypes.addAll(Datenbank.immune_Types);
@@ -197,7 +196,8 @@ public class Fenster extends JFrame {
 	public void randomButton_ActionPerformed(ActionEvent evt) {
 		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
 		int i = rand.nextInt(Datenbank.Types.size());
-		currentType.setText(Datenbank.getTypes(i, 0));
+		currentType = Datenbank.getTypes(i, 0);
+		currentTypeLabel.setText(currentType);
 	}
 
 	public void typesbuttons_ActionPerformed(ActionEvent evt, String tempTypes) {
@@ -212,18 +212,21 @@ public class Fenster extends JFrame {
 
 				if (comparedTypes.size() == compareTypes.size()) {
 					System.out.println("That was all");
-					usedTypes.add(currentType.getText());
+					usedTypes.add(currentType);
 					comparedTypes.clear();
 					int i = rand.nextInt(Datenbank.Types.size());
-					currentType.setText(Datenbank.getTypes(i, 0));
+					currentType = Datenbank.getTypes(i, 0);
+					currentTypeLabel.setText(currentType);
 					for (int j = 0; j < usedTypes.size(); j++) {
 						if (usedTypes.get(j).equals(Datenbank.getTypes(i, 0))) {
 							i = rand.nextInt(Datenbank.Types.size());
-							currentType.setText(Datenbank.getTypes(i, 0));
+							currentType = Datenbank.getTypes(i, 0);
+							currentTypeLabel.setText(currentType);
 							j = 0;
 							if (usedTypes.size() == 18) {
 								usedTypes.clear();
 								System.out.println("usedTypes Cleared");
+								backButton_ActionPerformed(evt);
 								continue;
 							}
 						}
@@ -247,18 +250,21 @@ public class Fenster extends JFrame {
 
 				if (comparedTypes.size() == compareTypes.size()) {
 					System.out.println("That was all");
-					usedTypes.add(currentType.getText());
+					usedTypes.add(currentType);
 					comparedTypes.clear();
 					int i = rand.nextInt(Datenbank.Types.size());
-					currentType.setText(Datenbank.getTypes(i, 0));
+					currentType = Datenbank.getTypes(i, 0);
+					currentTypeLabel.setText(currentType);
 					for (int j = 0; j < usedTypes.size(); j++) {
 						if (usedTypes.get(j).equals(Datenbank.getTypes(i, 0))) {
 							i = rand.nextInt(Datenbank.Types.size());
-							currentType.setText(Datenbank.getTypes(i, 0));
+							currentType = Datenbank.getTypes(i, 0);
+							currentTypeLabel.setText(currentType);
 							j = 0;
 							if (usedTypes.size() == 18) {
 								usedTypes.clear();
 								System.out.println("usedTypes Cleared");
+								backButton_ActionPerformed(evt);
 								continue;
 							}
 						}
@@ -282,18 +288,21 @@ public class Fenster extends JFrame {
 
 				if (comparedTypes.size() == compareTypes.size()) {
 					System.out.println("That was all");
-					usedTypes.add(currentType.getText());
+					usedTypes.add(currentType);
 					comparedTypes.clear();
 					int i = rand.nextInt(Datenbank.Types.size());
-					currentType.setText(Datenbank.getTypes(i, 0));
+					currentType = Datenbank.getTypes(i, 0);
+					currentTypeLabel.setText(currentType);
 					for (int j = 0; j < usedTypes.size(); j++) {
 						if (usedTypes.contains(Datenbank.getTypes(i, 0))) {
 							i = rand.nextInt(Datenbank.Types.size());
-							currentType.setText(Datenbank.getTypes(i, 0));
+							currentType = Datenbank.getTypes(i, 0);
+							currentTypeLabel.setText(currentType);
 							j = 0;
 							if (usedTypes.size() == 18) {
 								usedTypes.clear();
 								System.out.println("usedTypes Cleared");
+								backButton_ActionPerformed(evt);
 								continue;
 							}
 						}
@@ -340,17 +349,20 @@ public class Fenster extends JFrame {
 		case 1:
 			if (compareTypes.size() == 0) {
 				System.out.println("That was all");
-				usedTypes.add(currentType.getText());
+				usedTypes.add(currentType);
 				i = rand.nextInt(Datenbank.Types.size());
-				currentType.setText(Datenbank.getTypes(i, 0));
+				currentType = Datenbank.getTypes(i, 0);
+				currentTypeLabel.setText(currentType);
 				for (int j = 0; j < usedTypes.size(); j++) {
 					if (usedTypes.contains(Datenbank.getTypes(i, 0))) {
 						i = rand.nextInt(Datenbank.Types.size());
-						currentType.setText(Datenbank.getTypes(i, 0));
+						currentType = Datenbank.getTypes(i, 0);
+						currentTypeLabel.setText(currentType);
 						j = 0;
 						if (usedTypes.size() == 18) {
 							usedTypes.clear();
 							System.out.println("usedTypes Cleared");
+							backButton_ActionPerformed(evt);
 							continue;
 						}
 					}
@@ -368,17 +380,20 @@ public class Fenster extends JFrame {
 		case 2:
 			if (compareTypes.size() == 0) {
 				System.out.println("That was all");
-				usedTypes.add(currentType.getText());
+				usedTypes.add(currentType);
 				i = rand.nextInt(Datenbank.Types.size());
-				currentType.setText(Datenbank.getTypes(i, 0));
+				currentType = Datenbank.getTypes(i, 0);
+				currentTypeLabel.setText(currentType);
 				for (int j = 0; j < usedTypes.size(); j++) {
 					if (usedTypes.contains(Datenbank.getTypes(i, 0))) {
 						i = rand.nextInt(Datenbank.Types.size());
-						currentType.setText(Datenbank.getTypes(i, 0));
+						currentType = Datenbank.getTypes(i, 0);
+						currentTypeLabel.setText(currentType);
 						j = 0;
 						if (usedTypes.size() == 18) {
 							usedTypes.clear();
 							System.out.println("usedTypes Cleared");
+							backButton_ActionPerformed(evt);
 							continue;
 						}
 					}
@@ -396,17 +411,20 @@ public class Fenster extends JFrame {
 		case 3:
 			if (compareTypes.size() == 0) {
 				System.out.println("That was all");
-				usedTypes.add(currentType.getText());
+				usedTypes.add(currentType);
 				i = rand.nextInt(Datenbank.Types.size());
-				currentType.setText(Datenbank.getTypes(i, 0));
+				currentType = Datenbank.getTypes(i, 0);
+				currentTypeLabel.setText(currentType);
 				for (int j = 0; j < usedTypes.size(); j++) {
 					if (usedTypes.contains(Datenbank.getTypes(i, 0))) {
 						i = rand.nextInt(Datenbank.Types.size());
-						currentType.setText(Datenbank.getTypes(i, 0));
+						currentType = Datenbank.getTypes(i, 0);
+						currentTypeLabel.setText(currentType);
 						j = 0;
 						if (usedTypes.size() == 18) {
 							usedTypes.clear();
 							System.out.println("usedTypes Cleared");
+							backButton_ActionPerformed(evt);
 							continue;
 						}
 					}
