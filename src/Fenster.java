@@ -221,6 +221,11 @@ public class Fenster extends JFrame {
 							i = rand.nextInt(Datenbank.Types.size());
 							currentType.setText(Datenbank.getTypes(i, 0));
 							j = 0;
+							if (usedTypes.size() == 18) {
+								usedTypes.clear();
+								System.out.println("usedTypes Cleared");
+								continue;
+							}
 						}
 					}
 
@@ -251,6 +256,11 @@ public class Fenster extends JFrame {
 							i = rand.nextInt(Datenbank.Types.size());
 							currentType.setText(Datenbank.getTypes(i, 0));
 							j = 0;
+							if (usedTypes.size() == 18) {
+								usedTypes.clear();
+								System.out.println("usedTypes Cleared");
+								continue;
+							}
 						}
 					}
 
@@ -281,6 +291,11 @@ public class Fenster extends JFrame {
 							i = rand.nextInt(Datenbank.Types.size());
 							currentType.setText(Datenbank.getTypes(i, 0));
 							j = 0;
+							if (usedTypes.size() == 18) {
+								usedTypes.clear();
+								System.out.println("usedTypes Cleared");
+								continue;
+							}
 						}
 					}
 
@@ -316,12 +331,14 @@ public class Fenster extends JFrame {
 			typesbuttons.get(i).setVisible(false);
 		}
 	}
+
 	public void nothingButton_ActionPerformed(ActionEvent evt) {
 
 		int i = rand.nextInt(Datenbank.Types.size());
+
 		switch (mode) {
 		case 1:
-			if(compareTypes.size() == 0) {
+			if (compareTypes.size() == 0) {
 				System.out.println("That was all");
 				usedTypes.add(currentType.getText());
 				i = rand.nextInt(Datenbank.Types.size());
@@ -331,21 +348,25 @@ public class Fenster extends JFrame {
 						i = rand.nextInt(Datenbank.Types.size());
 						currentType.setText(Datenbank.getTypes(i, 0));
 						j = 0;
+						if (usedTypes.size() == 18) {
+							usedTypes.clear();
+							System.out.println("usedTypes Cleared");
+							continue;
+						}
 					}
 				}
 
-				Datenbank.getTypes(
-						"SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'",
-						1);
+				Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '"
+						+ Datenbank.getTypes(i, 0) + "'", 1);
 
 				compareTypes.clear();
 				compareTypes.addAll(Datenbank.effective_against_Types);
 				System.out.println(usedTypes);
 			}
-			
+
 			break;
 		case 2:
-			if(compareTypes.size() == 0) {
+			if (compareTypes.size() == 0) {
 				System.out.println("That was all");
 				usedTypes.add(currentType.getText());
 				i = rand.nextInt(Datenbank.Types.size());
@@ -355,22 +376,25 @@ public class Fenster extends JFrame {
 						i = rand.nextInt(Datenbank.Types.size());
 						currentType.setText(Datenbank.getTypes(i, 0));
 						j = 0;
+						if (usedTypes.size() == 18) {
+							usedTypes.clear();
+							System.out.println("usedTypes Cleared");
+							continue;
+						}
 					}
 				}
 
-				Datenbank.getTypes(
-						"SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'",
-						2);
+				Datenbank.getTypes("SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '"
+						+ Datenbank.getTypes(i, 0) + "'", 2);
 
 				compareTypes.clear();
 				compareTypes.addAll(Datenbank.not_effective_against_Types);
 				System.out.println(usedTypes);
 			}
 
-			
 			break;
 		case 3:
-			if(compareTypes.size() == 0) {
+			if (compareTypes.size() == 0) {
 				System.out.println("That was all");
 				usedTypes.add(currentType.getText());
 				i = rand.nextInt(Datenbank.Types.size());
@@ -380,12 +404,16 @@ public class Fenster extends JFrame {
 						i = rand.nextInt(Datenbank.Types.size());
 						currentType.setText(Datenbank.getTypes(i, 0));
 						j = 0;
+						if (usedTypes.size() == 18) {
+							usedTypes.clear();
+							System.out.println("usedTypes Cleared");
+							continue;
+						}
 					}
 				}
 
 				Datenbank.getTypes(
-						"SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'",
-						3);
+						"SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'", 3);
 
 				compareTypes.clear();
 				compareTypes.addAll(Datenbank.immune_Types);
@@ -396,6 +424,7 @@ public class Fenster extends JFrame {
 		default:
 			System.out.println("Default");
 		}
+
 	}
 	// Ende Methoden
 } // end of class Fenster
