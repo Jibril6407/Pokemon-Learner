@@ -9,6 +9,7 @@ public class Fenster extends JFrame {
 
 	private JLabel currentTypeLabel = new JLabel();
 	private JLabel defenderType = new JLabel();
+	private JTextPane usedType = new JTextPane();
 	private JTextPane resultsPressed = new JTextPane();
 	private JTextPane resultsShouldPressed = new JTextPane();
 	private String currentType;
@@ -29,12 +30,16 @@ public class Fenster extends JFrame {
 	private int guessTries = 0;
 	private int nothingButtonPressed = 0;
 
+	String resultPressedText = "<html><b>";
+	String resultShouldPressedText = "<html><b>";
+	String usedTypeText = "<html><b>";
+
 	public Fenster() {
 		// Frame-Initialisierung
 		super();
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		int frameWidth = 1000;
-		int frameHeight = 650;
+		int frameHeight = 750;
 		setSize(frameWidth, frameHeight);
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (d.width - getSize().width) / 2;
@@ -56,16 +61,20 @@ public class Fenster extends JFrame {
 		defenderType.setFont(new Font("Dialog", Font.BOLD, 18));
 		defenderType.setVisible(false);
 
-		resultsPressed.setBounds(100, 200, 420, 350);
+		usedType.setBounds(20,200,70,450);
+		cp.add(usedType);
+		usedType.setVisible(false);
+		usedType.setEditable(false);
+		usedType.setEditorKit(new HTMLEditorKit());
+		
+		resultsPressed.setBounds(100, 200, 420, 450);
 		cp.add(resultsPressed);
-		resultsPressed.setFont(new Font("Dialog", Font.BOLD, 14));
 		resultsPressed.setVisible(false);
 		resultsPressed.setEditable(false);
 		resultsPressed.setEditorKit(new HTMLEditorKit());
 
-		resultsShouldPressed.setBounds(550, 200, 420, 350);
+		resultsShouldPressed.setBounds(530, 200, 420, 450);
 		cp.add(resultsShouldPressed);
-		resultsShouldPressed.setFont(new Font("Dialog", Font.BOLD, 14));
 		resultsShouldPressed.setVisible(false);
 		resultsShouldPressed.setEditable(false);
 		resultsShouldPressed.setEditorKit(new HTMLEditorKit());
@@ -260,6 +269,7 @@ public class Fenster extends JFrame {
 			}
 
 			if (guessTries >= compareTypes.size()) {
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>" + "<b>";
 				allCompareTypes.add(new ArrayList<>(compareTypes));
 				allComparedTypes.add(new ArrayList<>(comparedTypes));
 				usedTypes.add(currentType);
@@ -305,6 +315,7 @@ public class Fenster extends JFrame {
 			}
 
 			if (guessTries >= compareTypes.size()) {
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>" + "<b>";
 				allCompareTypes.add(new ArrayList<>(compareTypes));
 				allComparedTypes.add(new ArrayList<>(comparedTypes));
 				usedTypes.add(currentType);
@@ -350,6 +361,7 @@ public class Fenster extends JFrame {
 			}
 
 			if (guessTries >= compareTypes.size()) {
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>" + "<b>";
 				allCompareTypes.add(new ArrayList<>(compareTypes));
 				allComparedTypes.add(new ArrayList<>(comparedTypes));
 				usedTypes.add(currentType);
@@ -392,7 +404,6 @@ public class Fenster extends JFrame {
 		nothingButton.setVisible(false);
 		defenderType.setVisible(false);
 		compareTypes.clear();
-		usedTypes.clear();
 		comparedTypes.clear();
 		System.out.println("Pressed:                      " + allComparedTypes);
 		System.out.println("What you should have pressed: " + allCompareTypes);
@@ -404,6 +415,7 @@ public class Fenster extends JFrame {
 			randomButton.setVisible(true);
 			resultsPressed.setVisible(false);
 			resultsShouldPressed.setVisible(false);
+			usedType.setVisible(false);
 			currentTypeLabel.setText("Attacker: " + currentType);
 		}
 
@@ -414,8 +426,6 @@ public class Fenster extends JFrame {
 		if (done == 1) {
 			currentTypeLabel.setText("Results:");
 			currentTypeLabel.setBounds(150, 140, 350, 50);
-			String resultPressedText = "<html><b>";
-			String resultShouldPressedText = "<html><b>";
 			for (int i = 0; i < 18; i++) {
 				typesbuttons.get(i).setVisible(false);
 
@@ -430,18 +440,22 @@ public class Fenster extends JFrame {
 					resultShouldPressedText = resultShouldPressedText + "<font face=\"arial\" color=\"black\"> "
 							+ allCompareTypes.get(i).get(j);
 				}
-				resultPressedText = resultPressedText + "<br />";
-				resultShouldPressedText = resultShouldPressedText + "<br />";
+				resultPressedText = resultPressedText + "<hr>" + "<b>";
+				resultShouldPressedText = resultShouldPressedText + "<hr>" + "<b>";
 			}
 			resultPressedText = resultPressedText + " </b></font></html>";
 			resultsPressed.setText(resultPressedText);
 			resultShouldPressedText = resultShouldPressedText + " </b></font></html>";
 			resultsShouldPressed.setText(resultShouldPressedText);
+			usedTypeText = usedTypeText + " </b></font></html>";
+			usedType.setText(usedTypeText);
 			allComparedTypes.clear();
 			allCompareTypes.clear();
 			resultsPressed.setVisible(true);
 			resultsShouldPressed.setVisible(true);
+			usedType.setVisible(true);
 		}
+		usedTypes.clear();
 
 	}
 
@@ -463,6 +477,7 @@ public class Fenster extends JFrame {
 				compareTypes.add("Nothing");
 			}
 			if (guessTries >= compareTypes.size()) {
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>" + "<b>";
 				allCompareTypes.add(new ArrayList<>(compareTypes));
 				allComparedTypes.add(new ArrayList<>(comparedTypes));
 				usedTypes.add(currentType);
@@ -499,6 +514,7 @@ public class Fenster extends JFrame {
 				compareTypes.add("Nothing");
 			}
 			if (guessTries >= compareTypes.size()) {
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>" + "<b>";
 				allCompareTypes.add(new ArrayList<>(compareTypes));
 				allComparedTypes.add(new ArrayList<>(comparedTypes));
 				usedTypes.add(currentType);
@@ -536,6 +552,7 @@ public class Fenster extends JFrame {
 			}
 
 			if (guessTries >= compareTypes.size()) {
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>" + "<b>";
 				allCompareTypes.add(new ArrayList<>(compareTypes));
 				allComparedTypes.add(new ArrayList<>(comparedTypes));
 				usedTypes.add(currentType);
