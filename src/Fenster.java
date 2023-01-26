@@ -1,14 +1,16 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.text.html.HTMLEditorKit;
+
 import java.util.*;
 
 public class Fenster extends JFrame {
 
 	private JLabel currentTypeLabel = new JLabel();
 	private JLabel defenderType = new JLabel();
-	private JTextArea resultsPressed = new JTextArea();
-	private JTextArea resultsShouldPressed = new JTextArea();
+	private JTextPane resultsPressed = new JTextPane();
+	private JTextPane resultsShouldPressed = new JTextPane();
 	private String currentType;
 	private JButton backButton = new JButton();
 	private JButton effectiveButton = new JButton();
@@ -25,13 +27,14 @@ public class Fenster extends JFrame {
 	private Random rand = new Random();
 	private int mode = 0;
 	private int guessTries = 0;
+	private int nothingButtonPressed = 0;
 
 	public Fenster() {
 		// Frame-Initialisierung
 		super();
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		int frameWidth = 1500;
-		int frameHeight = 1000;
+		int frameWidth = 1000;
+		int frameHeight = 650;
 		setSize(frameWidth, frameHeight);
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (d.width - getSize().width) / 2;
@@ -53,18 +56,20 @@ public class Fenster extends JFrame {
 		defenderType.setFont(new Font("Dialog", Font.BOLD, 18));
 		defenderType.setVisible(false);
 
-		resultsPressed.setBounds(100, 200, 400, 600);
+		resultsPressed.setBounds(100, 200, 420, 350);
 		cp.add(resultsPressed);
 		resultsPressed.setFont(new Font("Dialog", Font.BOLD, 14));
 		resultsPressed.setVisible(false);
 		resultsPressed.setEditable(false);
-		
-		resultsShouldPressed.setBounds(550, 200, 400, 600);
+		resultsPressed.setEditorKit(new HTMLEditorKit());
+
+		resultsShouldPressed.setBounds(550, 200, 420, 350);
 		cp.add(resultsShouldPressed);
 		resultsShouldPressed.setFont(new Font("Dialog", Font.BOLD, 14));
 		resultsShouldPressed.setVisible(false);
 		resultsShouldPressed.setEditable(false);
-		
+		resultsShouldPressed.setEditorKit(new HTMLEditorKit());
+
 		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
 		int randType = rand.nextInt(Datenbank.Types.size());
 		currentType = Datenbank.getTypes(randType, 0);
@@ -74,7 +79,7 @@ public class Fenster extends JFrame {
 		backButton.setMargin(new Insets(2, 2, 2, 2));
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				
+
 				backButton_ActionPerformed(evt, 0);
 			}
 		});
@@ -244,9 +249,9 @@ public class Fenster extends JFrame {
 		case 1:
 			if (compareTypes.contains(tempTypes)) {
 				comparedTypes.add(tempTypes);
-				
+
 				System.out.println("Right");
-			}else {
+			} else {
 				System.out.println("Wrong");
 				comparedTypes.add(tempTypes);
 			}
@@ -254,44 +259,44 @@ public class Fenster extends JFrame {
 				compareTypes.add("Nothing");
 			}
 
-				if (guessTries >= compareTypes.size()) {
-					allCompareTypes.add(new ArrayList<>(compareTypes));
-					allComparedTypes.add(new ArrayList<>(comparedTypes));
-					usedTypes.add(currentType);
-					comparedTypes.clear();
-					int i = rand.nextInt(Datenbank.Types.size());
+			if (guessTries >= compareTypes.size()) {
+				allCompareTypes.add(new ArrayList<>(compareTypes));
+				allComparedTypes.add(new ArrayList<>(comparedTypes));
+				usedTypes.add(currentType);
+				comparedTypes.clear();
+				int i = rand.nextInt(Datenbank.Types.size());
+				currentType = Datenbank.getTypes(i, 0);
+				currentTypeLabel.setText("Attacker: " + currentType);
+
+				while (usedTypes.contains(currentType)) {
+					i = rand.nextInt(Datenbank.Types.size());
 					currentType = Datenbank.getTypes(i, 0);
 					currentTypeLabel.setText("Attacker: " + currentType);
 
-					while (usedTypes.contains(currentType)) {
-						i = rand.nextInt(Datenbank.Types.size());
-						currentType = Datenbank.getTypes(i, 0);
-						currentTypeLabel.setText("Attacker: " + currentType);
-
-						if (usedTypes.size() == 18) {
-							usedTypes.clear();
-							backButton_ActionPerformed(evt, 1);
-							continue;
-						}
+					if (usedTypes.size() == 18) {
+						usedTypes.clear();
+						backButton_ActionPerformed(evt, 1);
+						continue;
 					}
-
-					Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '"
-							+ Datenbank.getTypes(i, 0) + "'", 1);
-
-					compareTypes.clear();
-					compareTypes.addAll(Datenbank.effective_against_Types);
-					guessTries = 0;
 				}
-			
+
+				Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '"
+						+ Datenbank.getTypes(i, 0) + "'", 1);
+
+				compareTypes.clear();
+				compareTypes.addAll(Datenbank.effective_against_Types);
+				guessTries = 0;
+				nothingButtonPressed = 0;
+			}
 
 			break;
 		case 2:
 			System.out.println(compareTypes);
 			if (compareTypes.contains(tempTypes)) {
 				comparedTypes.add(tempTypes);
-				
+
 				System.out.println("Right");
-			}else {
+			} else {
 				System.out.println("Wrong");
 				comparedTypes.add(tempTypes);
 			}
@@ -299,45 +304,44 @@ public class Fenster extends JFrame {
 				compareTypes.add("Nothing");
 			}
 
-				if (guessTries >= compareTypes.size()) {
-					allCompareTypes.add(new ArrayList<>(compareTypes));
-					allComparedTypes.add(new ArrayList<>(comparedTypes));
-					usedTypes.add(currentType);
-					comparedTypes.clear();
-					int i = rand.nextInt(Datenbank.Types.size());
+			if (guessTries >= compareTypes.size()) {
+				allCompareTypes.add(new ArrayList<>(compareTypes));
+				allComparedTypes.add(new ArrayList<>(comparedTypes));
+				usedTypes.add(currentType);
+				comparedTypes.clear();
+				int i = rand.nextInt(Datenbank.Types.size());
+				currentType = Datenbank.getTypes(i, 0);
+				currentTypeLabel.setText("Attacker: " + currentType);
+
+				while (usedTypes.contains(currentType)) {
+					i = rand.nextInt(Datenbank.Types.size());
 					currentType = Datenbank.getTypes(i, 0);
 					currentTypeLabel.setText("Attacker: " + currentType);
 
-					while (usedTypes.contains(currentType)) {
-						i = rand.nextInt(Datenbank.Types.size());
-						currentType = Datenbank.getTypes(i, 0);
-						currentTypeLabel.setText("Attacker: " + currentType);
-
-						if (usedTypes.size() == 18) {
-							usedTypes.clear();
-							backButton_ActionPerformed(evt, 1);
-							continue;
-						}
+					if (usedTypes.size() == 18) {
+						usedTypes.clear();
+						backButton_ActionPerformed(evt, 1);
+						continue;
 					}
-
-					Datenbank.getTypes("SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '"
-							+ Datenbank.getTypes(i, 0) + "'", 2);
-
-					compareTypes.clear();
-					compareTypes.addAll(Datenbank.not_effective_against_Types);
-					guessTries = 0;
 				}
-			
-			
+
+				Datenbank.getTypes("SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '"
+						+ Datenbank.getTypes(i, 0) + "'", 2);
+
+				compareTypes.clear();
+				compareTypes.addAll(Datenbank.not_effective_against_Types);
+				guessTries = 0;
+				nothingButtonPressed = 0;
+			}
 
 			break;
 		case 3:
 			System.out.println(compareTypes);
 			if (compareTypes.contains(tempTypes)) {
 				comparedTypes.add(tempTypes);
-				
+
 				System.out.println("Right");
-			}else {
+			} else {
 				System.out.println("Wrong");
 				comparedTypes.add(tempTypes);
 			}
@@ -345,36 +349,36 @@ public class Fenster extends JFrame {
 				compareTypes.add("Nothing");
 			}
 
-				if (guessTries >= compareTypes.size()) {
-					allCompareTypes.add(new ArrayList<>(compareTypes));
-					allComparedTypes.add(new ArrayList<>(comparedTypes));
-					usedTypes.add(currentType);
-					comparedTypes.clear();
-					int i = rand.nextInt(Datenbank.Types.size());
+			if (guessTries >= compareTypes.size()) {
+				allCompareTypes.add(new ArrayList<>(compareTypes));
+				allComparedTypes.add(new ArrayList<>(comparedTypes));
+				usedTypes.add(currentType);
+				comparedTypes.clear();
+				int i = rand.nextInt(Datenbank.Types.size());
+				currentType = Datenbank.getTypes(i, 0);
+				currentTypeLabel.setText("Attacker: " + currentType);
+
+				while (usedTypes.contains(currentType)) {
+					i = rand.nextInt(Datenbank.Types.size());
 					currentType = Datenbank.getTypes(i, 0);
 					currentTypeLabel.setText("Attacker: " + currentType);
 
-					while (usedTypes.contains(currentType)) {
-						i = rand.nextInt(Datenbank.Types.size());
-						currentType = Datenbank.getTypes(i, 0);
-						currentTypeLabel.setText("Attacker: " + currentType);
-
-						if (usedTypes.size() == 18) {
-							usedTypes.clear();
-							backButton_ActionPerformed(evt, 1);
-							continue;
-						}
+					if (usedTypes.size() == 18) {
+						usedTypes.clear();
+						backButton_ActionPerformed(evt, 1);
+						continue;
 					}
+				}
 
-					Datenbank.getTypes(
-							"SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'", 3);
+				Datenbank.getTypes(
+						"SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'", 3);
 
-					compareTypes.clear();
-					compareTypes.addAll(Datenbank.immune_Types);
-					guessTries = 0;
-				
+				compareTypes.clear();
+				compareTypes.addAll(Datenbank.immune_Types);
+				guessTries = 0;
+				nothingButtonPressed = 0;
+
 			}
-			
 
 			break;
 		default:
@@ -385,54 +389,72 @@ public class Fenster extends JFrame {
 
 	public void backButton_ActionPerformed(ActionEvent evt, int done) {
 		mode = 0;
-		currentTypeLabel.setVisible(true);
+		nothingButton.setVisible(false);
 		defenderType.setVisible(false);
-		System.out.println("Pressed:                      " + allComparedTypes);
-		System.out.println("What you should have pressed: " + allCompareTypes);
 		compareTypes.clear();
 		usedTypes.clear();
 		comparedTypes.clear();
-		effectiveButton.setVisible(true);
-		notEffectiveButton.setVisible(true);
-		immuneButton.setVisible(true);
-		randomButton.setVisible(true);
-		nothingButton.setVisible(false);
-		
+		System.out.println("Pressed:                      " + allComparedTypes);
+		System.out.println("What you should have pressed: " + allCompareTypes);
+		if (done == 0) {
+			currentTypeLabel.setVisible(false);
+			effectiveButton.setVisible(true);
+			notEffectiveButton.setVisible(true);
+			immuneButton.setVisible(true);
+			randomButton.setVisible(true);
+			resultsPressed.setVisible(false);
+			resultsShouldPressed.setVisible(false);
+			currentTypeLabel.setText("Attacker: " + currentType);
+		}
+
 		for (int i = 0; i < 18; i++) {
 			typesbuttons.get(i).setVisible(false);
 		}
-		
-		if(done == 1) {
+
+		if (done == 1) {
 			currentTypeLabel.setText("Results:");
 			currentTypeLabel.setBounds(150, 140, 350, 50);
-			String resultPressedText = "";
-			String resultShouldPressedText = "";
+			String resultPressedText = "<html><b>";
+			String resultShouldPressedText = "<html><b>";
 			for (int i = 0; i < 18; i++) {
 				typesbuttons.get(i).setVisible(false);
-			
-			for(int j = 0; j < allComparedTypes.get(i).size(); j++) {
-				resultShouldPressedText = resultShouldPressedText + " " + allCompareTypes.get(i).get(j);
-				resultPressedText = resultPressedText +" "+ allComparedTypes.get(i).get(j);
-				}
-			resultPressedText = resultPressedText + "\n";
-			resultShouldPressedText = resultShouldPressedText + "\n";
-		}
-		
-		resultsPressed.setText(resultPressedText);
-		resultsShouldPressed.setText(resultShouldPressedText);
-		resultsPressed.setVisible(true);
-		resultsShouldPressed.setVisible(true);
-		}	
-		
-		
 
-		
+				for (int j = 0; j < allComparedTypes.get(i).size(); j++) {
+					if (allCompareTypes.get(i).contains(allComparedTypes.get(i).get(j))) {
+						resultPressedText = resultPressedText + "<font face=\"arial\" color=\"green\"> "
+								+ allComparedTypes.get(i).get(j);
+					} else {
+						resultPressedText = resultPressedText + "<font face=\"arial\" color=\"red\"> "
+								+ allComparedTypes.get(i).get(j);
+					}
+					resultShouldPressedText = resultShouldPressedText + "<font face=\"arial\" color=\"black\"> "
+							+ allCompareTypes.get(i).get(j);
+				}
+				resultPressedText = resultPressedText + "<br />";
+				resultShouldPressedText = resultShouldPressedText + "<br />";
+			}
+			resultPressedText = resultPressedText + " </b></font></html>";
+			resultsPressed.setText(resultPressedText);
+			resultShouldPressedText = resultShouldPressedText + " </b></font></html>";
+			resultsShouldPressed.setText(resultShouldPressedText);
+			allComparedTypes.clear();
+			allCompareTypes.clear();
+			resultsPressed.setVisible(true);
+			resultsShouldPressed.setVisible(true);
+		}
+
 	}
 
 	public void nothingButton_ActionPerformed(ActionEvent evt) {
 
+		if (nothingButtonPressed == 1) {
+			System.out.println("You already Pressed Nothing!");
+			return;
+		}
+
 		int i = rand.nextInt(Datenbank.Types.size());
 		guessTries++;
+		nothingButtonPressed++;
 
 		switch (mode) {
 		case 1:
@@ -467,6 +489,7 @@ public class Fenster extends JFrame {
 				compareTypes.clear();
 				compareTypes.addAll(Datenbank.effective_against_Types);
 				guessTries = 0;
+				nothingButtonPressed = 0;
 			}
 
 			break;
@@ -502,6 +525,7 @@ public class Fenster extends JFrame {
 				compareTypes.clear();
 				compareTypes.addAll(Datenbank.not_effective_against_Types);
 				guessTries = 0;
+				nothingButtonPressed = 0;
 			}
 
 			break;
@@ -510,7 +534,7 @@ public class Fenster extends JFrame {
 			if (compareTypes.size() == 0) {
 				compareTypes.add("Nothing");
 			}
-			
+
 			if (guessTries >= compareTypes.size()) {
 				allCompareTypes.add(new ArrayList<>(compareTypes));
 				allComparedTypes.add(new ArrayList<>(comparedTypes));
@@ -527,7 +551,7 @@ public class Fenster extends JFrame {
 
 					if (usedTypes.size() == 18) {
 						usedTypes.clear();
-						backButton_ActionPerformed(evt ,1);
+						backButton_ActionPerformed(evt, 1);
 						continue;
 					}
 				}
@@ -538,6 +562,7 @@ public class Fenster extends JFrame {
 				compareTypes.clear();
 				compareTypes.addAll(Datenbank.immune_Types);
 				guessTries = 0;
+				nothingButtonPressed = 0;
 			}
 
 			break;
