@@ -5,9 +5,9 @@ public class Main {
 
 		Datenbank Datenbank = new Datenbank();
 		Rechenzentrum Rechenzentrum = new Rechenzentrum();
-
-		new Fenster(Rechenzentrum);
-
+		Fenster Fenster = new Fenster(Rechenzentrum);
+		
+		Rechenzentrum.init_Gui(Fenster);
 	}
 
 }

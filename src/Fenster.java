@@ -23,10 +23,6 @@ public class Fenster extends JFrame {
 	private Rechenzentrum rech = null;
 	
 
-	String resultPressedText = "<html><b>";
-	String resultShouldPressedText = "<html><b>";
-	String usedTypeText = "<html><b>";
-
 	public Fenster(Rechenzentrum r) {
 		// Frame-Initialisierung
 		super();
@@ -170,419 +166,151 @@ public class Fenster extends JFrame {
 
 	// Anfang Methoden
 	public void effectiveButton_ActionPerformed(ActionEvent evt) {
-		rech.setMode(1);
-		if (effectiveButton.getText() == "Effective") {
-			currentTypeLabel.setVisible(true);
-			defenderType.setVisible(true);
-			Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '" + rech.getCurrentType() + "'", 1);
+		
+		rech.effectiveButton_ActionPerformedMethode(); 
 
-			rech.clearCompareTypes();
-			rech.addCompareTypes(1);
-
-			effectiveButton.setVisible(false);
-			notEffectiveButton.setVisible(false);
-			immuneButton.setVisible(false);
-			randomButton.setVisible(false);
-			nothingButton.setVisible(true);
-			for (int i = 0; i < 18; i++) {
-				typesbuttons.get(i).setVisible(true);
-			}
-		}
 	} // end of jButton1_ActionPerformed
 
 	public void notEffectiveButton_ActionPerformed(ActionEvent evt) {
-		rech.setMode(2);
-		if (notEffectiveButton.getText() == "Not Effective") {
-			currentTypeLabel.setVisible(true);
-			defenderType.setVisible(true);
-			Datenbank.getTypes(
-					"SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '" + rech.getCurrentType() + "'", 2);
+		
+		rech.notEffectiveButton_ActionPerformedMethod();
 
-			rech.clearCompareTypes();
-			rech.addCompareTypes(2);
-
-			effectiveButton.setVisible(false);
-			notEffectiveButton.setVisible(false);
-			immuneButton.setVisible(false);
-			randomButton.setVisible(false);
-			nothingButton.setVisible(true);
-			for (int i = 0; i < 18; i++) {
-				typesbuttons.get(i).setVisible(true);
-			}
-		}
 	}
 
 	public void immuneButton_ActionPerformed(ActionEvent evt) {
-		rech.setMode(3);
-		if (immuneButton.getText() == "Immune") {
-			currentTypeLabel.setVisible(true);
-			defenderType.setVisible(true);
-			Datenbank.getTypes("SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + rech.getCurrentType() + "'", 3);
-
-			rech.clearCompareTypes();
-			rech.addCompareTypes(3);
-
-			effectiveButton.setVisible(false);
-			notEffectiveButton.setVisible(false);
-			immuneButton.setVisible(false);
-			randomButton.setVisible(false);
-			nothingButton.setVisible(true);
-			for (int i = 0; i < 18; i++) {
-				typesbuttons.get(i).setVisible(true);
-			}
-
-		}
+		
+		rech.immuneButton_ActionPerformedMethod();
+		
 	}
 
 	public void randomButton_ActionPerformed(ActionEvent evt) {
-		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
-		int i = rech.getRand();
-		rech.setCurrentType(Datenbank.getTypes(i, 0));
-		currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
+		
+		rech.randomButton_ActionPerformedMethod();
+
 	}
 
 	public void typesbuttons_ActionPerformed(ActionEvent evt, String tempTypes) {
-		if (rech.getComparedTypes().contains(tempTypes)) {
-			System.out.println("That type was already guessed!");
-			return;
-		}
-		rech.setGuessTries(rech.getGuessTries()+1);
-		switch (rech.getMode()) {
-		case 1:
-			if (rech.getCompareTypes().contains(tempTypes)) {
-				rech.setComparedTypes(tempTypes);
-
-				System.out.println("Right");
-			} else {
-				System.out.println("Wrong");
-				rech.setComparedTypes(tempTypes);
-			}
-			if (rech.getCompareTypes().size() == 0) {
-				rech.setCompareTypes("Nothing");
-			}
-
-			if (rech.getGuessTries() >= rech.getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + rech.getCurrentType() + "<hr>" + "<b>";
-				rech.setAllCompareTypes(rech.getCompareTypes());
-				rech.setAllComparedTypes(rech.getComparedTypes());
-				rech.setUsedTypes();
-				rech.clearComparedTypes();
-				int i = rech.getRand();
-				rech.setCurrentType(Datenbank.getTypes(i, 0));
-				currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-
-				while (rech.getUsedTypes().contains(rech.getCurrentType())) {
-					i = rech.getRand();
-					rech.setCurrentType(Datenbank.getTypes(i, 0));
-					currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-
-					if (rech.getUsedTypes().size() == 18) {
-						rech.clearUsedTypes();;
-						backButton_ActionPerformed(evt, 1);
-						continue;
-					}
-				}
-
-				Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '"
-						+ Datenbank.getTypes(i, 0) + "'", 1);
-
-				rech.clearCompareTypes();;
-				rech.addCompareTypes(1);
-				rech.setGuessTries(0);
-				rech.setNothingButtonPressed(0);
-			}
-
-			break;
-		case 2:
-			System.out.println(rech.getCompareTypes());
-			if (rech.getCompareTypes().contains(tempTypes)) {
-				rech.setComparedTypes(tempTypes);
-
-				System.out.println("Right");
-			} else {
-				System.out.println("Wrong");
-				rech.setComparedTypes(tempTypes);
-			}
-			if (rech.getCompareTypes().size() == 0) {
-				rech.getCompareTypes().add("Nothing");
-			}
-
-			if (rech.getGuessTries() >= rech.getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + rech.getCurrentType() + "<hr>" + "<b>";
-				rech.setAllCompareTypes(rech.getCompareTypes());
-				rech.setAllComparedTypes(rech.getComparedTypes());
-				rech.setUsedTypes();
-				rech.clearComparedTypes();
-				int i = rech.getRand();
-				rech.setCurrentType(Datenbank.getTypes(i, 0));
-				currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-
-				while (rech.getUsedTypes().contains(rech.getCurrentType())) {
-					i = rech.getRand();
-					rech.setCurrentType(Datenbank.getTypes(i, 0));
-					currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-
-					if (rech.getUsedTypes().size() == 18) {
-						rech.clearUsedTypes();
-						backButton_ActionPerformed(evt, 1);
-						continue;
-					}
-				}
-
-				Datenbank.getTypes("SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '"
-						+ Datenbank.getTypes(i, 0) + "'", 2);
-				
-				rech.clearCompareTypes();
-				rech.addCompareTypes(2);
-				rech.setGuessTries(0);
-				rech.setNothingButtonPressed(0);
-			}
-
-			break;
-		case 3:
-			System.out.println(rech.getCompareTypes());
-			if (rech.getCompareTypes().contains(tempTypes)) {
-				rech.setComparedTypes(tempTypes);
-
-				System.out.println("Right");
-			} else {
-				System.out.println("Wrong");
-				rech.setComparedTypes(tempTypes);
-			}
-			if (rech.getCompareTypes().size() == 0) {
-				rech.getCompareTypes().add("Nothing");
-			}
-
-			if (rech.getGuessTries() >= rech.getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + rech.getCurrentType() + "<hr>" + "<b>";
-				rech.setAllCompareTypes(rech.getCompareTypes());
-				rech.setAllComparedTypes(rech.getComparedTypes());
-				rech.setUsedTypes();
-				rech.clearComparedTypes();
-				int i = rech.getRand();
-				rech.setCurrentType(Datenbank.getTypes(i, 0));
-				currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-
-				while (rech.getUsedTypes().contains(rech.getCurrentType())) {
-					i = rech.getRand();
-					rech.setCurrentType(Datenbank.getTypes(i, 0));
-					currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-
-					if (rech.getUsedTypes().size() == 18) {
-						rech.clearUsedTypes();
-						backButton_ActionPerformed(evt, 1);
-						continue;
-					}
-				}
-
-				Datenbank.getTypes(
-						"SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'", 3);
-
-				rech.clearCompareTypes();
-				rech.addCompareTypes(3);
-				rech.setGuessTries(0);
-				rech.setNothingButtonPressed(0);
-
-			}
-
-			break;
-		default:
-			System.out.println("Default");
-		}
-
+		
+		rech.typesbuttons_ActionPerformedMethod( evt,  tempTypes);
 	}
 
 	public void backButton_ActionPerformed(ActionEvent evt, int done) {
-		rech.setMode(0);
-		nothingButton.setVisible(false);
-		defenderType.setVisible(false);
-		rech.clearCompareTypes();
-		rech.clearComparedTypes();
-		System.out.println("Pressed:                      " + rech.getAllComparedTypes());
-		System.out.println("What you should have pressed: " + rech.getAllCompareTypes());
-		if (done == 0) {
-			currentTypeLabel.setVisible(false);
-			effectiveButton.setVisible(true);
-			notEffectiveButton.setVisible(true);
-			immuneButton.setVisible(true);
-			randomButton.setVisible(true);
-			resultsPressed.setVisible(false);
-			resultsShouldPressed.setVisible(false);
-			usedType.setVisible(false);
-			currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-		}
 
-		for (int i = 0; i < 18; i++) {
-			typesbuttons.get(i).setVisible(false);
-		}
-
-		if (done == 1) {
-			currentTypeLabel.setText("Results:");
-			currentTypeLabel.setBounds(150, 140, 350, 50);
-			for (int i = 0; i < 18; i++) {
-				typesbuttons.get(i).setVisible(false);
-
-				for (int j = 0; j < rech.getAllComparedTypes().get(i).size(); j++) {
-					if (rech.getAllCompareTypes().get(i).contains(rech.getAllComparedTypes().get(i).get(j))) {
-						resultPressedText = resultPressedText + "<font face=\"arial\" color=\"green\"> "
-								+ rech.getAllComparedTypes().get(i).get(j);
-					} else {
-						resultPressedText = resultPressedText + "<font face=\"arial\" color=\"red\"> "
-								+ rech.getAllComparedTypes().get(i).get(j);
-					}
-					resultShouldPressedText = resultShouldPressedText + "<font face=\"arial\" color=\"black\"> "
-							+ rech.getAllCompareTypes().get(i).get(j);
-				}
-				resultPressedText = resultPressedText + "<hr>" + "<b>";
-				resultShouldPressedText = resultShouldPressedText + "<hr>" + "<b>";
-			}
-			resultPressedText = resultPressedText + " </b></font></html>";
-			resultsPressed.setText(resultPressedText);
-			resultShouldPressedText = resultShouldPressedText + " </b></font></html>";
-			resultsShouldPressed.setText(resultShouldPressedText);
-			usedTypeText = usedTypeText + " </b></font></html>";
-			usedType.setText(usedTypeText);
-			rech.clearAllComparedTypes();
-			rech.clearAllCompareTypes();
-			resultsPressed.setVisible(true);
-			resultsShouldPressed.setVisible(true);
-			usedType.setVisible(true);
-		}
-		rech.clearUsedTypes();
-
+		rech.backButton_ActionPerformedMethod(evt, done);
 	}
 
 	public void nothingButton_ActionPerformed(ActionEvent evt) {
-
-		if (rech.getNothingButtonPressed() == 1) {
-			System.out.println("You already Pressed Nothing!");
-			return;
-		}
-
-		int i = rech.getRand();
-		rech.setGuessTries(rech.getGuessTries()+1);
-		rech.setNothingButtonPressed(rech.getNothingButtonPressed()+1);
-
-		switch (rech.getMode()) {
-		case 1:
-			
-			rech.setComparedTypes("Nothing");
-			if(rech.getCompareTypes().size() == 0) {
-				rech.setCompareTypes("Nothing");
-			}
-			
-			if (rech.getGuessTries() >= rech.getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + rech.getCurrentType() + "<hr>" + "<b>";
-				rech.setAllCompareTypes(rech.getCompareTypes());
-				rech.setAllComparedTypes(rech.getComparedTypes());
-				rech.setUsedTypes();
-				rech.clearComparedTypes();
-				i = rech.getRand();
-				rech.setCurrentType(Datenbank.getTypes(i, 0));
-				currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-
-				while (rech.getUsedTypes().contains(rech.getCurrentType())) {
-					i = rech.getRand();
-					rech.setCurrentType(Datenbank.getTypes(i, 0));
-					currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-
-					if (rech.getUsedTypes().size() == 18) {
-						rech.clearUsedTypes();
-						backButton_ActionPerformed(evt, 1);
-						continue;
-					}
-				}
-
-				Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '"
-						+ Datenbank.getTypes(i, 0) + "'", 1);
-
-				rech.clearCompareTypes();
-				rech.addCompareTypes(1);
-				rech.setGuessTries(0);
-				rech.setNothingButtonPressed(0);
-			}
-
-			break;
-		case 2:
-			rech.setComparedTypes("Nothing");
-			if(rech.getCompareTypes().size() == 0) {
-				rech.setCompareTypes("Nothing");
-			}
-			if (rech.getGuessTries() >= rech.getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + rech.getCurrentType() + "<hr>" + "<b>";
-				rech.setAllCompareTypes(rech.getCompareTypes());
-				rech.setAllComparedTypes(rech.getComparedTypes());
-				rech.setUsedTypes();
-				rech.clearComparedTypes();
-				i = rech.getRand();
-				rech.setCurrentType(Datenbank.getTypes(i, 0));
-				currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-
-				while (rech.getUsedTypes().contains(rech.getCurrentType())) {
-					i = rech.getRand();
-					rech.setCurrentType(Datenbank.getTypes(i, 0));
-					currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-
-					if (rech.getUsedTypes().size() == 18) {
-						rech.clearUsedTypes();
-						backButton_ActionPerformed(evt, 1);
-						continue;
-					}
-				}
-
-				Datenbank.getTypes("SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '"
-						+ Datenbank.getTypes(i, 0) + "'", 2);
-
-				rech.clearCompareTypes();
-				rech.addCompareTypes(2);
-				rech.setGuessTries(0);
-				rech.setNothingButtonPressed(0);
-			}
-
-			break;
-		case 3:
-			rech.setComparedTypes("Nothing");
-			if(rech.getCompareTypes().size() == 0) {
-				rech.setCompareTypes("Nothing");
-			}
-			System.out.println(rech.getUsedTypes());
-
-			if (rech.getGuessTries() >= rech.getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + rech.getCurrentType() + "<hr>" + "<b>";
-				rech.setAllCompareTypes(rech.getCompareTypes());
-				rech.setAllComparedTypes(rech.getComparedTypes());
-				rech.setUsedTypes();
-				rech.clearComparedTypes();
-				i = rech.getRand();
-				rech.setCurrentType(Datenbank.getTypes(i, 0));
-				currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-
-				while (rech.getUsedTypes().contains(rech.getCurrentType())) {
-					i = rech.getRand();
-					rech.setCurrentType(Datenbank.getTypes(i, 0));
-					currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-
-					if (rech.getUsedTypes().size() == 18) {
-						rech.clearUsedTypes();
-						backButton_ActionPerformed(evt, 1);
-						continue;
-					}
-				}
-
-				Datenbank.getTypes(
-						"SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'", 3);
-
-				rech.clearCompareTypes();
-				rech.addCompareTypes(3);
-				rech.setGuessTries(0);
-				rech.setNothingButtonPressed(0);
-			}
-
-			break;
-		default:
-			System.out.println("Default");
-		}
-
+		
+		rech.nothingButton_ActionPerformedMethod(evt);
 	}
 	// Ende Methoden
+
+	// Getter und Setter
+	public JLabel getCurrentTypeLabel() {
+		return currentTypeLabel;
+	}
+
+	public void setCurrentTypeLabel(JLabel currentTypeLabel) {
+		this.currentTypeLabel = currentTypeLabel;
+	}
+
+	public JLabel getDefenderType() {
+		return defenderType;
+	}
+
+	public void setDefenderType(JLabel defenderType) {
+		this.defenderType = defenderType;
+	}
+
+	public JTextPane getUsedType() {
+		return usedType;
+	}
+
+	public void setUsedType(JTextPane usedType) {
+		this.usedType = usedType;
+	}
+
+	public JTextPane getResultsPressed() {
+		return resultsPressed;
+	}
+
+	public void setResultsPressed(JTextPane resultsPressed) {
+		this.resultsPressed = resultsPressed;
+	}
+
+	public JTextPane getResultsShouldPressed() {
+		return resultsShouldPressed;
+	}
+
+	public void setResultsShouldPressed(JTextPane resultsShouldPressed) {
+		this.resultsShouldPressed = resultsShouldPressed;
+	}
+
+	public JButton getBackButton() {
+		return backButton;
+	}
+
+	public void setBackButton(JButton backButton) {
+		this.backButton = backButton;
+	}
+
+	public JButton getEffectiveButton() {
+		return effectiveButton;
+	}
+
+	public void setEffectiveButton(JButton effectiveButton) {
+		this.effectiveButton = effectiveButton;
+	}
+
+	public JButton getNotEffectiveButton() {
+		return notEffectiveButton;
+	}
+
+	public void setNotEffectiveButton(JButton notEffectiveButton) {
+		this.notEffectiveButton = notEffectiveButton;
+	}
+
+	public JButton getImmuneButton() {
+		return immuneButton;
+	}
+
+	public void setImmuneButton(JButton immuneButton) {
+		this.immuneButton = immuneButton;
+	}
+
+	public JButton getRandomButton() {
+		return randomButton;
+	}
+
+	public void setRandomButton(JButton randomButton) {
+		this.randomButton = randomButton;
+	}
+
+	public JButton getNothingButton() {
+		return nothingButton;
+	}
+
+	public void setNothingButton(JButton nothingButton) {
+		this.nothingButton = nothingButton;
+	}
+
+	public ArrayList<JButton> getTypesbuttons() {
+		return typesbuttons;
+	}
+
+	public void setTypesbuttons(ArrayList<JButton> typesbuttons) {
+		this.typesbuttons = typesbuttons;
+	}
+
+	public Rechenzentrum getRech() {
+		return rech;
+	}
+
+	public void setRech(Rechenzentrum rech) {
+		this.rech = rech;
+	}
+
+	// Ende von Getter und Settern
+	
+	
 } // end of class Fenster
