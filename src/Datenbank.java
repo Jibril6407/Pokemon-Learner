@@ -66,7 +66,7 @@ public class Datenbank {
 				while (rs.next()) {
 					for (int i = 1; i <= columns; i++) {
 						Types.add(rs.getString(i));
-						
+
 					}
 				}
 			}
@@ -114,7 +114,7 @@ public class Datenbank {
 	}
 
 	public static String getTypes(int i, int j) {
-		switch(j) {
+		switch (j) {
 		case 0:
 			return Types.get(i);
 		case 1:
@@ -126,6 +126,6 @@ public class Datenbank {
 		default:
 			return "Fail to get Types";
 		}
-		
+
 	}
 }

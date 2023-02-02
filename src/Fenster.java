@@ -9,10 +9,20 @@ public class Fenster extends JFrame {
 
 	private JLabel currentTypeLabel = new JLabel();
 	private JLabel defenderType = new JLabel();
+	private JLabel modeLabel = new JLabel();
 	private JTextPane usedType = new JTextPane();
 	private JTextPane resultsPressed = new JTextPane();
 	private JTextPane resultsShouldPressed = new JTextPane();
-	
+
+	private JPanel menuPanel = new JPanel();
+	private JPanel attackerPanel = new JPanel();
+	private JPanel defenderPanel = new JPanel();
+	private JPanel battlePanel = new JPanel();
+
+	private JButton attackerSide = new JButton();
+	private JButton defenderSide = new JButton();
+	private JButton battleMode = new JButton();
+
 	private JButton backButton = new JButton();
 	private JButton effectiveButton = new JButton();
 	private JButton notEffectiveButton = new JButton();
@@ -21,7 +31,7 @@ public class Fenster extends JFrame {
 	private JButton nothingButton = new JButton();
 	private ArrayList<JButton> typesbuttons = new ArrayList<JButton>();
 	private Rechenzentrum rech = null;
-	
+	private Container cp;
 
 	public Fenster(Rechenzentrum r) {
 		// Frame-Initialisierung
@@ -37,34 +47,79 @@ public class Fenster extends JFrame {
 		setLocation(x, y);
 		setTitle("Fenster");
 		setResizable(false);
-		Container cp = getContentPane();
-		cp.setLayout(null);
+
+		cp = getContentPane();
+
+		cp.add(menuPanel);
+
+		menuPanel.setLayout(null);
+		attackerPanel.setLayout(null);
+		defenderPanel.setLayout(null);
+		battlePanel.setLayout(null);
+
+		attackerSide.setBounds(150, 200, 100, 50);
+		attackerSide.setText("Attacker");
+		attackerSide.setMargin(new Insets(2, 2, 2, 2));
+		attackerSide.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				attackerSideButton_ActionPerformed(evt);
+			}
+		});
+		menuPanel.add(attackerSide);
+		attackerSide.setVisible(true);
+
+		defenderSide.setText("Defender");
+		defenderSide.setMargin(new Insets(2, 2, 2, 2));
+		defenderSide.setBounds(275, 200, 100, 50);
+		defenderSide.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				defenderSideButton_ActionPerformed(evt);
+			}
+		});
+		menuPanel.add(defenderSide);
+		defenderSide.setVisible(true);
+
+		battleMode.setBounds(400, 200, 100, 50);
+		battleMode.setText("Battle");
+		battleMode.setMargin(new Insets(2, 2, 2, 2));
+		battleMode.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				battleModeButton_ActionPerformed(evt);
+			}
+		});
+		menuPanel.add(battleMode);
+		battleMode.setVisible(true);
 
 		currentTypeLabel.setBounds(150, 140, 350, 50);
-		cp.add(currentTypeLabel);
+		attackerPanel.add(currentTypeLabel);
 		currentTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 		currentTypeLabel.setVisible(false);
 
 		defenderType.setBounds(50, 310, 350, 50);
-		cp.add(defenderType);
+		attackerPanel.add(defenderType);
 		defenderType.setText("Defender:");
 		defenderType.setFont(new Font("Dialog", Font.BOLD, 18));
 		defenderType.setVisible(false);
+		
+		modeLabel.setBounds(600, 110, 350, 50);
+		attackerPanel.add(modeLabel);
+		modeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+		modeLabel.setVisible(false);
 
-		usedType.setBounds(20,200,70,450);
-		cp.add(usedType);
+		usedType.setBounds(20, 200, 70, 450);
+		attackerPanel.add(usedType);
 		usedType.setVisible(false);
 		usedType.setEditable(false);
 		usedType.setEditorKit(new HTMLEditorKit());
-		
+
 		resultsPressed.setBounds(100, 200, 420, 450);
-		cp.add(resultsPressed);
+		attackerPanel.add(resultsPressed);
 		resultsPressed.setVisible(false);
 		resultsPressed.setEditable(false);
 		resultsPressed.setEditorKit(new HTMLEditorKit());
 
 		resultsShouldPressed.setBounds(530, 200, 420, 450);
-		cp.add(resultsShouldPressed);
+		attackerPanel.add(resultsShouldPressed);
 		resultsShouldPressed.setVisible(false);
 		resultsShouldPressed.setEditable(false);
 		resultsShouldPressed.setEditorKit(new HTMLEditorKit());
@@ -81,7 +136,7 @@ public class Fenster extends JFrame {
 				backButton_ActionPerformed(evt, 0);
 			}
 		});
-		cp.add(backButton);
+		attackerPanel.add(backButton);
 
 		effectiveButton.setBounds(150, 200, 100, 50);
 		effectiveButton.setText("Effective");
@@ -91,7 +146,7 @@ public class Fenster extends JFrame {
 				effectiveButton_ActionPerformed(evt);
 			}
 		});
-		cp.add(effectiveButton);
+		attackerPanel.add(effectiveButton);
 
 		notEffectiveButton.setBounds(275, 200, 100, 50);
 		notEffectiveButton.setText("Not Effective");
@@ -101,7 +156,7 @@ public class Fenster extends JFrame {
 				notEffectiveButton_ActionPerformed(evt);
 			}
 		});
-		cp.add(notEffectiveButton);
+		attackerPanel.add(notEffectiveButton);
 
 		immuneButton.setBounds(400, 200, 100, 50);
 		immuneButton.setText("Immune");
@@ -111,7 +166,7 @@ public class Fenster extends JFrame {
 				immuneButton_ActionPerformed(evt);
 			}
 		});
-		cp.add(immuneButton);
+		attackerPanel.add(immuneButton);
 
 		randomButton.setBounds(275, 275, 100, 50);
 		randomButton.setText("Random");
@@ -121,7 +176,7 @@ public class Fenster extends JFrame {
 				randomButton_ActionPerformed(evt);
 			}
 		});
-		cp.add(randomButton);
+		attackerPanel.add(randomButton);
 
 		int count = 0;
 
@@ -143,7 +198,7 @@ public class Fenster extends JFrame {
 						typesbuttons_ActionPerformed(evt, tempTypes);
 					}
 				});
-				cp.add(typesbuttons.get(count));
+				attackerPanel.add(typesbuttons.get(count));
 
 				typesbuttons.get(count).setVisible(false);
 				count++;
@@ -159,39 +214,54 @@ public class Fenster extends JFrame {
 		});
 		nothingButton.setBackground(Color.WHITE);
 		nothingButton.setVisible(false);
-		cp.add(nothingButton);
+		attackerPanel.add(nothingButton);
 
 		setVisible(true);
 	} // end of public Fenster
 
 	// Anfang Methoden
+	public void attackerSideButton_ActionPerformed(ActionEvent evt) {
+
+		rech.attackerSideButton_ActionPerformedMethod();
+	}
+
+	public void defenderSideButton_ActionPerformed(ActionEvent evt) {
+
+		rech.defenderSideButton_ActionPerformedMethod();
+	}
+
+	public void battleModeButton_ActionPerformed(ActionEvent evt) {
+
+		rech.battleModeButton_ActionPerformedMethod();
+	}
+
 	public void effectiveButton_ActionPerformed(ActionEvent evt) {
-		
-		rech.effectiveButton_ActionPerformedMethode(); 
+
+		rech.effectiveButton_ActionPerformedMethode();
 
 	} // end of jButton1_ActionPerformed
 
 	public void notEffectiveButton_ActionPerformed(ActionEvent evt) {
-		
+
 		rech.notEffectiveButton_ActionPerformedMethod();
 
 	}
 
 	public void immuneButton_ActionPerformed(ActionEvent evt) {
-		
+
 		rech.immuneButton_ActionPerformedMethod();
-		
+
 	}
 
 	public void randomButton_ActionPerformed(ActionEvent evt) {
-		
+
 		rech.randomButton_ActionPerformedMethod();
 
 	}
 
 	public void typesbuttons_ActionPerformed(ActionEvent evt, String tempTypes) {
-		
-		rech.typesbuttons_ActionPerformedMethod( evt,  tempTypes);
+
+		rech.typesbuttons_ActionPerformedMethod(evt, tempTypes);
 	}
 
 	public void backButton_ActionPerformed(ActionEvent evt, int done) {
@@ -200,7 +270,7 @@ public class Fenster extends JFrame {
 	}
 
 	public void nothingButton_ActionPerformed(ActionEvent evt) {
-		
+
 		rech.nothingButton_ActionPerformedMethod(evt);
 	}
 	// Ende Methoden
@@ -310,7 +380,80 @@ public class Fenster extends JFrame {
 		this.rech = rech;
 	}
 
+	public JPanel getMenuPanel() {
+		return menuPanel;
+	}
+
+	public void setMenuPanel(JPanel menuPanel) {
+		this.menuPanel = menuPanel;
+	}
+
+	public JPanel getAttackerPanel() {
+		return attackerPanel;
+	}
+
+	public void setAttackerPanel(JPanel attackerPanel) {
+		this.attackerPanel = attackerPanel;
+	}
+
+	public JPanel getDefenderPanel() {
+		return defenderPanel;
+	}
+
+	public void setDefenderPanel(JPanel defenderPanel) {
+		this.defenderPanel = defenderPanel;
+	}
+
+	public JPanel getBattlePanel() {
+		return battlePanel;
+	}
+
+	public void setBattlePanel(JPanel battlePanel) {
+		this.battlePanel = battlePanel;
+	}
+
+	public JButton getAttackerSide() {
+		return attackerSide;
+	}
+
+	public void setAttackerSide(JButton attackerSide) {
+		this.attackerSide = attackerSide;
+	}
+
+	public JButton getDefenderSide() {
+		return defenderSide;
+	}
+
+	public void setDefenderSide(JButton defenderSide) {
+		this.defenderSide = defenderSide;
+	}
+
+	public JButton getBattleMode() {
+		return battleMode;
+	}
+
+	public void setBattleMode(JButton battleMode) {
+		this.battleMode = battleMode;
+	}
+
+	public Container getCp() {
+		return cp;
+	}
+
+	public void setCp(Container cp) {
+		this.cp = cp;
+	}
+
+	public JLabel getModeLabel() {
+		return modeLabel;
+	}
+
+	public void setModeLabel(JLabel modeLabel) {
+		this.modeLabel = modeLabel;
+	}
+	
+	
+
 	// Ende von Getter und Settern
-	
-	
+
 } // end of class Fenster

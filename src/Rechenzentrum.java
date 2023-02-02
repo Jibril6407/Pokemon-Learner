@@ -17,22 +17,24 @@ public class Rechenzentrum {
 	private String resultPressedText = "<html><b>";
 	private String resultShouldPressedText = "<html><b>";
 	private String usedTypeText = "<html><b>";
-	Fenster fenster;
-	
+	private String[] nameMode = {"Effectiv", "Not effectiv", "Immune"} ;
+	private Fenster fenster;
+
 	public void init_Gui(Fenster Fenster) {
 		this.fenster = Fenster;
 	}
-	
-	public Rechenzentrum(){
-		
+
+	public Rechenzentrum() {
+
 	}
-	
+
 	public void effectiveButton_ActionPerformedMethode() {
 		setMode(1);
 		if (fenster.getEffectiveButton().getText() == "Effective") {
 			fenster.getCurrentTypeLabel().setVisible(true);
 			fenster.getDefenderType().setVisible(true);
-			Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '" + getCurrentType() + "'", 1);
+			Datenbank.getTypes(
+					"SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '" + getCurrentType() + "'", 1);
 
 			clearCompareTypes();
 			addCompareTypes(1);
@@ -47,14 +49,15 @@ public class Rechenzentrum {
 			}
 		}
 	}
-	
+
 	public void notEffectiveButton_ActionPerformedMethod() {
 		setMode(2);
 		if (fenster.getNotEffectiveButton().getText() == "Not Effective") {
 			fenster.getCurrentTypeLabel().setVisible(true);
 			fenster.getDefenderType().setVisible(true);
 			Datenbank.getTypes(
-					"SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '" + getCurrentType() + "'", 2);
+					"SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '" + getCurrentType() + "'",
+					2);
 
 			clearCompareTypes();
 			addCompareTypes(2);
@@ -69,7 +72,7 @@ public class Rechenzentrum {
 			}
 		}
 	}
-	
+
 	public void immuneButton_ActionPerformedMethod() {
 		setMode(3);
 		if (fenster.getImmuneButton().getText() == "Immune") {
@@ -91,22 +94,21 @@ public class Rechenzentrum {
 
 		}
 	}
-	
-	public void randomButton_ActionPerformedMethod(){
+
+	public void randomButton_ActionPerformedMethod() {
 		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
 		int i = getRand();
 		setCurrentType(Datenbank.getTypes(i, 0));
 		fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
 	}
-	
-	
+
 	public void typesbuttons_ActionPerformedMethod(ActionEvent evt, String tempTypes) {
 
 		if (getComparedTypes().contains(tempTypes)) {
 			System.out.println("That type was already guessed!");
 			return;
 		}
-		setGuessTries(getGuessTries()+1);
+		setGuessTries(getGuessTries() + 1);
 		switch (getMode()) {
 		case 1:
 			if (getCompareTypes().contains(tempTypes)) {
@@ -122,7 +124,8 @@ public class Rechenzentrum {
 			}
 
 			if (getGuessTries() >= getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>" + "<b>";
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>"
+						+ "<b>";
 				setAllCompareTypes(getCompareTypes());
 				setAllComparedTypes(getComparedTypes());
 				setUsedTypes();
@@ -137,7 +140,8 @@ public class Rechenzentrum {
 					fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
 
 					if (getUsedTypes().size() == 18) {
-						clearUsedTypes();;
+						clearUsedTypes();
+						;
 						fenster.backButton_ActionPerformed(evt, 1);
 						continue;
 					}
@@ -146,7 +150,8 @@ public class Rechenzentrum {
 				Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '"
 						+ Datenbank.getTypes(i, 0) + "'", 1);
 
-				clearCompareTypes();;
+				clearCompareTypes();
+				;
 				addCompareTypes(1);
 				setGuessTries(0);
 				setNothingButtonPressed(0);
@@ -168,7 +173,8 @@ public class Rechenzentrum {
 			}
 
 			if (getGuessTries() >= getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>" + "<b>";
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>"
+						+ "<b>";
 				setAllCompareTypes(getCompareTypes());
 				setAllComparedTypes(getComparedTypes());
 				setUsedTypes();
@@ -191,7 +197,7 @@ public class Rechenzentrum {
 
 				Datenbank.getTypes("SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '"
 						+ Datenbank.getTypes(i, 0) + "'", 2);
-				
+
 				clearCompareTypes();
 				addCompareTypes(2);
 				setGuessTries(0);
@@ -214,7 +220,8 @@ public class Rechenzentrum {
 			}
 
 			if (getGuessTries() >= getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>" + "<b>";
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>"
+						+ "<b>";
 				setAllCompareTypes(getCompareTypes());
 				setAllComparedTypes(getComparedTypes());
 				setUsedTypes();
@@ -250,8 +257,9 @@ public class Rechenzentrum {
 			System.out.println("Default");
 		}
 	}
-	
+
 	public void backButton_ActionPerformedMethod(ActionEvent evt, int done) {
+		int tempMode = getMode() -1;
 		setMode(0);
 		fenster.getNothingButton().setVisible(false);
 		fenster.getDefenderType().setVisible(false);
@@ -278,6 +286,10 @@ public class Rechenzentrum {
 		if (done == 1) {
 			fenster.getCurrentTypeLabel().setText("Results:");
 			fenster.getCurrentTypeLabel().setBounds(150, 140, 350, 50);
+			
+			fenster.getModeLabel().setText(nameMode[tempMode]);
+			fenster.getModeLabel().setVisible(true);
+			
 			for (int i = 0; i < 18; i++) {
 				fenster.getTypesbuttons().get(i).setVisible(false);
 
@@ -307,10 +319,10 @@ public class Rechenzentrum {
 			fenster.getResultsShouldPressed().setVisible(true);
 			fenster.getUsedType().setVisible(true);
 		}
-		
+
 		clearUsedTypes();
 	}
-	
+
 	public void nothingButton_ActionPerformedMethod(ActionEvent evt) {
 
 		if (getNothingButtonPressed() == 1) {
@@ -319,19 +331,20 @@ public class Rechenzentrum {
 		}
 
 		int i = getRand();
-		setGuessTries(getGuessTries()+1);
-		setNothingButtonPressed(getNothingButtonPressed()+1);
+		setGuessTries(getGuessTries() + 1);
+		setNothingButtonPressed(getNothingButtonPressed() + 1);
 
 		switch (getMode()) {
 		case 1:
-			
+
 			setComparedTypes("Nothing");
-			if(getCompareTypes().size() == 0) {
+			if (getCompareTypes().size() == 0) {
 				setCompareTypes("Nothing");
 			}
-			
+
 			if (getGuessTries() >= getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>" + "<b>";
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>"
+						+ "<b>";
 				setAllCompareTypes(getCompareTypes());
 				setAllComparedTypes(getComparedTypes());
 				setUsedTypes();
@@ -364,11 +377,12 @@ public class Rechenzentrum {
 			break;
 		case 2:
 			setComparedTypes("Nothing");
-			if(getCompareTypes().size() == 0) {
+			if (getCompareTypes().size() == 0) {
 				setCompareTypes("Nothing");
 			}
 			if (getGuessTries() >= getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>" + "<b>";
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>"
+						+ "<b>";
 				setAllCompareTypes(getCompareTypes());
 				setAllComparedTypes(getComparedTypes());
 				setUsedTypes();
@@ -401,13 +415,14 @@ public class Rechenzentrum {
 			break;
 		case 3:
 			setComparedTypes("Nothing");
-			if(getCompareTypes().size() == 0) {
+			if (getCompareTypes().size() == 0) {
 				setCompareTypes("Nothing");
 			}
 			System.out.println(getUsedTypes());
 
 			if (getGuessTries() >= getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>" + "<b>";
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>"
+						+ "<b>";
 				setAllCompareTypes(getCompareTypes());
 				setAllComparedTypes(getComparedTypes());
 				setUsedTypes();
@@ -442,46 +457,72 @@ public class Rechenzentrum {
 			System.out.println("Default");
 		}
 
-	
 	}
-	
-	
+
+	public void attackerSideButton_ActionPerformedMethod() {
+		fenster.getCp().remove(fenster.getMenuPanel());
+		fenster.getCp().add(fenster.getAttackerPanel());
+		fenster.revalidate();
+	}
+
+	public void defenderSideButton_ActionPerformedMethod() {
+		fenster.getCp().remove(fenster.getMenuPanel());
+		fenster.getCp().add(fenster.getDefenderPanel());
+		fenster.revalidate();
+	}
+
+	public void battleModeButton_ActionPerformedMethod() {
+		fenster.getCp().remove(fenster.getMenuPanel());
+		fenster.getCp().add(fenster.getBattlePanel());
+		fenster.revalidate();
+	}
+
 	public String getCurrentType() {
 		return currentType;
 	}
+
 	public void setCurrentType(String currentType) {
 		this.currentType = currentType;
 	}
+
 	public void clearAllCompareTypes() {
 		allCompareTypes.clear();
 	}
+
 	public ArrayList<ArrayList<String>> getAllCompareTypes() {
 		return allCompareTypes;
 	}
+
 	public void setAllCompareTypes(ArrayList<String> compareTypes) {
 		allCompareTypes.add(new ArrayList<>(compareTypes));
 	}
+
 	public void clearAllComparedTypes() {
 		allComparedTypes.clear();
 	}
+
 	public ArrayList<ArrayList<String>> getAllComparedTypes() {
 		return allComparedTypes;
 	}
+
 	public void setAllComparedTypes(ArrayList<String> comparedTypes) {
 		allComparedTypes.add(new ArrayList<>(comparedTypes));
 	}
+
 	public void clearComparedTypes() {
 		comparedTypes.clear();
 	}
+
 	public ArrayList<String> getComparedTypes() {
 		return comparedTypes;
 	}
+
 	public void setComparedTypes(String tempTypes) {
 		comparedTypes.add(tempTypes);
 	}
-	
-	public void addCompareTypes(int i) { 
-		switch(i) {
+
+	public void addCompareTypes(int i) {
+		switch (i) {
 		case 1:
 			compareTypes.addAll(Datenbank.effective_against_Types);
 			break;
@@ -493,53 +534,62 @@ public class Rechenzentrum {
 			break;
 		}
 	}
+
 	public void clearCompareTypes() {
 		compareTypes.clear();
 	}
+
 	public ArrayList<String> getCompareTypes() {
 		return compareTypes;
 	}
+
 	public void setCompareTypes(String tempTypes) {
 		compareTypes.add(tempTypes);
 	}
+
 	public void clearUsedTypes() {
 		usedTypes.clear();
 	}
+
 	public ArrayList<String> getUsedTypes() {
 		return usedTypes;
 	}
+
 	public void setUsedTypes() {
 		usedTypes.add(currentType);
 	}
+
 	public int getRand() {
 		random = rand.nextInt(Datenbank.Types.size());
 		return random;
 	}
+
 	public void setRand(Random rand) {
 		this.rand = rand;
 	}
+
 	public int getMode() {
 		return mode;
 	}
+
 	public void setMode(int mode) {
 		this.mode = mode;
 	}
+
 	public int getGuessTries() {
 		return guessTries;
 	}
+
 	public void setGuessTries(int guessTries) {
 		this.guessTries = guessTries;
 	}
+
 	public int getNothingButtonPressed() {
 		return nothingButtonPressed;
 	}
+
 	public void setNothingButtonPressed(int nothingButtonPressed) {
 		this.nothingButtonPressed = nothingButtonPressed;
 	}
-	
-	
-	
-	
-	
-	
+
 }
