@@ -17,7 +17,7 @@ public class Rechenzentrum {
 	private String resultPressedText = "<html><b>";
 	private String resultShouldPressedText = "<html><b>";
 	private String usedTypeText = "<html><b>";
-	private String[] nameMode = {"Effectiv", "Not effectiv", "Immune"} ;
+	private String[] nameMode = {"Effective", "Not Effective", "Immune"} ;
 	private Fenster fenster;
 
 	public void init_Gui(Fenster Fenster) {
@@ -33,8 +33,7 @@ public class Rechenzentrum {
 		if (fenster.getEffectiveButton().getText() == "Effective") {
 			fenster.getCurrentTypeLabel().setVisible(true);
 			fenster.getDefenderType().setVisible(true);
-			Datenbank.getTypes(
-					"SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '" + getCurrentType() + "'", 1);
+		Datenbank.getTypes(getCurrentType(), 1);
 
 			clearCompareTypes();
 			addCompareTypes(1);
@@ -55,9 +54,7 @@ public class Rechenzentrum {
 		if (fenster.getNotEffectiveButton().getText() == "Not Effective") {
 			fenster.getCurrentTypeLabel().setVisible(true);
 			fenster.getDefenderType().setVisible(true);
-			Datenbank.getTypes(
-					"SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '" + getCurrentType() + "'",
-					2);
+			Datenbank.getTypes(getCurrentType(), 2);
 
 			clearCompareTypes();
 			addCompareTypes(2);
@@ -78,7 +75,7 @@ public class Rechenzentrum {
 		if (fenster.getImmuneButton().getText() == "Immune") {
 			fenster.getCurrentTypeLabel().setVisible(true);
 			fenster.getDefenderType().setVisible(true);
-			Datenbank.getTypes("SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + getCurrentType() + "'", 3);
+			Datenbank.getTypes(getCurrentType(), 3);
 
 			clearCompareTypes();
 			addCompareTypes(3);
@@ -96,7 +93,7 @@ public class Rechenzentrum {
 	}
 
 	public void randomButton_ActionPerformedMethod() {
-		Datenbank.getTypes("SELECT Types FROM Pokemon_Types", 0);
+		Datenbank.getTypes("", 0);
 		int i = getRand();
 		setCurrentType(Datenbank.getTypes(i, 0));
 		fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
@@ -147,8 +144,7 @@ public class Rechenzentrum {
 					}
 				}
 
-				Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '"
-						+ Datenbank.getTypes(i, 0) + "'", 1);
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode());
 
 				clearCompareTypes();
 				;
@@ -195,8 +191,7 @@ public class Rechenzentrum {
 					}
 				}
 
-				Datenbank.getTypes("SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '"
-						+ Datenbank.getTypes(i, 0) + "'", 2);
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode());
 
 				clearCompareTypes();
 				addCompareTypes(2);
@@ -242,8 +237,7 @@ public class Rechenzentrum {
 					}
 				}
 
-				Datenbank.getTypes(
-						"SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'", 3);
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode());
 
 				clearCompareTypes();
 				addCompareTypes(3);
@@ -261,6 +255,7 @@ public class Rechenzentrum {
 	public void backButton_ActionPerformedMethod(ActionEvent evt, int done) {
 		int tempMode = getMode() -1;
 		setMode(0);
+		fenster.getModeLabel().setVisible(false);
 		fenster.getNothingButton().setVisible(false);
 		fenster.getDefenderType().setVisible(false);
 		clearCompareTypes();
@@ -268,6 +263,9 @@ public class Rechenzentrum {
 		System.out.println("Pressed:                      " + getAllComparedTypes());
 		System.out.println("What you should have pressed: " + getAllCompareTypes());
 		if (done == 0) {
+			resultPressedText = "<html><b>";
+			resultShouldPressedText = "<html><b>";
+			usedTypeText = "<html><b>";
 			fenster.getCurrentTypeLabel().setVisible(false);
 			fenster.getEffectiveButton().setVisible(true);
 			fenster.getNotEffectiveButton().setVisible(true);
@@ -365,8 +363,7 @@ public class Rechenzentrum {
 					}
 				}
 
-				Datenbank.getTypes("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '"
-						+ Datenbank.getTypes(i, 0) + "'", 1);
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode());
 
 				clearCompareTypes();
 				addCompareTypes(1);
@@ -403,8 +400,7 @@ public class Rechenzentrum {
 					}
 				}
 
-				Datenbank.getTypes("SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '"
-						+ Datenbank.getTypes(i, 0) + "'", 2);
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode());
 
 				clearCompareTypes();
 				addCompareTypes(2);
@@ -443,8 +439,7 @@ public class Rechenzentrum {
 					}
 				}
 
-				Datenbank.getTypes(
-						"SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + Datenbank.getTypes(i, 0) + "'", 3);
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode());
 
 				clearCompareTypes();
 				addCompareTypes(3);

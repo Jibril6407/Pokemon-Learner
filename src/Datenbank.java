@@ -54,14 +54,13 @@ public class Datenbank {
 		});
 	}
 
-	public static void getTypes(String qry, int j) {
+	public static void getTypes(String type, int j, int k) {
 		try {
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(qry);
-
-			int columns = rs.getMetaData().getColumnCount();
 
 			if (j == 0) {
+				ResultSet rs = stmt.executeQuery("SELECT Types FROM Pokemon_Types");
+				int columns = rs.getMetaData().getColumnCount();
 				Types.clear();
 				while (rs.next()) {
 					for (int i = 1; i <= columns; i++) {
@@ -69,42 +68,99 @@ public class Datenbank {
 
 					}
 				}
+				rs.close();
+				stmt.close();
 			}
-			if (j == 1) {
+			if (j == 1 && k == 1) {
+				ResultSet rs = stmt
+						.executeQuery("SELECT Effective FROM Pokemon_Type_Effective WHERE Type LIKE '" + type + "'");
+				int columns = rs.getMetaData().getColumnCount();
 				effective_against_Types.clear();
 				while (rs.next()) {
 					for (int i = 1; i <= columns; i++) {
 						effective_against_Types.add(rs.getString(i));
 					}
 				}
+				rs.close();
+				stmt.close();
 			}
-			if (j == 2) {
+			if (j == 2 && k == 1) {
+				ResultSet rs = stmt.executeQuery(
+						"SELECT Not_Effective FROM Pokemon_Type_Not_Effective WHERE Type LIKE '" + type + "'");
+				int columns = rs.getMetaData().getColumnCount();
 				not_effective_against_Types.clear();
 				while (rs.next()) {
 					for (int i = 1; i <= columns; i++) {
 						not_effective_against_Types.add(rs.getString(i));
 					}
 				}
+				rs.close();
+				stmt.close();
 			}
-			if (j == 3) {
+			if (j == 3 && k == 1) {
+				ResultSet rs = stmt
+						.executeQuery("SELECT Immune FROM Pokemon_Type_Immune WHERE Type LIKE '" + type + "'");
+				int columns = rs.getMetaData().getColumnCount();
 				immune_Types.clear();
 				while (rs.next()) {
 					for (int i = 1; i <= columns; i++) {
 						immune_Types.add(rs.getString(i));
 					}
 				}
+				rs.close();
+				stmt.close();
 			}
 			if (j == 4) {
+				ResultSet rs = stmt.executeQuery("SELECT Type_color FROM Pokemon_Types");
+				int columns = rs.getMetaData().getColumnCount();
 				types_color.clear();
 				while (rs.next()) {
 					for (int i = 1; i <= columns; i++) {
 						types_color.add(rs.getString(i));
 					}
 				}
+				rs.close();
+				stmt.close();
 			}
-
-			rs.close();
-			stmt.close();
+			if (j == 1 && k == 2) {
+				ResultSet rs = stmt
+						.executeQuery("SELECT Type FROM Pokemon_Type_Effective WHERE Effective LIKE '" + type + "'");
+				int columns = rs.getMetaData().getColumnCount();
+				effective_against_Types.clear();
+				while (rs.next()) {
+					for (int i = 1; i <= columns; i++) {
+						effective_against_Types.add(rs.getString(i));
+					}
+				}
+				rs.close();
+				stmt.close();
+			}
+			if (j == 2 && k == 2) {
+				ResultSet rs = stmt.executeQuery(
+						"SELECT Type FROM Pokemon_Type_Not_Effective WHERE Not_Effective LIKE '" + type + "'");
+				int columns = rs.getMetaData().getColumnCount();
+				not_effective_against_Types.clear();
+				while (rs.next()) {
+					for (int i = 1; i <= columns; i++) {
+						not_effective_against_Types.add(rs.getString(i));
+					}
+				}
+				rs.close();
+				stmt.close();
+			}
+			if (j == 3 && k == 2) {
+				ResultSet rs = stmt
+						.executeQuery("SELECT Type FROM Pokemon_Type_Immune WHERE Immune LIKE '" + type + "'");
+				int columns = rs.getMetaData().getColumnCount();
+				immune_Types.clear();
+				while (rs.next()) {
+					for (int i = 1; i <= columns; i++) {
+						immune_Types.add(rs.getString(i));
+					}
+				}
+				rs.close();
+				stmt.close();
+			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
