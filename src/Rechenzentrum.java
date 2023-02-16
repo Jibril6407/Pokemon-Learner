@@ -11,6 +11,7 @@ public class Rechenzentrum {
 	private ArrayList<String> usedTypes = new ArrayList<String>();
 	private Random rand = new Random();
 	private int random;
+	private int panelMode;
 	private int mode = 0;
 	private int guessTries = 0;
 	private int nothingButtonPressed = 0;
@@ -33,7 +34,7 @@ public class Rechenzentrum {
 		if (fenster.getEffectiveButton().getText() == "Effective") {
 			fenster.getCurrentTypeLabel().setVisible(true);
 			fenster.getDefenderType().setVisible(true);
-		Datenbank.getTypes(getCurrentType(), 1);
+		Datenbank.getTypes(getCurrentType(), 1, getPanelMode());
 
 			clearCompareTypes();
 			addCompareTypes(1);
@@ -54,7 +55,7 @@ public class Rechenzentrum {
 		if (fenster.getNotEffectiveButton().getText() == "Not Effective") {
 			fenster.getCurrentTypeLabel().setVisible(true);
 			fenster.getDefenderType().setVisible(true);
-			Datenbank.getTypes(getCurrentType(), 2);
+			Datenbank.getTypes(getCurrentType(), 2, getPanelMode());
 
 			clearCompareTypes();
 			addCompareTypes(2);
@@ -75,7 +76,7 @@ public class Rechenzentrum {
 		if (fenster.getImmuneButton().getText() == "Immune") {
 			fenster.getCurrentTypeLabel().setVisible(true);
 			fenster.getDefenderType().setVisible(true);
-			Datenbank.getTypes(getCurrentType(), 3);
+			Datenbank.getTypes(getCurrentType(), 3, getPanelMode());
 
 			clearCompareTypes();
 			addCompareTypes(3);
@@ -93,7 +94,7 @@ public class Rechenzentrum {
 	}
 
 	public void randomButton_ActionPerformedMethod() {
-		Datenbank.getTypes("", 0);
+		Datenbank.getTypes("", 0, 0);
 		int i = getRand();
 		setCurrentType(Datenbank.getTypes(i, 0));
 		fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
@@ -144,7 +145,7 @@ public class Rechenzentrum {
 					}
 				}
 
-				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode());
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode(), getPanelMode());
 
 				clearCompareTypes();
 				;
@@ -191,7 +192,7 @@ public class Rechenzentrum {
 					}
 				}
 
-				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode());
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode(), getPanelMode());
 
 				clearCompareTypes();
 				addCompareTypes(2);
@@ -237,7 +238,7 @@ public class Rechenzentrum {
 					}
 				}
 
-				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode());
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode(), getPanelMode());
 
 				clearCompareTypes();
 				addCompareTypes(3);
@@ -363,7 +364,7 @@ public class Rechenzentrum {
 					}
 				}
 
-				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode());
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode(), getPanelMode());
 
 				clearCompareTypes();
 				addCompareTypes(1);
@@ -400,7 +401,7 @@ public class Rechenzentrum {
 					}
 				}
 
-				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode());
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode(), getPanelMode());
 
 				clearCompareTypes();
 				addCompareTypes(2);
@@ -439,7 +440,7 @@ public class Rechenzentrum {
 					}
 				}
 
-				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode());
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode(), getPanelMode());
 
 				clearCompareTypes();
 				addCompareTypes(3);
@@ -458,18 +459,21 @@ public class Rechenzentrum {
 		fenster.getCp().remove(fenster.getMenuPanel());
 		fenster.getCp().add(fenster.getAttackerPanel());
 		fenster.revalidate();
+		panelMode = 1;
 	}
 
 	public void defenderSideButton_ActionPerformedMethod() {
 		fenster.getCp().remove(fenster.getMenuPanel());
 		fenster.getCp().add(fenster.getDefenderPanel());
 		fenster.revalidate();
+		panelMode = 2;
 	}
 
 	public void battleModeButton_ActionPerformedMethod() {
 		fenster.getCp().remove(fenster.getMenuPanel());
 		fenster.getCp().add(fenster.getBattlePanel());
 		fenster.revalidate();
+		panelMode = 3;
 	}
 
 	public String getCurrentType() {
@@ -587,4 +591,13 @@ public class Rechenzentrum {
 		this.nothingButtonPressed = nothingButtonPressed;
 	}
 
+	public int getPanelMode() {
+		return panelMode;
+	}
+
+	public void setPanelMode(int panelMode) {
+		this.panelMode = panelMode;
+	}
+
+	
 }

@@ -124,7 +124,7 @@ public class Fenster extends JFrame {
 		resultsShouldPressed.setEditable(false);
 		resultsShouldPressed.setEditorKit(new HTMLEditorKit());
 
-		Datenbank.getTypes("", 0);
+		Datenbank.getTypes("", 0, 0);
 		rech.setCurrentType(Datenbank.getTypes(rech.getRand(), 0));
 		currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
 		backButton.setBounds(0, 0, 100, 50);
@@ -184,8 +184,8 @@ public class Fenster extends JFrame {
 			typesbuttons.add(new JButton());
 		}
 		// Typen Ersteller der Buttons
-		Datenbank.getTypes("", 0);
-		Datenbank.getTypes("",4);
+		Datenbank.getTypes("", 0, 0);
+		Datenbank.getTypes("",4, 0);
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 6; j++) {
 				String tempTypes = Datenbank.getTypes(count, 0);
