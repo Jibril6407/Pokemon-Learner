@@ -19,6 +19,7 @@ public class Rechenzentrum {
 	private String resultShouldPressedText = "<html><b>";
 	private String usedTypeText = "<html><b>";
 	private String[] nameMode = {"Effective", "Not Effective", "Immune"} ;
+	private String[] attackerOrDefender = {"","Attacker: ","Defender: "};
 	private Fenster fenster;
 
 	public void init_Gui(Fenster Fenster) {
@@ -130,12 +131,12 @@ public class Rechenzentrum {
 				clearComparedTypes();
 				int i = getRand();
 				setCurrentType(Datenbank.getTypes(i, 0));
-				fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
+				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 				while (getUsedTypes().contains(getCurrentType())) {
 					i = getRand();
 					setCurrentType(Datenbank.getTypes(i, 0));
-					fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
+					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
@@ -178,12 +179,12 @@ public class Rechenzentrum {
 				clearComparedTypes();
 				int i = getRand();
 				setCurrentType(Datenbank.getTypes(i, 0));
-				fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
+				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 				while (getUsedTypes().contains(getCurrentType())) {
 					i = getRand();
 					setCurrentType(Datenbank.getTypes(i, 0));
-					fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
+					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
@@ -224,12 +225,12 @@ public class Rechenzentrum {
 				clearComparedTypes();
 				int i = getRand();
 				setCurrentType(Datenbank.getTypes(i, 0));
-				fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
+				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 				while (getUsedTypes().contains(getCurrentType())) {
 					i = getRand();
 					setCurrentType(Datenbank.getTypes(i, 0));
-					fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
+					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
@@ -275,7 +276,7 @@ public class Rechenzentrum {
 			fenster.getResultsPressed().setVisible(false);
 			fenster.getResultsShouldPressed().setVisible(false);
 			fenster.getUsedType().setVisible(false);
-			fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
+			fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 		}
 
 		for (int i = 0; i < 18; i++) {
@@ -350,12 +351,12 @@ public class Rechenzentrum {
 				clearComparedTypes();
 				i = getRand();
 				setCurrentType(Datenbank.getTypes(i, 0));
-				fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
+				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 				while (getUsedTypes().contains(getCurrentType())) {
 					i = getRand();
 					setCurrentType(Datenbank.getTypes(i, 0));
-					fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
+					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
@@ -387,12 +388,12 @@ public class Rechenzentrum {
 				clearComparedTypes();
 				i = getRand();
 				setCurrentType(Datenbank.getTypes(i, 0));
-				fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
+				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 				while (getUsedTypes().contains(getCurrentType())) {
 					i = getRand();
 					setCurrentType(Datenbank.getTypes(i, 0));
-					fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
+					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
@@ -426,12 +427,12 @@ public class Rechenzentrum {
 				clearComparedTypes();
 				i = getRand();
 				setCurrentType(Datenbank.getTypes(i, 0));
-				fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
+				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 				while (getUsedTypes().contains(getCurrentType())) {
 					i = getRand();
 					setCurrentType(Datenbank.getTypes(i, 0));
-					fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
+					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
@@ -460,6 +461,7 @@ public class Rechenzentrum {
 		fenster.getCp().add(fenster.getAttackerPanel());
 		fenster.revalidate();
 		panelMode = 1;
+		fenster.setCurrentPanel(1);
 	}
 
 	public void defenderSideButton_ActionPerformedMethod() {
@@ -467,6 +469,7 @@ public class Rechenzentrum {
 		fenster.getCp().add(fenster.getDefenderPanel());
 		fenster.revalidate();
 		panelMode = 2;
+		fenster.setCurrentPanel(2);
 	}
 
 	public void battleModeButton_ActionPerformedMethod() {
