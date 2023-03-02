@@ -18,10 +18,14 @@ public class Fenster extends JFrame {
 	private JPanel attackerPanel = new JPanel();
 	private JPanel defenderPanel = new JPanel();
 	private JPanel battlePanel = new JPanel();
+	private JPanel chooseSumOfTypesPanel = new JPanel();
 
 	private JButton attackerSide = new JButton();
 	private JButton defenderSide = new JButton();
 	private JButton battleMode = new JButton();
+
+	private JButton oneTypeButton = new JButton();
+	private JButton twoTypeButton = new JButton();
 
 	private JButton backButton = new JButton();
 	private JButton effectiveButton = new JButton();
@@ -56,6 +60,7 @@ public class Fenster extends JFrame {
 		attackerPanel.setLayout(null);
 		defenderPanel.setLayout(null);
 		battlePanel.setLayout(null);
+		chooseSumOfTypesPanel.setLayout(null);
 
 		attackerSide.setBounds(150, 200, 100, 50);
 		attackerSide.setText("Attacker");
@@ -89,7 +94,6 @@ public class Fenster extends JFrame {
 		});
 		menuPanel.add(battleMode);
 		battleMode.setVisible(true);
-
 
 		setVisible(true);
 	} // end of public Fenster
@@ -147,6 +151,16 @@ public class Fenster extends JFrame {
 	public void nothingButton_ActionPerformed(ActionEvent evt) {
 
 		rech.nothingButton_ActionPerformedMethod(evt);
+	}
+
+	public void oneTypeButton_ActionPerformed(ActionEvent evt) {
+
+		rech.oneTypeButton_ActionPerformedMethod();
+	}
+
+	public void twoTypeButton_ActionPerformed(ActionEvent evt) {
+
+		rech.twoTypeButton_ActionPerformedMethod();
 	}
 	// Ende Methoden
 
@@ -268,7 +282,7 @@ public class Fenster extends JFrame {
 	}
 
 	public void setAttackerPanel(JPanel attackerPanel) {
-		
+
 	}
 
 	public JPanel getDefenderPanel() {
@@ -286,134 +300,135 @@ public class Fenster extends JFrame {
 	public void setBattlePanel(JPanel battlePanel) {
 		this.battlePanel = battlePanel;
 	}
+
 	public void setCurrentPanel(int tempCase) {
-		switch(tempCase){
+		switch (tempCase) {
 		case 1:
-		currentTypeLabel.setBounds(150, 140, 350, 50);
-		attackerPanel.add(currentTypeLabel);
-		currentTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
-		currentTypeLabel.setVisible(false);
+			currentTypeLabel.setBounds(150, 140, 350, 50);
+			attackerPanel.add(currentTypeLabel);
+			currentTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+			currentTypeLabel.setVisible(false);
 
-		defenderType.setBounds(50, 310, 350, 50);
-		attackerPanel.add(defenderType);
-		defenderType.setText("Defender:");
-		defenderType.setFont(new Font("Dialog", Font.BOLD, 18));
-		defenderType.setVisible(false);
-		
-		modeLabel.setBounds(600, 110, 350, 50);
-		attackerPanel.add(modeLabel);
-		modeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
-		modeLabel.setVisible(false);
+			defenderType.setBounds(50, 310, 350, 50);
+			attackerPanel.add(defenderType);
+			defenderType.setText("Defender:");
+			defenderType.setFont(new Font("Dialog", Font.BOLD, 18));
+			defenderType.setVisible(false);
 
-		usedType.setBounds(20, 200, 70, 450);
-		attackerPanel.add(usedType);
-		usedType.setVisible(false);
-		usedType.setEditable(false);
-		usedType.setEditorKit(new HTMLEditorKit());
+			modeLabel.setBounds(600, 110, 350, 50);
+			attackerPanel.add(modeLabel);
+			modeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+			modeLabel.setVisible(false);
 
-		resultsPressed.setBounds(100, 200, 420, 450);
-		attackerPanel.add(resultsPressed);
-		resultsPressed.setVisible(false);
-		resultsPressed.setEditable(false);
-		resultsPressed.setEditorKit(new HTMLEditorKit());
+			usedType.setBounds(20, 200, 70, 450);
+			attackerPanel.add(usedType);
+			usedType.setVisible(false);
+			usedType.setEditable(false);
+			usedType.setEditorKit(new HTMLEditorKit());
 
-		resultsShouldPressed.setBounds(530, 200, 420, 450);
-		attackerPanel.add(resultsShouldPressed);
-		resultsShouldPressed.setVisible(false);
-		resultsShouldPressed.setEditable(false);
-		resultsShouldPressed.setEditorKit(new HTMLEditorKit());
+			resultsPressed.setBounds(100, 200, 420, 450);
+			attackerPanel.add(resultsPressed);
+			resultsPressed.setVisible(false);
+			resultsPressed.setEditable(false);
+			resultsPressed.setEditorKit(new HTMLEditorKit());
 
-		Datenbank.getTypes("", 0, 0);
-		rech.setCurrentType(Datenbank.getTypes(rech.getRand(), 0));
-		currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-		backButton.setBounds(0, 0, 100, 50);
-		backButton.setText("Back");
-		backButton.setMargin(new Insets(2, 2, 2, 2));
-		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
+			resultsShouldPressed.setBounds(530, 200, 420, 450);
+			attackerPanel.add(resultsShouldPressed);
+			resultsShouldPressed.setVisible(false);
+			resultsShouldPressed.setEditable(false);
+			resultsShouldPressed.setEditorKit(new HTMLEditorKit());
 
-				backButton_ActionPerformed(evt, 0);
+			Datenbank.getTypes("", 0, 0);
+			rech.setCurrentType(Datenbank.getTypes(rech.getRand(), 0));
+			currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
+			backButton.setBounds(0, 0, 100, 50);
+			backButton.setText("Back");
+			backButton.setMargin(new Insets(2, 2, 2, 2));
+			backButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+
+					backButton_ActionPerformed(evt, 0);
+				}
+			});
+			attackerPanel.add(backButton);
+
+			effectiveButton.setBounds(150, 200, 100, 50);
+			effectiveButton.setText("Effective");
+			effectiveButton.setMargin(new Insets(2, 2, 2, 2));
+			effectiveButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					effectiveButton_ActionPerformed(evt);
+				}
+			});
+			attackerPanel.add(effectiveButton);
+
+			notEffectiveButton.setBounds(275, 200, 100, 50);
+			notEffectiveButton.setText("Not Effective");
+			notEffectiveButton.setMargin(new Insets(2, 2, 2, 2));
+			notEffectiveButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					notEffectiveButton_ActionPerformed(evt);
+				}
+			});
+			attackerPanel.add(notEffectiveButton);
+
+			immuneButton.setBounds(400, 200, 100, 50);
+			immuneButton.setText("Immune");
+			immuneButton.setMargin(new Insets(2, 2, 2, 2));
+			immuneButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					immuneButton_ActionPerformed(evt);
+				}
+			});
+			attackerPanel.add(immuneButton);
+
+			randomButton.setBounds(275, 275, 100, 50);
+			randomButton.setText("Random");
+			randomButton.setMargin(new Insets(2, 2, 2, 2));
+			randomButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					randomButton_ActionPerformed(evt);
+				}
+			});
+			attackerPanel.add(randomButton);
+
+			int count = 0;
+
+			for (int i = 0; i < 18; i++) {
+				typesbuttons.add(new JButton());
 			}
-		});
-		attackerPanel.add(backButton);
-
-		effectiveButton.setBounds(150, 200, 100, 50);
-		effectiveButton.setText("Effective");
-		effectiveButton.setMargin(new Insets(2, 2, 2, 2));
-		effectiveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				effectiveButton_ActionPerformed(evt);
+			// Typen Ersteller der Buttons
+			Datenbank.getTypes("", 0, 0);
+			Datenbank.getTypes("", 4, 0);
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 6; j++) {
+					String tempTypes = Datenbank.getTypes(count, 0);
+					typesbuttons.get(count).setBounds(100 * j + 50, 30 * i + 350, 85, 25);
+					typesbuttons.get(count).setMargin(new Insets(2, 2, 2, 2));
+					typesbuttons.get(count).setText(Datenbank.getTypes(count, 0));
+					typesbuttons.get(count).setBackground(Color.decode(Datenbank.types_color.get(count)));
+					typesbuttons.get(count).addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							typesbuttons_ActionPerformed(evt, tempTypes);
+						}
+					});
+					attackerPanel.add(typesbuttons.get(count));
+					typesbuttons.get(count).setVisible(false);
+					count++;
+				}
 			}
-		});
-		attackerPanel.add(effectiveButton);
-
-		notEffectiveButton.setBounds(275, 200, 100, 50);
-		notEffectiveButton.setText("Not Effective");
-		notEffectiveButton.setMargin(new Insets(2, 2, 2, 2));
-		notEffectiveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				notEffectiveButton_ActionPerformed(evt);
-			}
-		});
-		attackerPanel.add(notEffectiveButton);
-
-		immuneButton.setBounds(400, 200, 100, 50);
-		immuneButton.setText("Immune");
-		immuneButton.setMargin(new Insets(2, 2, 2, 2));
-		immuneButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				immuneButton_ActionPerformed(evt);
-			}
-		});
-		attackerPanel.add(immuneButton);
-
-		randomButton.setBounds(275, 275, 100, 50);
-		randomButton.setText("Random");
-		randomButton.setMargin(new Insets(2, 2, 2, 2));
-		randomButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				randomButton_ActionPerformed(evt);
-			}
-		});
-		attackerPanel.add(randomButton);
-
-		int count = 0;
-
-		for (int i = 0; i < 18; i++) {
-			typesbuttons.add(new JButton());
-		}
-		// Typen Ersteller der Buttons
-		Datenbank.getTypes("", 0, 0);
-		Datenbank.getTypes("",4, 0);
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 6; j++) {
-				String tempTypes = Datenbank.getTypes(count, 0);
-				typesbuttons.get(count).setBounds(100 * j + 50, 30 * i + 350, 85, 25);
-				typesbuttons.get(count).setMargin(new Insets(2, 2, 2, 2));
-				typesbuttons.get(count).setText(Datenbank.getTypes(count, 0));
-				typesbuttons.get(count).setBackground(Color.decode(Datenbank.types_color.get(count)));
-				typesbuttons.get(count).addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent evt) {
-						typesbuttons_ActionPerformed(evt, tempTypes);
-					}
-				});
-				attackerPanel.add(typesbuttons.get(count));
-				typesbuttons.get(count).setVisible(false);
-				count++;
-			}
-		}
-		nothingButton.setBounds(50, 440, 585, 25);
-		nothingButton.setText("Nothing");
-		nothingButton.setMargin(new Insets(2, 2, 2, 2));
-		nothingButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				nothingButton_ActionPerformed(evt);
-			}
-		});
-		nothingButton.setBackground(Color.WHITE);
-		nothingButton.setVisible(false);
-		attackerPanel.add(nothingButton);
-		break;
+			nothingButton.setBounds(50, 440, 585, 25);
+			nothingButton.setText("Nothing");
+			nothingButton.setMargin(new Insets(2, 2, 2, 2));
+			nothingButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					nothingButton_ActionPerformed(evt);
+				}
+			});
+			nothingButton.setBackground(Color.WHITE);
+			nothingButton.setVisible(false);
+			attackerPanel.add(nothingButton);
+			break;
 		case 2:
 			currentTypeLabel.setBounds(150, 140, 350, 50);
 			defenderPanel.add(currentTypeLabel);
@@ -425,7 +440,7 @@ public class Fenster extends JFrame {
 			defenderType.setText("Attacker:");
 			defenderType.setFont(new Font("Dialog", Font.BOLD, 18));
 			defenderType.setVisible(false);
-			
+
 			modeLabel.setBounds(600, 110, 350, 50);
 			defenderPanel.add(modeLabel);
 			modeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
@@ -510,7 +525,7 @@ public class Fenster extends JFrame {
 			}
 			// Typen Ersteller der Buttons
 			Datenbank.getTypes("", 0, 0);
-			Datenbank.getTypes("",4, 0);
+			Datenbank.getTypes("", 4, 0);
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 6; j++) {
 					String tempTypes = Datenbank.getTypes(count, 0);
@@ -539,7 +554,31 @@ public class Fenster extends JFrame {
 			nothingButton.setBackground(Color.WHITE);
 			nothingButton.setVisible(false);
 			defenderPanel.add(nothingButton);
-	}
+		case 3:
+			oneTypeButton.setBounds(150, 200, 100, 50);
+			oneTypeButton.setText("One Piece");
+			oneTypeButton.setMargin(new Insets(2, 2, 2, 2));
+			oneTypeButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					oneTypeButton_ActionPerformed(evt);
+				}
+			});
+			oneTypeButton.setVisible(true);
+			
+			chooseSumOfTypesPanel.add(oneTypeButton);
+		
+			twoTypeButton.setBounds(275, 200, 100, 50);
+			twoTypeButton.setText("Two Piece");
+			twoTypeButton.setMargin(new Insets(2, 2, 2, 2));
+			twoTypeButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					twoTypeButton_ActionPerformed(evt);
+				}
+			});
+			twoTypeButton.setVisible(true);
+			chooseSumOfTypesPanel.add(twoTypeButton);
+			break;
+		}
 	}
 
 	public JButton getAttackerSide() {
@@ -581,8 +620,30 @@ public class Fenster extends JFrame {
 	public void setModeLabel(JLabel modeLabel) {
 		this.modeLabel = modeLabel;
 	}
-	
-	
+
+	public JPanel getChooseSumOfTypesPanel() {
+		return chooseSumOfTypesPanel;
+	}
+
+	public void setChooseSumOfTypesPanel(JPanel chooseSumOfTypesPanel) {
+		this.chooseSumOfTypesPanel = chooseSumOfTypesPanel;
+	}
+
+	public JButton getOneTypeButton() {
+		return oneTypeButton;
+	}
+
+	public void setOneTypeButton(JButton oneTypeButton) {
+		this.oneTypeButton = oneTypeButton;
+	}
+
+	public JButton getTwoTypeButton() {
+		return twoTypeButton;
+	}
+
+	public void setTwoTypeButton(JButton twoTypeButton) {
+		this.twoTypeButton = twoTypeButton;
+	}
 
 	// Ende von Getter und Settern
 

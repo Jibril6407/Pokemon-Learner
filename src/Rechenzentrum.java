@@ -466,10 +466,9 @@ public class Rechenzentrum {
 
 	public void defenderSideButton_ActionPerformedMethod() {
 		fenster.getCp().remove(fenster.getMenuPanel());
-		fenster.getCp().add(fenster.getDefenderPanel());
+		fenster.getCp().add(fenster.getChooseSumOfTypesPanel());
 		fenster.revalidate();
-		panelMode = 2;
-		fenster.setCurrentPanel(2);
+		fenster.setCurrentPanel(3);
 	}
 
 	public void battleModeButton_ActionPerformedMethod() {
@@ -477,6 +476,18 @@ public class Rechenzentrum {
 		fenster.getCp().add(fenster.getBattlePanel());
 		fenster.revalidate();
 		panelMode = 3;
+	}
+	
+	public void oneTypeButton_ActionPerformedMethod() {
+		fenster.getCp().remove(fenster.getChooseSumOfTypesPanel());
+		fenster.getCp().add(fenster.getDefenderPanel());
+		fenster.revalidate();
+		panelMode = 2;
+		fenster.setCurrentPanel(2);
+	}
+	
+	public void twoTypeButton_ActionPerformedMethod() {
+		
 	}
 
 	public String getCurrentType() {
