@@ -9,6 +9,13 @@ public class Rechenzentrum {
 	private ArrayList<String> comparedTypes = new ArrayList<String>();
 	private ArrayList<String> compareTypes = new ArrayList<String>();
 	private ArrayList<String> usedTypes = new ArrayList<String>();
+	
+	private String[] types0 = new String[18];
+	private int[] multiplicator0 = new int[18];
+	private String[] types1 = new String[18];
+	private int[] multiplicator1 = new int[18];
+			
+	
 	private Random rand = new Random();
 	private int random;
 	private int panelMode;
