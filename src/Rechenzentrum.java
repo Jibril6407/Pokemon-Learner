@@ -4,15 +4,16 @@ import java.util.Random;
 
 public class Rechenzentrum {
 	private String currentType;
+	private String firstType;
+	private String secondType;
 	private ArrayList<ArrayList<String>> allCompareTypes = new ArrayList<ArrayList<String>>();
 	private ArrayList<ArrayList<String>> allComparedTypes = new ArrayList<ArrayList<String>>();
 	private ArrayList<String> comparedTypes = new ArrayList<String>();
 	private ArrayList<String> compareTypes = new ArrayList<String>();
 	private ArrayList<String> usedTypes = new ArrayList<String>();
 	
-	private String[] types0 = new String[18];
+	private String[] types = {"Normal", "Fire","Water","Grass","Electric","Rock","Ground","Ghost","Psychic","Poison","Bug","Ice","Steel","Fighting","Dragon","Dark","Fairy","Flying"};
 	private int[] multiplicator0 = new int[18];
-	private String[] types1 = new String[18];
 	private int[] multiplicator1 = new int[18];
 			
 	
@@ -106,6 +107,16 @@ public class Rechenzentrum {
 		int i = getRand();
 		setCurrentType(Datenbank.getTypes(i, 0));
 		fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
+		fenster.getFirstTypeLabel().setText("Defender: " + getCurrentType());
+		firstType = getCurrentType();
+		int j = getRand();
+		while(j == i) {
+			j = getRand();
+		}
+		setCurrentType(Datenbank.getTypes(j, 0));
+		fenster.getSecondTypeLabel().setText(getCurrentType());
+		secondType = getCurrentType();
+		System.out.println(firstType +" "+ secondType);
 	}
 
 	public void typesbuttons_ActionPerformedMethod(ActionEvent evt, String tempTypes) {
@@ -494,6 +505,13 @@ public class Rechenzentrum {
 	}
 	
 	public void twoTypeButton_ActionPerformedMethod() {
+		fenster.getCp().remove(fenster.getChooseSumOfTypesPanel());
+		fenster.getCp().add(fenster.getTwoTypesDefenderPanel());
+		fenster.revalidate();
+		panelMode = 2;
+		fenster.setCurrentPanel(4);
+		
+		
 		
 	}
 

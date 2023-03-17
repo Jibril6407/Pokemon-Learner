@@ -8,6 +8,8 @@ import java.util.*;
 public class Fenster extends JFrame {
 
 	private JLabel currentTypeLabel = new JLabel();
+	private JLabel firstTypeLabel = new JLabel(); 
+	private JLabel secondTypeLabel = new JLabel(); 
 	private JLabel defenderType = new JLabel();
 	private JLabel modeLabel = new JLabel();
 	private JTextPane usedType = new JTextPane();
@@ -19,6 +21,7 @@ public class Fenster extends JFrame {
 	private JPanel defenderPanel = new JPanel();
 	private JPanel battlePanel = new JPanel();
 	private JPanel chooseSumOfTypesPanel = new JPanel();
+	private JPanel twoTypesDefenderPanel = new JPanel();
 
 	private JButton attackerSide = new JButton();
 	private JButton defenderSide = new JButton();
@@ -61,6 +64,7 @@ public class Fenster extends JFrame {
 		defenderPanel.setLayout(null);
 		battlePanel.setLayout(null);
 		chooseSumOfTypesPanel.setLayout(null);
+		twoTypesDefenderPanel.setLayout(null);
 
 		attackerSide.setBounds(150, 200, 100, 50);
 		attackerSide.setText("Attacker");
@@ -554,6 +558,7 @@ public class Fenster extends JFrame {
 			nothingButton.setBackground(Color.WHITE);
 			nothingButton.setVisible(false);
 			defenderPanel.add(nothingButton);
+			break;
 		case 3:
 			oneTypeButton.setBounds(150, 200, 100, 50);
 			oneTypeButton.setText("One Piece");
@@ -578,7 +583,51 @@ public class Fenster extends JFrame {
 			twoTypeButton.setVisible(true);
 			chooseSumOfTypesPanel.add(twoTypeButton);
 			break;
+		case 4:
+			firstTypeLabel.setBounds(150, 140, 350, 50);
+			twoTypesDefenderPanel.add(firstTypeLabel);
+			firstTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+			firstTypeLabel.setVisible(true);
+			
+			secondTypeLabel.setBounds(500,140,350,50);
+			twoTypesDefenderPanel.add(secondTypeLabel);
+			secondTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+			secondTypeLabel.setVisible(true);
+			
+			Datenbank.getTypes("", 0, 0);
+			rech.setCurrentType(Datenbank.getTypes(rech.getRand(), 0));
+			firstTypeLabel.setText("Defender: " + rech.getCurrentType());
+			rech.setCurrentType(Datenbank.getTypes(rech.getRand(), 0));
+			secondTypeLabel.setText("Defender: " + rech.getCurrentType());
+			
+			randomButton.setBounds(275, 275, 100, 50);
+			randomButton.setText("Random");
+			randomButton.setMargin(new Insets(2, 2, 2, 2));
+			randomButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					randomButton_ActionPerformed(evt);
+				}
+			});
+			twoTypesDefenderPanel.add(randomButton);
+			
+			
 		}
+	}
+
+	public JLabel getFirstTypeLabel() {
+		return firstTypeLabel;
+	}
+
+	public void setFirstTypeLabel(JLabel firstTypeLabel) {
+		this.firstTypeLabel = firstTypeLabel;
+	}
+
+	public JLabel getSecondTypeLabel() {
+		return secondTypeLabel;
+	}
+
+	public void setSecondTypeLabel(JLabel secondTypeLabel) {
+		this.secondTypeLabel = secondTypeLabel;
 	}
 
 	public JButton getAttackerSide() {
@@ -643,6 +692,14 @@ public class Fenster extends JFrame {
 
 	public void setTwoTypeButton(JButton twoTypeButton) {
 		this.twoTypeButton = twoTypeButton;
+	}
+
+	public JPanel getTwoTypesDefenderPanel() {
+		return twoTypesDefenderPanel;
+	}
+
+	public void setTwoTypesDefenderPanel(JPanel twoTypesDefenderPanel) {
+		this.twoTypesDefenderPanel = twoTypesDefenderPanel;
 	}
 
 	// Ende von Getter und Settern
