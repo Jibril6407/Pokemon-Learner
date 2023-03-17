@@ -107,57 +107,56 @@ public class Rechenzentrum {
 		Datenbank.getTypes("", 0, 0);
 		int i = getRand();
 		setCurrentType(Datenbank.getTypes(i, 0));
-		fenster.getCurrentTypeLabel().setText("Attacker: " + getCurrentType());
-		fenster.getFirstTypeLabel().setText("Defender: " + getCurrentType());
-		firstType = getCurrentType();
-		int j = getRand();
-		while(j == i) {
-			j = getRand();
-		}
-		setCurrentType(Datenbank.getTypes(j, 0));
-		fenster.getSecondTypeLabel().setText(getCurrentType());
-		secondType = getCurrentType();
-		System.out.println(firstType +" "+ secondType);
-		for(int tempcount = 0; tempcount <18;tempcount++) {
-		multiplicator0[tempcount] = 1;
-		multiplicator1[tempcount] = 1;
-		}
-		
-		Datenbank.getTypes(firstType, 1, 2);
-		Datenbank.getTypes(firstType, 2, 2);
-		Datenbank.getTypes(firstType, 3, 2);
-		for(int tempcount = 0; tempcount<Datenbank.Types.size(); tempcount++) {
-			types.add(Datenbank.getTypes(tempcount,0));
-		}
-		
-		for(int tempcount = 0; tempcount<Datenbank.effective_against_Types.size(); tempcount++) {
-		multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,1))] = 2;
-		}
-		for(int tempcount = 0; tempcount<Datenbank.not_effective_against_Types.size(); tempcount++) {
-			multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,2))] = 0.5;
-			}
-		for(int tempcount = 0; tempcount<Datenbank.immune_Types.size(); tempcount++) {
-			multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,3))] = 0;
-			}
-		Datenbank.getTypes(secondType, 1, 2);
-		Datenbank.getTypes(secondType, 2, 2);
-		Datenbank.getTypes(secondType, 3, 2);
-		
-		for(int tempcount = 0; tempcount<Datenbank.effective_against_Types.size(); tempcount++) {
-		multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,1))] = 2;
-		}
-		for(int tempcount = 0; tempcount<Datenbank.not_effective_against_Types.size(); tempcount++) {
-			multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,2))] = 0.5;
-			}
-		for(int tempcount = 0; tempcount<Datenbank.immune_Types.size(); tempcount++) {
-			multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,3))] = 0;
-			}
-		overallMultiplicator.clear();
-		for(int tempcount = 0; tempcount<18; tempcount++) {
-			overallMultiplicator.add(multiplicator0[tempcount]*multiplicator1[tempcount]);
-			System.out.println(types.get(tempcount) + ": "+ overallMultiplicator.get(tempcount));
-			
-		}
+//		fenster.getFirstTypeLabel().setText("Defender: " + getCurrentType());
+//		firstType = getCurrentType();
+//		int j = getRand();
+//		while(j == i) {
+//			j = getRand();
+//		}
+//		setCurrentType(Datenbank.getTypes(j, 0));
+//		fenster.getSecondTypeLabel().setText(getCurrentType());
+//		secondType = getCurrentType();
+//		System.out.println(firstType +" "+ secondType);
+//		for(int tempcount = 0; tempcount <18;tempcount++) {
+//		multiplicator0[tempcount] = 1;
+//		multiplicator1[tempcount] = 1;
+//		}
+//		
+//		Datenbank.getTypes(firstType, 1, 2);
+//		Datenbank.getTypes(firstType, 2, 2);
+//		Datenbank.getTypes(firstType, 3, 2);
+//		for(int tempcount = 0; tempcount<Datenbank.Types.size(); tempcount++) {
+//			types.add(Datenbank.getTypes(tempcount,0));
+//		}
+//		
+//		for(int tempcount = 0; tempcount<Datenbank.effective_against_Types.size(); tempcount++) {
+//		multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,1))] = 2;
+//		}
+//		for(int tempcount = 0; tempcount<Datenbank.not_effective_against_Types.size(); tempcount++) {
+//			multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,2))] = 0.5;
+//			}
+//		for(int tempcount = 0; tempcount<Datenbank.immune_Types.size(); tempcount++) {
+//			multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,3))] = 0;
+//			}
+//		Datenbank.getTypes(secondType, 1, 2);
+//		Datenbank.getTypes(secondType, 2, 2);
+//		Datenbank.getTypes(secondType, 3, 2);
+//		
+//		for(int tempcount = 0; tempcount<Datenbank.effective_against_Types.size(); tempcount++) {
+//		multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,1))] = 2;
+//		}
+//		for(int tempcount = 0; tempcount<Datenbank.not_effective_against_Types.size(); tempcount++) {
+//			multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,2))] = 0.5;
+//			}
+//		for(int tempcount = 0; tempcount<Datenbank.immune_Types.size(); tempcount++) {
+//			multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,3))] = 0;
+//			}
+//		overallMultiplicator.clear();
+//		for(int tempcount = 0; tempcount<18; tempcount++) {
+//			overallMultiplicator.add(multiplicator0[tempcount]*multiplicator1[tempcount]);
+//			System.out.println(types.get(tempcount) + ": "+ overallMultiplicator.get(tempcount));
+//			
+//		}
 		
 	
 	}
@@ -554,8 +553,65 @@ public class Rechenzentrum {
 		panelMode = 2;
 		fenster.setCurrentPanel(4);
 		
+		Datenbank.getTypes("", 0, 0);
+		int i = getRand();
+		setCurrentType(Datenbank.getTypes(i, 0));
+		fenster.getFirstTypeLabel().setText("Defender: " + getCurrentType());
+		firstType = getCurrentType();
+		int j = getRand();
+		while(j == i) {
+			j = getRand();
+		}
+		setCurrentType(Datenbank.getTypes(j, 0));
+		fenster.getSecondTypeLabel().setText(getCurrentType());
+		secondType = getCurrentType();
+		System.out.println(firstType +" "+ secondType);
+		for(int tempcount = 0; tempcount <18;tempcount++) {
+		multiplicator0[tempcount] = 1;
+		multiplicator1[tempcount] = 1;
+		}
+		
+		Datenbank.getTypes(firstType, 1, 2);
+		Datenbank.getTypes(firstType, 2, 2);
+		Datenbank.getTypes(firstType, 3, 2);
+		for(int tempcount = 0; tempcount<Datenbank.Types.size(); tempcount++) {
+			types.add(Datenbank.getTypes(tempcount,0));
+		}
+		
+		for(int tempcount = 0; tempcount<Datenbank.effective_against_Types.size(); tempcount++) {
+		multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,1))] = 2;
+		}
+		for(int tempcount = 0; tempcount<Datenbank.not_effective_against_Types.size(); tempcount++) {
+			multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,2))] = 0.5;
+			}
+		for(int tempcount = 0; tempcount<Datenbank.immune_Types.size(); tempcount++) {
+			multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,3))] = 0;
+			}
+		Datenbank.getTypes(secondType, 1, 2);
+		Datenbank.getTypes(secondType, 2, 2);
+		Datenbank.getTypes(secondType, 3, 2);
+		
+		for(int tempcount = 0; tempcount<Datenbank.effective_against_Types.size(); tempcount++) {
+		multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,1))] = 2;
+		}
+		for(int tempcount = 0; tempcount<Datenbank.not_effective_against_Types.size(); tempcount++) {
+			multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,2))] = 0.5;
+			}
+		for(int tempcount = 0; tempcount<Datenbank.immune_Types.size(); tempcount++) {
+			multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,3))] = 0;
+			}
+		overallMultiplicator.clear();
+		for(int tempcount = 0; tempcount<18; tempcount++) {
+			overallMultiplicator.add(multiplicator0[tempcount]*multiplicator1[tempcount]);
+			System.out.println(types.get(tempcount) + ": "+ overallMultiplicator.get(tempcount));
+			
+		}
 		
 		
+	}
+	
+	public void multiplicatorButtons_ActionPerformedMethod(ActionEvent evt) {
+		System.out.println("LETS GO");
 	}
 
 	public String getCurrentType() {

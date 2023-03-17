@@ -37,6 +37,7 @@ public class Fenster extends JFrame {
 	private JButton randomButton = new JButton();
 	private JButton nothingButton = new JButton();
 	private ArrayList<JButton> typesbuttons = new ArrayList<JButton>();
+	private ArrayList<JButton> multiplicatorButtons = new ArrayList<JButton>();
 	private Rechenzentrum rech = null;
 	private Container cp;
 
@@ -165,6 +166,10 @@ public class Fenster extends JFrame {
 	public void twoTypeButton_ActionPerformed(ActionEvent evt) {
 
 		rech.twoTypeButton_ActionPerformedMethod();
+	}
+	
+	public void multiplicatorButtons_ActionPerformed(ActionEvent evt) {
+		rech.multiplicatorButtons_ActionPerformedMethod(evt);
 	}
 	// Ende Methoden
 
@@ -592,23 +597,55 @@ public class Fenster extends JFrame {
 			secondTypeLabel.setBounds(500,140,350,50);
 			twoTypesDefenderPanel.add(secondTypeLabel);
 			secondTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
-			secondTypeLabel.setVisible(true);
+			secondTypeLabel.setVisible(true);	
 			
-			Datenbank.getTypes("", 0, 0);
-			rech.setCurrentType(Datenbank.getTypes(rech.getRand(), 0));
-			firstTypeLabel.setText("Defender: " + rech.getCurrentType());
-			rech.setCurrentType(Datenbank.getTypes(rech.getRand(), 0));
-			secondTypeLabel.setText("Defender: " + rech.getCurrentType());
-			
-			randomButton.setBounds(275, 275, 100, 50);
-			randomButton.setText("Random");
-			randomButton.setMargin(new Insets(2, 2, 2, 2));
-			randomButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					randomButton_ActionPerformed(evt);
+			for (int i = 0; i < 6; i++) {
+				multiplicatorButtons.add(new JButton());
+			}
+			count = 0;
+			for (int j = 0; j < 6; j++) {
+				multiplicatorButtons.get(count).setBounds(100 * j + 100, 300, 85, 25);
+				multiplicatorButtons.get(count).setMargin(new Insets(2, 2, 2, 2));
+				switch(j) {
+				case 0:
+					multiplicatorButtons.get(count).setText("0");
+					break;
+				case 1:
+					multiplicatorButtons.get(count).setText("0.25");
+					break;
+				case 2:
+					multiplicatorButtons.get(count).setText("0.5");
+					break;
+				case 3:
+					multiplicatorButtons.get(count).setText("1");
+					break;
+				case 4:
+					multiplicatorButtons.get(count).setText("2");
+					break;
+				case 5:
+					multiplicatorButtons.get(count).setText("4");
+					break;
 				}
-			});
-			twoTypesDefenderPanel.add(randomButton);
+				multiplicatorButtons.get(count).addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						multiplicatorButtons_ActionPerformed(evt);
+					}
+				});
+				twoTypesDefenderPanel.add(multiplicatorButtons.get(count));
+				multiplicatorButtons.get(count).setVisible(true);
+				count++;
+			}
+			
+//			randomButton.setBounds(275, 275, 100, 50);
+//			randomButton.setText("Random");
+//			randomButton.setMargin(new Insets(2, 2, 2, 2));
+//			randomButton.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent evt) {
+//					randomButton_ActionPerformed(evt);
+//				}
+//			});
+//			twoTypesDefenderPanel.add(randomButton);
+			
 			
 			
 		}
@@ -701,6 +738,15 @@ public class Fenster extends JFrame {
 	public void setTwoTypesDefenderPanel(JPanel twoTypesDefenderPanel) {
 		this.twoTypesDefenderPanel = twoTypesDefenderPanel;
 	}
+
+	public ArrayList<JButton> getMultiplicatorButtons() {
+		return multiplicatorButtons;
+	}
+
+	public void setMultiplicatorButtons(ArrayList<JButton> multiplicatorButtons) {
+		this.multiplicatorButtons = multiplicatorButtons;
+	}
+	
 
 	// Ende von Getter und Settern
 
