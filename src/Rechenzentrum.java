@@ -556,16 +556,15 @@ public class Rechenzentrum {
 		Datenbank.getTypes("", 0, 0);
 		int i = getRand();
 		setCurrentType(Datenbank.getTypes(i, 0));
-		fenster.getFirstTypeLabel().setText("Defender: " + getCurrentType());
 		firstType = getCurrentType();
 		int j = getRand();
 		while(j == i) {
 			j = getRand();
 		}
 		setCurrentType(Datenbank.getTypes(j, 0));
-		fenster.getSecondTypeLabel().setText(getCurrentType());
 		secondType = getCurrentType();
-		System.out.println(firstType +" "+ secondType);
+		fenster.getTypeLabel().setText("Defender: " + firstType +"/" +secondType);
+		System.out.println(firstType +"/"+ secondType);
 		for(int tempcount = 0; tempcount <18;tempcount++) {
 		multiplicator0[tempcount] = 1;
 		multiplicator1[tempcount] = 1;

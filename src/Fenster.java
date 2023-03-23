@@ -8,8 +8,8 @@ import java.util.*;
 public class Fenster extends JFrame {
 
 	private JLabel currentTypeLabel = new JLabel();
-	private JLabel firstTypeLabel = new JLabel(); 
-	private JLabel secondTypeLabel = new JLabel(); 
+	private JLabel TypeLabel = new JLabel(); 
+	//private JLabel secondTypeLabel = new JLabel(); 
 	private JLabel defenderType = new JLabel();
 	private JLabel modeLabel = new JLabel();
 	private JTextPane usedType = new JTextPane();
@@ -589,15 +589,15 @@ public class Fenster extends JFrame {
 			chooseSumOfTypesPanel.add(twoTypeButton);
 			break;
 		case 4:
-			firstTypeLabel.setBounds(150, 140, 350, 50);
-			twoTypesDefenderPanel.add(firstTypeLabel);
-			firstTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
-			firstTypeLabel.setVisible(true);
+			TypeLabel.setBounds(150, 140, 350, 50);
+			twoTypesDefenderPanel.add(TypeLabel);
+			TypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+			TypeLabel.setVisible(true);
 			
-			secondTypeLabel.setBounds(500,140,350,50);
-			twoTypesDefenderPanel.add(secondTypeLabel);
-			secondTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
-			secondTypeLabel.setVisible(true);	
+//			secondTypeLabel.setBounds(500,140,350,50);
+//			twoTypesDefenderPanel.add(secondTypeLabel);
+//			secondTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+//			secondTypeLabel.setVisible(true);	
 			
 			for (int i = 0; i < 6; i++) {
 				multiplicatorButtons.add(new JButton());
@@ -651,21 +651,21 @@ public class Fenster extends JFrame {
 		}
 	}
 
-	public JLabel getFirstTypeLabel() {
-		return firstTypeLabel;
+	public JLabel getTypeLabel() {
+		return TypeLabel;
 	}
 
 	public void setFirstTypeLabel(JLabel firstTypeLabel) {
-		this.firstTypeLabel = firstTypeLabel;
+		this.TypeLabel = firstTypeLabel;
 	}
 
-	public JLabel getSecondTypeLabel() {
-		return secondTypeLabel;
-	}
-
-	public void setSecondTypeLabel(JLabel secondTypeLabel) {
-		this.secondTypeLabel = secondTypeLabel;
-	}
+//	public JLabel getSecondTypeLabel() {
+//		return secondTypeLabel;
+//	}
+//
+//	public void setSecondTypeLabel(JLabel secondTypeLabel) {
+//		this.secondTypeLabel = secondTypeLabel;
+//	}
 
 	public JButton getAttackerSide() {
 		return attackerSide;
