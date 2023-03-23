@@ -11,13 +11,12 @@ public class Rechenzentrum {
 	private ArrayList<String> comparedTypes = new ArrayList<String>();
 	private ArrayList<String> compareTypes = new ArrayList<String>();
 	private ArrayList<String> usedTypes = new ArrayList<String>();
-	
+
 	private ArrayList<String> types = new ArrayList<String>();
-	private double[] multiplicator0 = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-	private double[] multiplicator1 = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+	private double[] multiplicator0 = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+	private double[] multiplicator1 = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 	private ArrayList<Double> overallMultiplicator = new ArrayList<Double>();
-			
-	
+
 	private Random rand = new Random();
 	private int random;
 	private int panelMode;
@@ -27,8 +26,8 @@ public class Rechenzentrum {
 	private String resultPressedText = "<html><b>";
 	private String resultShouldPressedText = "<html><b>";
 	private String usedTypeText = "<html><b>";
-	private String[] nameMode = {"Effective", "Not Effective", "Immune"} ;
-	private String[] attackerOrDefender = {"","Attacker: ","Defender: "};
+	private String[] nameMode = { "Effective", "Not Effective", "Immune" };
+	private String[] attackerOrDefender = { "", "Attacker: ", "Defender: " };
 	private Fenster fenster;
 
 	public void init_Gui(Fenster Fenster) {
@@ -44,7 +43,7 @@ public class Rechenzentrum {
 		if (fenster.getEffectiveButton().getText() == "Effective") {
 			fenster.getCurrentTypeLabel().setVisible(true);
 			fenster.getDefenderType().setVisible(true);
-		Datenbank.getTypes(getCurrentType(), 1, getPanelMode());
+			Datenbank.getTypes(getCurrentType(), 1, getPanelMode());
 
 			clearCompareTypes();
 			addCompareTypes(1);
@@ -107,58 +106,7 @@ public class Rechenzentrum {
 		Datenbank.getTypes("", 0, 0);
 		int i = getRand();
 		setCurrentType(Datenbank.getTypes(i, 0));
-//		fenster.getFirstTypeLabel().setText("Defender: " + getCurrentType());
-//		firstType = getCurrentType();
-//		int j = getRand();
-//		while(j == i) {
-//			j = getRand();
-//		}
-//		setCurrentType(Datenbank.getTypes(j, 0));
-//		fenster.getSecondTypeLabel().setText(getCurrentType());
-//		secondType = getCurrentType();
-//		System.out.println(firstType +" "+ secondType);
-//		for(int tempcount = 0; tempcount <18;tempcount++) {
-//		multiplicator0[tempcount] = 1;
-//		multiplicator1[tempcount] = 1;
-//		}
-//		
-//		Datenbank.getTypes(firstType, 1, 2);
-//		Datenbank.getTypes(firstType, 2, 2);
-//		Datenbank.getTypes(firstType, 3, 2);
-//		for(int tempcount = 0; tempcount<Datenbank.Types.size(); tempcount++) {
-//			types.add(Datenbank.getTypes(tempcount,0));
-//		}
-//		
-//		for(int tempcount = 0; tempcount<Datenbank.effective_against_Types.size(); tempcount++) {
-//		multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,1))] = 2;
-//		}
-//		for(int tempcount = 0; tempcount<Datenbank.not_effective_against_Types.size(); tempcount++) {
-//			multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,2))] = 0.5;
-//			}
-//		for(int tempcount = 0; tempcount<Datenbank.immune_Types.size(); tempcount++) {
-//			multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,3))] = 0;
-//			}
-//		Datenbank.getTypes(secondType, 1, 2);
-//		Datenbank.getTypes(secondType, 2, 2);
-//		Datenbank.getTypes(secondType, 3, 2);
-//		
-//		for(int tempcount = 0; tempcount<Datenbank.effective_against_Types.size(); tempcount++) {
-//		multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,1))] = 2;
-//		}
-//		for(int tempcount = 0; tempcount<Datenbank.not_effective_against_Types.size(); tempcount++) {
-//			multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,2))] = 0.5;
-//			}
-//		for(int tempcount = 0; tempcount<Datenbank.immune_Types.size(); tempcount++) {
-//			multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,3))] = 0;
-//			}
-//		overallMultiplicator.clear();
-//		for(int tempcount = 0; tempcount<18; tempcount++) {
-//			overallMultiplicator.add(multiplicator0[tempcount]*multiplicator1[tempcount]);
-//			System.out.println(types.get(tempcount) + ": "+ overallMultiplicator.get(tempcount));
-//			
-//		}
-		
-	
+
 	}
 
 	public void typesbuttons_ActionPerformedMethod(ActionEvent evt, String tempTypes) {
@@ -315,7 +263,7 @@ public class Rechenzentrum {
 	}
 
 	public void backButton_ActionPerformedMethod(ActionEvent evt, int done) {
-		int tempMode = getMode() -1;
+		int tempMode = getMode() - 1;
 		setMode(0);
 		fenster.getModeLabel().setVisible(false);
 		fenster.getNothingButton().setVisible(false);
@@ -346,10 +294,10 @@ public class Rechenzentrum {
 		if (done == 1) {
 			fenster.getCurrentTypeLabel().setText("Results:");
 			fenster.getCurrentTypeLabel().setBounds(150, 140, 350, 50);
-			
+
 			fenster.getModeLabel().setText(nameMode[tempMode]);
 			fenster.getModeLabel().setVisible(true);
-			
+
 			for (int i = 0; i < 18; i++) {
 				fenster.getTypesbuttons().get(i).setVisible(false);
 
@@ -537,7 +485,7 @@ public class Rechenzentrum {
 		fenster.revalidate();
 		panelMode = 3;
 	}
-	
+
 	public void oneTypeButton_ActionPerformedMethod() {
 		fenster.getCp().remove(fenster.getChooseSumOfTypesPanel());
 		fenster.getCp().add(fenster.getDefenderPanel());
@@ -545,72 +493,94 @@ public class Rechenzentrum {
 		panelMode = 2;
 		fenster.setCurrentPanel(2);
 	}
-	
+
 	public void twoTypeButton_ActionPerformedMethod() {
 		fenster.getCp().remove(fenster.getChooseSumOfTypesPanel());
 		fenster.getCp().add(fenster.getTwoTypesDefenderPanel());
 		fenster.revalidate();
 		panelMode = 2;
 		fenster.setCurrentPanel(4);
-		
+
 		Datenbank.getTypes("", 0, 0);
 		int i = getRand();
 		setCurrentType(Datenbank.getTypes(i, 0));
 		firstType = getCurrentType();
 		int j = getRand();
-		while(j == i) {
+		while (j == i) {
 			j = getRand();
 		}
 		setCurrentType(Datenbank.getTypes(j, 0));
 		secondType = getCurrentType();
-		fenster.getTypeLabel().setText("Defender: " + firstType +"/" +secondType);
-		System.out.println(firstType +"/"+ secondType);
-		for(int tempcount = 0; tempcount <18;tempcount++) {
-		multiplicator0[tempcount] = 1;
-		multiplicator1[tempcount] = 1;
+		fenster.getTypeLabel().setText("Defender: " + firstType + "/" + secondType);
+		System.out.println(firstType + "/" + secondType);
+		for (int tempcount = 0; tempcount < 18; tempcount++) {
+			multiplicator0[tempcount] = 1;
+			multiplicator1[tempcount] = 1;
 		}
-		
+
 		Datenbank.getTypes(firstType, 1, 2);
 		Datenbank.getTypes(firstType, 2, 2);
 		Datenbank.getTypes(firstType, 3, 2);
-		for(int tempcount = 0; tempcount<Datenbank.Types.size(); tempcount++) {
-			types.add(Datenbank.getTypes(tempcount,0));
+		for (int tempcount = 0; tempcount < Datenbank.Types.size(); tempcount++) {
+			types.add(Datenbank.getTypes(tempcount, 0));
 		}
-		
-		for(int tempcount = 0; tempcount<Datenbank.effective_against_Types.size(); tempcount++) {
-		multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,1))] = 2;
+
+		for (int tempcount = 0; tempcount < Datenbank.effective_against_Types.size(); tempcount++) {
+			multiplicator0[types.indexOf(Datenbank.getTypes(tempcount, 1))] = 2;
 		}
-		for(int tempcount = 0; tempcount<Datenbank.not_effective_against_Types.size(); tempcount++) {
-			multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,2))] = 0.5;
-			}
-		for(int tempcount = 0; tempcount<Datenbank.immune_Types.size(); tempcount++) {
-			multiplicator0[types.indexOf(Datenbank.getTypes(tempcount,3))] = 0;
-			}
+		for (int tempcount = 0; tempcount < Datenbank.not_effective_against_Types.size(); tempcount++) {
+			multiplicator0[types.indexOf(Datenbank.getTypes(tempcount, 2))] = 0.5;
+		}
+		for (int tempcount = 0; tempcount < Datenbank.immune_Types.size(); tempcount++) {
+			multiplicator0[types.indexOf(Datenbank.getTypes(tempcount, 3))] = 0;
+		}
 		Datenbank.getTypes(secondType, 1, 2);
 		Datenbank.getTypes(secondType, 2, 2);
 		Datenbank.getTypes(secondType, 3, 2);
-		
-		for(int tempcount = 0; tempcount<Datenbank.effective_against_Types.size(); tempcount++) {
-		multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,1))] = 2;
+
+		for (int tempcount = 0; tempcount < Datenbank.effective_against_Types.size(); tempcount++) {
+			multiplicator1[types.indexOf(Datenbank.getTypes(tempcount, 1))] = 2;
 		}
-		for(int tempcount = 0; tempcount<Datenbank.not_effective_against_Types.size(); tempcount++) {
-			multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,2))] = 0.5;
-			}
-		for(int tempcount = 0; tempcount<Datenbank.immune_Types.size(); tempcount++) {
-			multiplicator1[types.indexOf(Datenbank.getTypes(tempcount,3))] = 0;
-			}
+		for (int tempcount = 0; tempcount < Datenbank.not_effective_against_Types.size(); tempcount++) {
+			multiplicator1[types.indexOf(Datenbank.getTypes(tempcount, 2))] = 0.5;
+		}
+		for (int tempcount = 0; tempcount < Datenbank.immune_Types.size(); tempcount++) {
+			multiplicator1[types.indexOf(Datenbank.getTypes(tempcount, 3))] = 0;
+		}
 		overallMultiplicator.clear();
-		for(int tempcount = 0; tempcount<18; tempcount++) {
-			overallMultiplicator.add(multiplicator0[tempcount]*multiplicator1[tempcount]);
-			System.out.println(types.get(tempcount) + ": "+ overallMultiplicator.get(tempcount));
-			
+		for (int tempcount = 0; tempcount < 18; tempcount++) {
+			overallMultiplicator.add(multiplicator0[tempcount] * multiplicator1[tempcount]);
+			System.out.println(types.get(tempcount) + ": " + overallMultiplicator.get(tempcount));
+
 		}
-		
-		
+
+		setCurrentType(Datenbank.getTypes(getRand(), 0));
+
+		fenster.getAttackTypeLabel().setText("Attack with: " + currentType);
+		comparedTypes.add(currentType);
+
 	}
-	
-	public void multiplicatorButtons_ActionPerformedMethod(ActionEvent evt) {
-		System.out.println("LETS GO");
+
+	public void multiplicatorButtons_ActionPerformedMethod(ActionEvent evt, double tempMultiplicator) {
+		int rand = getRand();
+		setCurrentType(Datenbank.getTypes(rand, 0));
+		if (comparedTypes.size() < 7) {
+			while (comparedTypes.contains(currentType)) {
+				rand = getRand();
+				setCurrentType(Datenbank.getTypes(rand, 0));
+			}
+		}else {
+			fenster.getAttackTypeLabel().setVisible(false);
+			fenster.getTypeLabel().setVisible(false);
+			for(int i = 0;i<6 ;i++) {
+			fenster.getMultiplicatorButtons(i).setVisible(false);
+			}
+		}
+
+		fenster.getAttackTypeLabel().setText("Attack with: " + currentType);
+		comparedTypes.add(currentType);
+
+		System.out.println(comparedTypes);
 	}
 
 	public String getCurrentType() {
@@ -736,5 +706,4 @@ public class Rechenzentrum {
 		this.panelMode = panelMode;
 	}
 
-	
 }

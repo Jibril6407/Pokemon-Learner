@@ -168,8 +168,8 @@ public class Fenster extends JFrame {
 		rech.twoTypeButton_ActionPerformedMethod();
 	}
 	
-	public void multiplicatorButtons_ActionPerformed(ActionEvent evt) {
-		rech.multiplicatorButtons_ActionPerformedMethod(evt);
+	public void multiplicatorButtons_ActionPerformed(ActionEvent evt,double tempMultiplicator) {
+		rech.multiplicatorButtons_ActionPerformedMethod(evt, tempMultiplicator);
 	}
 	// Ende Methoden
 
@@ -598,40 +598,72 @@ public class Fenster extends JFrame {
 			twoTypesDefenderPanel.add(attackTypeLabel);
 			attackTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 			attackTypeLabel.setVisible(true);
-			attackTypeLabel.setText("Attack with: ");
 			
 			for (int i = 0; i < 6; i++) {
 				multiplicatorButtons.add(new JButton());
 			}
 			count = 0;
 			for (int j = 0; j < 6; j++) {
+				double tempMultiplicator;
 				multiplicatorButtons.get(count).setBounds(100 * j + 100, 300, 85, 25);
 				multiplicatorButtons.get(count).setMargin(new Insets(2, 2, 2, 2));
 				switch(j) {
 				case 0:
 					multiplicatorButtons.get(count).setText("0");
+					tempMultiplicator = 0;
+					multiplicatorButtons.get(count).addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+						}
+					});
 					break;
 				case 1:
 					multiplicatorButtons.get(count).setText("0.25");
+					tempMultiplicator = 0.25;
+					multiplicatorButtons.get(count).addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+						}
+					});
 					break;
 				case 2:
 					multiplicatorButtons.get(count).setText("0.5");
+					tempMultiplicator = 0.5;
+					multiplicatorButtons.get(count).addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+						}
+					});
 					break;
 				case 3:
 					multiplicatorButtons.get(count).setText("1");
+					tempMultiplicator = 1;
+					multiplicatorButtons.get(count).addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+						}
+					});
 					break;
 				case 4:
 					multiplicatorButtons.get(count).setText("2");
+					tempMultiplicator = 2;
+					multiplicatorButtons.get(count).addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+						}
+					});
 					break;
 				case 5:
 					multiplicatorButtons.get(count).setText("4");
+					tempMultiplicator = 4;
+					multiplicatorButtons.get(count).addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+						}
+					});
 					break;
 				}
-				multiplicatorButtons.get(count).addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent evt) {
-						multiplicatorButtons_ActionPerformed(evt);
-					}
-				});
+				
 				twoTypesDefenderPanel.add(multiplicatorButtons.get(count));
 				multiplicatorButtons.get(count).setVisible(true);
 				count++;
@@ -740,8 +772,8 @@ public class Fenster extends JFrame {
 		this.twoTypesDefenderPanel = twoTypesDefenderPanel;
 	}
 
-	public ArrayList<JButton> getMultiplicatorButtons() {
-		return multiplicatorButtons;
+	public JButton getMultiplicatorButtons(int temp) {
+		return multiplicatorButtons.get(temp);
 	}
 
 	public void setMultiplicatorButtons(ArrayList<JButton> multiplicatorButtons) {
