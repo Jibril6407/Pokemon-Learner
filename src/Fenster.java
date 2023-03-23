@@ -9,7 +9,7 @@ public class Fenster extends JFrame {
 
 	private JLabel currentTypeLabel = new JLabel();
 	private JLabel TypeLabel = new JLabel(); 
-	//private JLabel secondTypeLabel = new JLabel(); 
+	private JLabel attackTypeLabel = new JLabel(); 
 	private JLabel defenderType = new JLabel();
 	private JLabel modeLabel = new JLabel();
 	private JTextPane usedType = new JTextPane();
@@ -594,10 +594,11 @@ public class Fenster extends JFrame {
 			TypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 			TypeLabel.setVisible(true);
 			
-//			secondTypeLabel.setBounds(500,140,350,50);
-//			twoTypesDefenderPanel.add(secondTypeLabel);
-//			secondTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
-//			secondTypeLabel.setVisible(true);	
+			attackTypeLabel.setBounds(150,350,350,50);
+			twoTypesDefenderPanel.add(attackTypeLabel);
+			attackTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+			attackTypeLabel.setVisible(true);
+			attackTypeLabel.setText("Attack with: ");
 			
 			for (int i = 0; i < 6; i++) {
 				multiplicatorButtons.add(new JButton());
@@ -659,13 +660,13 @@ public class Fenster extends JFrame {
 		this.TypeLabel = firstTypeLabel;
 	}
 
-//	public JLabel getSecondTypeLabel() {
-//		return secondTypeLabel;
-//	}
-//
-//	public void setSecondTypeLabel(JLabel secondTypeLabel) {
-//		this.secondTypeLabel = secondTypeLabel;
-//	}
+	public JLabel getAttackTypeLabel() {
+		return attackTypeLabel;
+	}
+
+	public void setAttackTypeLabel(JLabel secondTypeLabel) {
+		this.attackTypeLabel = secondTypeLabel;
+	}
 
 	public JButton getAttackerSide() {
 		return attackerSide;
