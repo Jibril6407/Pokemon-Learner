@@ -35,7 +35,7 @@ public class Rechenzentrum {
 	}
 
 	public Rechenzentrum() {
-
+		
 	}
 
 	public void effectiveButton_ActionPerformedMethode() {
@@ -57,6 +57,8 @@ public class Rechenzentrum {
 				fenster.getTypesbuttons().get(i).setVisible(true);
 			}
 		}
+
+		
 	}
 
 	public void notEffectiveButton_ActionPerformedMethod() {
@@ -485,6 +487,7 @@ public class Rechenzentrum {
 		fenster.getCp().add(fenster.getBattlePanel());
 		fenster.revalidate();
 		panelMode = 3;
+		fenster.setCurrentPanel(5);
 	}
 
 	public void oneTypeButton_ActionPerformedMethod() {

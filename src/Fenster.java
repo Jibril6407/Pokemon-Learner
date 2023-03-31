@@ -12,6 +12,7 @@ public class Fenster extends JFrame {
 	private JLabel attackTypeLabel = new JLabel(); 
 	private JLabel defenderType = new JLabel();
 	private JLabel modeLabel = new JLabel();
+	private JLabel picLabel = new JLabel();
 	private JTextPane usedType = new JTextPane();
 	private JTextPane resultsPressed = new JTextPane();
 	private JTextPane resultsShouldPressed = new JTextPane();
@@ -29,6 +30,7 @@ public class Fenster extends JFrame {
 
 	private JButton oneTypeButton = new JButton();
 	private JButton twoTypeButton = new JButton();
+	private JButton tempButton = new JButton();
 
 	private JButton backButton = new JButton();
 	private JButton effectiveButton = new JButton();
@@ -40,6 +42,7 @@ public class Fenster extends JFrame {
 	private ArrayList<JButton> multiplicatorButtons = new ArrayList<JButton>();
 	private Rechenzentrum rech = null;
 	private Container cp;
+	private int pokecount = 0;
 
 	public Fenster(Rechenzentrum r) {
 		// Frame-Initialisierung
@@ -117,6 +120,7 @@ public class Fenster extends JFrame {
 	public void battleModeButton_ActionPerformed(ActionEvent evt) {
 
 		rech.battleModeButton_ActionPerformedMethod();
+		
 	}
 
 	public void effectiveButton_ActionPerformed(ActionEvent evt) {
@@ -686,6 +690,32 @@ public class Fenster extends JFrame {
 				multiplicatorButtons.get(count).setVisible(true);
 				count++;
 			}
+			break;
+		case 5:
+			ImageIcon imageIcon = new ImageIcon();
+			imageIcon = new ImageIcon("Pokemon Pixel Icons/"+pokecount+".png");
+			Image image = imageIcon.getImage(); 
+			Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH); 
+			imageIcon = new ImageIcon(newimg);
+			picLabel = new JLabel(imageIcon);
+			picLabel.setBounds(100, 100, 300, 300);
+			picLabel.setVisible(true);
+			
+			battlePanel.add(picLabel);
+			
+			tempButton.setBounds(0, 0, 100, 50);
+			tempButton.setText("Temp");
+			tempButton.setMargin(new Insets(2, 2, 2, 2));
+			tempButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					pokecount++;
+					setPicLabel(pokecount);
+					
+				}
+			});
+			battlePanel.add(tempButton);
+
+			break;
 			
 			
 //			randomButton.setBounds(275, 275, 100, 50);
@@ -799,6 +829,15 @@ public class Fenster extends JFrame {
 		this.multiplicatorButtons = multiplicatorButtons;
 	}
 	
+	public void setPicLabel(int i) {
+		ImageIcon imageIcon = new ImageIcon("Pokemon Pixel Icons/"+i+".png");
+		Image image = imageIcon.getImage(); 
+		Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_AREA_AVERAGING); 
+		imageIcon = new ImageIcon(newimg);
+		picLabel.setIcon(imageIcon);
+		
+	}
+
 
 	// Ende von Getter und Settern
 
