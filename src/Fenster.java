@@ -599,6 +599,24 @@ public class Fenster extends JFrame {
 			attackTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 			attackTypeLabel.setVisible(true);
 			
+			usedType.setBounds(20, 200, 70, 450);
+			twoTypesDefenderPanel.add(usedType);
+			usedType.setVisible(false);
+			usedType.setEditable(false);
+			usedType.setEditorKit(new HTMLEditorKit());
+			
+			resultsPressed.setBounds(100, 200, 420, 450);
+			twoTypesDefenderPanel.add(resultsPressed);
+			resultsPressed.setVisible(false);
+			resultsPressed.setEditable(false);
+			resultsPressed.setEditorKit(new HTMLEditorKit());
+
+			resultsShouldPressed.setBounds(530, 200, 420, 450);
+			twoTypesDefenderPanel.add(resultsShouldPressed);
+			resultsShouldPressed.setVisible(false);
+			resultsShouldPressed.setEditable(false);
+			resultsShouldPressed.setEditorKit(new HTMLEditorKit());
+			
 			for (int i = 0; i < 6; i++) {
 				multiplicatorButtons.add(new JButton());
 			}
@@ -668,6 +686,7 @@ public class Fenster extends JFrame {
 				multiplicatorButtons.get(count).setVisible(true);
 				count++;
 			}
+			
 			
 //			randomButton.setBounds(275, 275, 100, 50);
 //			randomButton.setText("Random");

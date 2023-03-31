@@ -149,7 +149,7 @@ public class Rechenzentrum {
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
 						;
-						fenster.backButton_ActionPerformed(evt, 1);
+						backButton_ActionPerformedMethod(evt, 1);
 						continue;
 					}
 				}
@@ -196,7 +196,7 @@ public class Rechenzentrum {
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
-						fenster.backButton_ActionPerformed(evt, 1);
+						backButton_ActionPerformedMethod(evt, 1);
 						continue;
 					}
 				}
@@ -242,7 +242,7 @@ public class Rechenzentrum {
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
-						fenster.backButton_ActionPerformed(evt, 1);
+						backButton_ActionPerformedMethod(evt, 1);
 						continue;
 					}
 				}
@@ -368,7 +368,7 @@ public class Rechenzentrum {
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
-						fenster.backButton_ActionPerformed(evt, 1);
+						backButton_ActionPerformedMethod(evt, 1);
 						continue;
 					}
 				}
@@ -405,7 +405,8 @@ public class Rechenzentrum {
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
-						fenster.backButton_ActionPerformed(evt, 1);
+						
+						backButton_ActionPerformedMethod(evt, 1);
 						continue;
 					}
 				}
@@ -444,7 +445,7 @@ public class Rechenzentrum {
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
-						fenster.backButton_ActionPerformed(evt, 1);
+						backButton_ActionPerformedMethod(evt, 1);
 						continue;
 					}
 				}
@@ -563,22 +564,36 @@ public class Rechenzentrum {
 
 	public void multiplicatorButtons_ActionPerformedMethod(ActionEvent evt, double tempMultiplicator) {
 		int rand = getRand();
+
+		
 		setCurrentType(Datenbank.getTypes(rand, 0));
 		if (comparedTypes.size() < 7) {
+			
 			while (comparedTypes.contains(currentType)) {
 				rand = getRand();
 				setCurrentType(Datenbank.getTypes(rand, 0));
 			}
+
+			fenster.getAttackTypeLabel().setText("Attack with: " + currentType);
+			comparedTypes.add(currentType);
 		}else {
 			fenster.getAttackTypeLabel().setVisible(false);
 			fenster.getTypeLabel().setVisible(false);
-			for(int i = 0;i<6 ;i++) {
+			for(int i = 0;i < 6 ;i++) {
 			fenster.getMultiplicatorButtons(i).setVisible(false);
 			}
+			for(int i = 0; i<7;i++) {
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + comparedTypes.get(i) + "<hr>"
+						+ "<b>";
+			}
+			
+			usedTypeText = usedTypeText +  "</b></font></html>";
+			fenster.getResultsPressed().setVisible(true);
+			fenster.getResultsShouldPressed().setVisible(true);
+			fenster.getUsedType().setVisible(true);
+			fenster.getUsedType().setText(usedTypeText);
 		}
 
-		fenster.getAttackTypeLabel().setText("Attack with: " + currentType);
-		comparedTypes.add(currentType);
 
 		System.out.println(comparedTypes);
 	}
