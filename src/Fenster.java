@@ -832,7 +832,7 @@ public class Fenster extends JFrame {
 	public void setPicLabel(int i) {
 		ImageIcon imageIcon = new ImageIcon("Pokemon Pixel Icons/"+i+".png");
 		Image image = imageIcon.getImage(); 
-		Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_AREA_AVERAGING); 
+		Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_REPLICATE); 
 		imageIcon = new ImageIcon(newimg);
 		picLabel.setIcon(imageIcon);
 		
