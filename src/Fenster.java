@@ -352,7 +352,7 @@ public class Fenster extends JFrame {
 			resultsShouldPressed.setEditorKit(new HTMLEditorKit());
 
 			Datenbank.getTypes("", 0, 0);
-			rech.setCurrentType(Datenbank.getTypes(rech.getRand(), 0));
+			rech.setCurrentType(Datenbank.getTypes(rech.getRand(Datenbank.Types.size()), 0));
 			currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
 			backButton.setBounds(0, 0, 100, 50);
 			backButton.setText("Back");
@@ -478,7 +478,7 @@ public class Fenster extends JFrame {
 			resultsShouldPressed.setEditorKit(new HTMLEditorKit());
 
 			Datenbank.getTypes("", 0, 0);
-			rech.setCurrentType(Datenbank.getTypes(rech.getRand(), 0));
+			rech.setCurrentType(Datenbank.getTypes(rech.getRand(Datenbank.Types.size()), 0));
 			currentTypeLabel.setText("Defender: " + rech.getCurrentType());
 			backButton.setBounds(0, 0, 100, 50);
 			backButton.setText("Back");
@@ -829,12 +829,17 @@ public class Fenster extends JFrame {
 		this.multiplicatorButtons = multiplicatorButtons;
 	}
 	
-	public void setPicLabel(int i) {
+	public void setPicLabel(int i) {	
+		
 		ImageIcon imageIcon = new ImageIcon("Pokemon Pixel Icons/"+i+".png");
 		Image image = imageIcon.getImage(); 
 		Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_REPLICATE); 
 		imageIcon = new ImageIcon(newimg);
+		picLabel = new JLabel(imageIcon);
+		picLabel.setBounds(450, -40, 300, 300);
+		picLabel.setVisible(true);
 		picLabel.setIcon(imageIcon);
+		twoTypesDefenderPanel.add(picLabel);
 		
 	}
 

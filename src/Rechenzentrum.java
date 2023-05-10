@@ -16,6 +16,8 @@ public class Rechenzentrum {
 	private double[] multiplicator0 = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 	private double[] multiplicator1 = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 	private ArrayList<Double> overallMultiplicator = new ArrayList<Double>();
+	private ArrayList<Integer> MultiplicatorIndex = new ArrayList<Integer>();
+	private ArrayList<Double> pressedMultiplicator = new ArrayList<Double>();
 
 	private Random rand = new Random();
 	private int random;
@@ -35,7 +37,7 @@ public class Rechenzentrum {
 	}
 
 	public Rechenzentrum() {
-		
+
 	}
 
 	public void effectiveButton_ActionPerformedMethode() {
@@ -58,7 +60,6 @@ public class Rechenzentrum {
 			}
 		}
 
-		
 	}
 
 	public void notEffectiveButton_ActionPerformedMethod() {
@@ -106,7 +107,7 @@ public class Rechenzentrum {
 
 	public void randomButton_ActionPerformedMethod() {
 		Datenbank.getTypes("", 0, 0);
-		int i = getRand();
+		int i = getRand(Datenbank.Types.size());
 		setCurrentType(Datenbank.getTypes(i, 0));
 
 	}
@@ -139,12 +140,12 @@ public class Rechenzentrum {
 				setAllComparedTypes(getComparedTypes());
 				setUsedTypes();
 				clearComparedTypes();
-				int i = getRand();
+				int i = getRand(Datenbank.Types.size());
 				setCurrentType(Datenbank.getTypes(i, 0));
 				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 				while (getUsedTypes().contains(getCurrentType())) {
-					i = getRand();
+					i = getRand(Datenbank.Types.size());
 					setCurrentType(Datenbank.getTypes(i, 0));
 					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
@@ -187,12 +188,12 @@ public class Rechenzentrum {
 				setAllComparedTypes(getComparedTypes());
 				setUsedTypes();
 				clearComparedTypes();
-				int i = getRand();
+				int i = getRand(Datenbank.Types.size());
 				setCurrentType(Datenbank.getTypes(i, 0));
 				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 				while (getUsedTypes().contains(getCurrentType())) {
-					i = getRand();
+					i = getRand(Datenbank.Types.size());
 					setCurrentType(Datenbank.getTypes(i, 0));
 					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
@@ -233,12 +234,12 @@ public class Rechenzentrum {
 				setAllComparedTypes(getComparedTypes());
 				setUsedTypes();
 				clearComparedTypes();
-				int i = getRand();
+				int i = getRand(Datenbank.Types.size());
 				setCurrentType(Datenbank.getTypes(i, 0));
 				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 				while (getUsedTypes().contains(getCurrentType())) {
-					i = getRand();
+					i = getRand(Datenbank.Types.size());
 					setCurrentType(Datenbank.getTypes(i, 0));
 					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
@@ -275,9 +276,6 @@ public class Rechenzentrum {
 		System.out.println("Pressed:                      " + getAllComparedTypes());
 		System.out.println("What you should have pressed: " + getAllCompareTypes());
 		if (done == 0) {
-			resultPressedText = "<html><b>";
-			resultShouldPressedText = "<html><b>";
-			usedTypeText = "<html><b>";
 			fenster.getCurrentTypeLabel().setVisible(false);
 			fenster.getEffectiveButton().setVisible(true);
 			fenster.getNotEffectiveButton().setVisible(true);
@@ -340,7 +338,7 @@ public class Rechenzentrum {
 			return;
 		}
 
-		int i = getRand();
+		int i = getRand(Datenbank.Types.size());
 		setGuessTries(getGuessTries() + 1);
 		setNothingButtonPressed(getNothingButtonPressed() + 1);
 
@@ -359,12 +357,12 @@ public class Rechenzentrum {
 				setAllComparedTypes(getComparedTypes());
 				setUsedTypes();
 				clearComparedTypes();
-				i = getRand();
+				i = getRand(Datenbank.Types.size());
 				setCurrentType(Datenbank.getTypes(i, 0));
 				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 				while (getUsedTypes().contains(getCurrentType())) {
-					i = getRand();
+					i = getRand(Datenbank.Types.size());
 					setCurrentType(Datenbank.getTypes(i, 0));
 					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
@@ -396,18 +394,18 @@ public class Rechenzentrum {
 				setAllComparedTypes(getComparedTypes());
 				setUsedTypes();
 				clearComparedTypes();
-				i = getRand();
+				i = getRand(Datenbank.Types.size());
 				setCurrentType(Datenbank.getTypes(i, 0));
 				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 				while (getUsedTypes().contains(getCurrentType())) {
-					i = getRand();
+					i = getRand(Datenbank.Types.size());
 					setCurrentType(Datenbank.getTypes(i, 0));
 					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
-						
+
 						backButton_ActionPerformedMethod(evt, 1);
 						continue;
 					}
@@ -436,12 +434,12 @@ public class Rechenzentrum {
 				setAllComparedTypes(getComparedTypes());
 				setUsedTypes();
 				clearComparedTypes();
-				i = getRand();
+				i = getRand(Datenbank.Types.size());
 				setCurrentType(Datenbank.getTypes(i, 0));
 				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
 				while (getUsedTypes().contains(getCurrentType())) {
-					i = getRand();
+					i = getRand(Datenbank.Types.size());
 					setCurrentType(Datenbank.getTypes(i, 0));
 					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
 
@@ -504,17 +502,20 @@ public class Rechenzentrum {
 		fenster.revalidate();
 		panelMode = 2;
 		fenster.setCurrentPanel(4);
-
-		Datenbank.getTypes("", 0, 0);
-		int i = getRand();
-		setCurrentType(Datenbank.getTypes(i, 0));
-		firstType = getCurrentType();
-		int j = getRand();
-		while (j == i) {
-			j = getRand();
-		}
-		setCurrentType(Datenbank.getTypes(j, 0));
-		secondType = getCurrentType();
+		do {
+			Datenbank.getTypes("", 0, 0);
+			int i = getRand(Datenbank.Types.size());
+			setCurrentType(Datenbank.getTypes(i, 0));
+			firstType = getCurrentType();
+			int j = getRand(Datenbank.Types.size());
+			while (j == i) {
+				j = getRand(Datenbank.Types.size());
+			}
+			setCurrentType(Datenbank.getTypes(j, 0));
+			secondType = getCurrentType();
+			Datenbank.getPokemonNumber(firstType, secondType);
+			
+		} while (Datenbank.PokemonNumbers.size() <= 0);
 		fenster.getTypeLabel().setText("Defender: " + firstType + "/" + secondType);
 		System.out.println(firstType + "/" + secondType);
 		for (int tempcount = 0; tempcount < 18; tempcount++) {
@@ -557,50 +558,61 @@ public class Rechenzentrum {
 			System.out.println(types.get(tempcount) + ": " + overallMultiplicator.get(tempcount));
 
 		}
-
-		setCurrentType(Datenbank.getTypes(getRand(), 0));
+		int rand = getRand(Datenbank.Types.size());
+		setCurrentType(Datenbank.getTypes(rand, 0));
+		MultiplicatorIndex.add(rand);
 
 		fenster.getAttackTypeLabel().setText("Attack with: " + currentType);
-		comparedTypes.add(currentType);
-		
-		Datenbank.getPokemonNumber(firstType, secondType);
-		System.out.println(Datenbank.PokemonNumbers);
-		
+
+		int poke = getRand(Datenbank.PokemonNumbers.size());
+		fenster.setPicLabel(Datenbank.PokemonNumbers.get(poke));
 
 	}
 
 	public void multiplicatorButtons_ActionPerformedMethod(ActionEvent evt, double tempMultiplicator) {
-		int rand = getRand();
-
-		
-		setCurrentType(Datenbank.getTypes(rand, 0));
-		if (comparedTypes.size() < 7) {
+		int rand = getRand(Datenbank.Types.size());
+		pressedMultiplicator.add(tempMultiplicator);
+		if (comparedTypes.size() < 6) {
+			comparedTypes.add(currentType);
 			
 			while (comparedTypes.contains(currentType)) {
-				rand = getRand();
+				rand = getRand(Datenbank.Types.size());
 				setCurrentType(Datenbank.getTypes(rand, 0));
 			}
-
+			MultiplicatorIndex.add(rand);
 			fenster.getAttackTypeLabel().setText("Attack with: " + currentType);
+		} else {
 			comparedTypes.add(currentType);
-		}else {
 			fenster.getAttackTypeLabel().setVisible(false);
 			fenster.getTypeLabel().setVisible(false);
-			for(int i = 0;i < 6 ;i++) {
-			fenster.getMultiplicatorButtons(i).setVisible(false);
+			for (int i = 0; i < 6; i++) {
+				fenster.getMultiplicatorButtons(i).setVisible(false);
 			}
-			for(int i = 0; i<7;i++) {
+			for(int i = 0; i < 7; i++) {
+				if(pressedMultiplicator.get(i).equals(overallMultiplicator.get(MultiplicatorIndex.get(i)))) {
+				resultPressedText = resultPressedText + "<font face=\"arial\" color=\"green\"> " + pressedMultiplicator.get(i) + "<hr>"
+						+ "<b>";
+				}else {
+					resultPressedText = resultPressedText + "<font face=\"arial\" color=\"red\"> " + pressedMultiplicator.get(i) + "<hr>"
+							+ "<b>";
+				}
+				resultShouldPressedText = resultShouldPressedText + "<font face=\"arial\" color=\"black\"> " + overallMultiplicator.get(MultiplicatorIndex.get(i)) + "<hr>"
+						+ "<b>";
 				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + comparedTypes.get(i) + "<hr>"
 						+ "<b>";
 			}
 			
-			usedTypeText = usedTypeText +  "</b></font></html>";
+			
+			resultPressedText = resultPressedText + "</b></font></html>";
+			resultShouldPressedText = resultShouldPressedText + "</b></font></html>";
+			usedTypeText = usedTypeText + "</b></font></html>";
 			fenster.getResultsPressed().setVisible(true);
+			fenster.getResultsPressed().setText(resultPressedText);
 			fenster.getResultsShouldPressed().setVisible(true);
+			fenster.getResultsShouldPressed().setText(resultShouldPressedText);
 			fenster.getUsedType().setVisible(true);
 			fenster.getUsedType().setText(usedTypeText);
 		}
-
 
 		System.out.println(comparedTypes);
 	}
@@ -687,8 +699,8 @@ public class Rechenzentrum {
 		usedTypes.add(currentType);
 	}
 
-	public int getRand() {
-		random = rand.nextInt(Datenbank.Types.size());
+	public int getRand(int i) {
+		random = rand.nextInt(i);
 		return random;
 	}
 
