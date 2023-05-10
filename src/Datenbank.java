@@ -10,6 +10,7 @@ public class Datenbank {
 	public static ArrayList<String> effective_against_Types = new ArrayList<String>();
 	public static ArrayList<String> not_effective_against_Types = new ArrayList<String>();
 	public static ArrayList<String> immune_Types = new ArrayList<String>();
+	public static ArrayList<String> PokemonNumbers = new ArrayList<String>(); 
 
 	// Ladet den LDBC-Treiber(connection zur Datenbank)
 	static {
@@ -184,4 +185,24 @@ public class Datenbank {
 		}
 
 	}
+	public static void getPokemonNumber(String firstType, String secondType) {
+		try {
+			Statement stmt = con.createStatement();
+
+				ResultSet rs = stmt.executeQuery("Select [Pokedex Number] From Pokemon_Number_Types WHERE [Primary Type] IS '"+firstType+"' AND [Secondary Type] IS '"+secondType+"' OR [Primary Type] IS '"+secondType+"' AND [Secondary Type] IS '"+firstType+"'");
+				int columns = rs.getMetaData().getColumnCount();
+				PokemonNumbers.clear();
+				while (rs.next()) {
+					for (int i = 1; i <= columns; i++) {
+						PokemonNumbers.add(rs.getString(i));
+					}
+			}
+				rs.close();
+				stmt.close();
+		}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			
+			}
+}
 }

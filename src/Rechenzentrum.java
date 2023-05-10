@@ -562,6 +562,10 @@ public class Rechenzentrum {
 
 		fenster.getAttackTypeLabel().setText("Attack with: " + currentType);
 		comparedTypes.add(currentType);
+		
+		Datenbank.getPokemonNumber(firstType, secondType);
+		System.out.println(Datenbank.PokemonNumbers);
+		
 
 	}
 
