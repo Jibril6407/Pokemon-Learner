@@ -102,6 +102,8 @@ public class Fenster extends JFrame {
 		});
 		menuPanel.add(battleMode);
 		battleMode.setVisible(true);
+		
+		initPanel();
 
 		setVisible(true);
 	} // end of public Fenster
@@ -152,9 +154,9 @@ public class Fenster extends JFrame {
 		rech.typesbuttons_ActionPerformedMethod(evt, tempTypes);
 	}
 
-	public void backButton_ActionPerformed(ActionEvent evt, int done) {
+	public void backButton_ActionPerformed(ActionEvent evt) {
 
-		rech.backButton_ActionPerformedMethod(evt, done);
+		rech.backButton_ActionPerformedMethod(evt);
 	}
 
 	public void nothingButton_ActionPerformed(ActionEvent evt) {
@@ -313,382 +315,387 @@ public class Fenster extends JFrame {
 	public void setBattlePanel(JPanel battlePanel) {
 		this.battlePanel = battlePanel;
 	}
+	public void initPanel() {
+		
+		currentTypeLabel.setBounds(150, 140, 350, 50);
+		currentTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+		currentTypeLabel.setVisible(false);
+		
+		defenderType.setBounds(50, 310, 350, 50);
+		defenderType.setFont(new Font("Dialog", Font.BOLD, 18));
+		defenderType.setVisible(false);
+		
+		modeLabel.setBounds(600, 110, 350, 50);
+		modeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+		modeLabel.setVisible(false);
+		
+		usedType.setBounds(20, 200, 70, 450);
+		usedType.setVisible(false);
+		usedType.setEditable(false);
+		usedType.setEditorKit(new HTMLEditorKit());
 
+		resultsPressed.setBounds(100, 200, 420, 450);
+		resultsPressed.setVisible(false);
+		resultsPressed.setEditable(false);
+		resultsPressed.setEditorKit(new HTMLEditorKit());
+
+		resultsShouldPressed.setBounds(530, 200, 420, 450);
+		resultsShouldPressed.setVisible(false);
+		resultsShouldPressed.setEditable(false);
+		resultsShouldPressed.setEditorKit(new HTMLEditorKit());
+		
+		backButton.setBounds(0, 0, 100, 50);
+		backButton.setText("Back");
+		backButton.setMargin(new Insets(2, 2, 2, 2));
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+
+				backButton_ActionPerformed(evt);
+			}
+		});
+
+		effectiveButton.setBounds(150, 200, 100, 50);
+		effectiveButton.setText("Effective");
+		effectiveButton.setMargin(new Insets(2, 2, 2, 2));
+		effectiveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				effectiveButton_ActionPerformed(evt);
+			}
+		});
+
+		notEffectiveButton.setBounds(275, 200, 100, 50);
+		notEffectiveButton.setText("Not Effective");
+		notEffectiveButton.setMargin(new Insets(2, 2, 2, 2));
+		notEffectiveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				notEffectiveButton_ActionPerformed(evt);
+			}
+		});
+
+		immuneButton.setBounds(400, 200, 100, 50);
+		immuneButton.setText("Immune");
+		immuneButton.setMargin(new Insets(2, 2, 2, 2));
+		immuneButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				immuneButton_ActionPerformed(evt);
+			}
+		});
+
+		randomButton.setBounds(275, 275, 100, 50);
+		randomButton.setText("Random");
+		randomButton.setMargin(new Insets(2, 2, 2, 2));
+		randomButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				randomButton_ActionPerformed(evt);
+			}
+		});
+		
+
+		Datenbank.getTypes("", 0, 0);
+		rech.setCurrentType(Datenbank.getTypes(rech.getRand(Datenbank.Types.size()), 0));
+		
+		int count = 0;
+
+		for (int i = 0; i < 18; i++) {
+			typesbuttons.add(new JButton());
+		}
+		// Typen Ersteller der Buttons
+		Datenbank.getTypes("", 0, 0);
+		Datenbank.getTypes("", 4, 0);
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 6; j++) {
+				String tempTypes = Datenbank.getTypes(count, 0);
+				typesbuttons.get(count).setBounds(100 * j + 50, 30 * i + 350, 85, 25);
+				typesbuttons.get(count).setMargin(new Insets(2, 2, 2, 2));
+				typesbuttons.get(count).setText(Datenbank.getTypes(count, 0));
+				typesbuttons.get(count).setBackground(Color.decode(Datenbank.types_color.get(count)));
+				typesbuttons.get(count).addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						typesbuttons_ActionPerformed(evt, tempTypes);
+					}
+				});
+				count++;
+			}
+		}
+		nothingButton.setBounds(50, 440, 585, 25);
+		nothingButton.setText("Nothing");
+		nothingButton.setMargin(new Insets(2, 2, 2, 2));
+		nothingButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				nothingButton_ActionPerformed(evt);
+			}
+		});
+		nothingButton.setBackground(Color.WHITE);
+		nothingButton.setVisible(false);
+		
+		oneTypeButton.setBounds(150, 200, 100, 50);
+		oneTypeButton.setText("One Piece");
+		oneTypeButton.setMargin(new Insets(2, 2, 2, 2));
+		oneTypeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				oneTypeButton_ActionPerformed(evt);
+			}
+		});
+		oneTypeButton.setVisible(true);
+	
+		twoTypeButton.setBounds(275, 200, 100, 50);
+		twoTypeButton.setText("Two Piece");
+		twoTypeButton.setMargin(new Insets(2, 2, 2, 2));
+		twoTypeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				twoTypeButton_ActionPerformed(evt);
+			}
+		});
+		twoTypeButton.setVisible(true);
+		
+
+		TypeLabel.setBounds(150, 140, 350, 50);
+		TypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+		TypeLabel.setVisible(true);
+		
+		attackTypeLabel.setBounds(150,350,350,50);
+		attackTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+		attackTypeLabel.setVisible(true);
+		
+		
+		for (int i = 0; i < 6; i++) {
+			multiplicatorButtons.add(new JButton());
+		}
+		count = 0;
+		for (int j = 0; j < 6; j++) {
+			double tempMultiplicator;
+			multiplicatorButtons.get(count).setBounds(100 * j + 100, 300, 85, 25);
+			multiplicatorButtons.get(count).setMargin(new Insets(2, 2, 2, 2));
+			switch(j) {
+			case 0:
+				multiplicatorButtons.get(count).setText("0");
+				tempMultiplicator = 0;
+				multiplicatorButtons.get(count).addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+					}
+				});
+				break;
+			case 1:
+				multiplicatorButtons.get(count).setText("0.25");
+				tempMultiplicator = 0.25;
+				multiplicatorButtons.get(count).addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+					}
+				});
+				break;
+			case 2:
+				multiplicatorButtons.get(count).setText("0.5");
+				tempMultiplicator = 0.5;
+				multiplicatorButtons.get(count).addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+					}
+				});
+				break;
+			case 3:
+				multiplicatorButtons.get(count).setText("1");
+				tempMultiplicator = 1;
+				multiplicatorButtons.get(count).addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+					}
+				});
+				break;
+			case 4:
+				multiplicatorButtons.get(count).setText("2");
+				tempMultiplicator = 2;
+				multiplicatorButtons.get(count).addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+					}
+				});
+				break;
+			case 5:
+				multiplicatorButtons.get(count).setText("4");
+				tempMultiplicator = 4;
+				multiplicatorButtons.get(count).addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+					}
+				});
+				break;
+			}
+			count++;
+		}
+		
+//			ImageIcon imageIcon = new ImageIcon();
+//			imageIcon = new ImageIcon("Pokemon Pixel Icons/"+pokecount+".png");
+//			Image image = imageIcon.getImage(); 
+//			Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH); 
+//			imageIcon = new ImageIcon(newimg);
+//			picLabel = new JLabel(imageIcon);
+//			picLabel.setBounds(100, 100, 300, 300);
+//			picLabel.setVisible(true);
+//			
+//			battlePanel.add(picLabel);
+//			
+//			tempButton.setBounds(0, 0, 100, 50);
+//			tempButton.setText("Temp");
+//			tempButton.setMargin(new Insets(2, 2, 2, 2));
+//			tempButton.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent evt) {
+//					pokecount++;
+//					setPicLabel(pokecount);
+//					
+//				}
+//			});
+
+				
+			
+		
+	
+	}
+	
 	public void setCurrentPanel(int tempCase) {
 		switch (tempCase) {
+		case 0:
+			System.out.println("lil");
+			break;
 		case 1:
-			currentTypeLabel.setBounds(150, 140, 350, 50);
 			attackerPanel.add(currentTypeLabel);
-			currentTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 			currentTypeLabel.setVisible(false);
 
-			defenderType.setBounds(50, 310, 350, 50);
-			attackerPanel.add(defenderType);
 			defenderType.setText("Defender:");
-			defenderType.setFont(new Font("Dialog", Font.BOLD, 18));
+			attackerPanel.add(defenderType);
 			defenderType.setVisible(false);
-
-			modeLabel.setBounds(600, 110, 350, 50);
+	
 			attackerPanel.add(modeLabel);
-			modeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 			modeLabel.setVisible(false);
 
-			usedType.setBounds(20, 200, 70, 450);
 			attackerPanel.add(usedType);
 			usedType.setVisible(false);
-			usedType.setEditable(false);
-			usedType.setEditorKit(new HTMLEditorKit());
 
-			resultsPressed.setBounds(100, 200, 420, 450);
 			attackerPanel.add(resultsPressed);
 			resultsPressed.setVisible(false);
-			resultsPressed.setEditable(false);
-			resultsPressed.setEditorKit(new HTMLEditorKit());
 
-			resultsShouldPressed.setBounds(530, 200, 420, 450);
 			attackerPanel.add(resultsShouldPressed);
 			resultsShouldPressed.setVisible(false);
-			resultsShouldPressed.setEditable(false);
-			resultsShouldPressed.setEditorKit(new HTMLEditorKit());
 
-			Datenbank.getTypes("", 0, 0);
-			rech.setCurrentType(Datenbank.getTypes(rech.getRand(Datenbank.Types.size()), 0));
-			currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-			backButton.setBounds(0, 0, 100, 50);
-			backButton.setText("Back");
-			backButton.setMargin(new Insets(2, 2, 2, 2));
-			backButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-
-					backButton_ActionPerformed(evt, 0);
-				}
-			});
 			attackerPanel.add(backButton);
-
-			effectiveButton.setBounds(150, 200, 100, 50);
-			effectiveButton.setText("Effective");
-			effectiveButton.setMargin(new Insets(2, 2, 2, 2));
-			effectiveButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					effectiveButton_ActionPerformed(evt);
-				}
-			});
+			backButton.setVisible(true);
+			
 			attackerPanel.add(effectiveButton);
-
-			notEffectiveButton.setBounds(275, 200, 100, 50);
-			notEffectiveButton.setText("Not Effective");
-			notEffectiveButton.setMargin(new Insets(2, 2, 2, 2));
-			notEffectiveButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					notEffectiveButton_ActionPerformed(evt);
-				}
-			});
+			effectiveButton.setVisible(true);
+			
 			attackerPanel.add(notEffectiveButton);
-
-			immuneButton.setBounds(400, 200, 100, 50);
-			immuneButton.setText("Immune");
-			immuneButton.setMargin(new Insets(2, 2, 2, 2));
-			immuneButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					immuneButton_ActionPerformed(evt);
-				}
-			});
+			notEffectiveButton.setVisible(true);
+			
 			attackerPanel.add(immuneButton);
-
-			randomButton.setBounds(275, 275, 100, 50);
-			randomButton.setText("Random");
-			randomButton.setMargin(new Insets(2, 2, 2, 2));
-			randomButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					randomButton_ActionPerformed(evt);
-				}
-			});
+			immuneButton.setVisible(true);
+			
 			attackerPanel.add(randomButton);
-
+			randomButton.setVisible(true);
+			
+			currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
+			
 			int count = 0;
 
 			for (int i = 0; i < 18; i++) {
 				typesbuttons.add(new JButton());
 			}
-			// Typen Ersteller der Buttons
-			Datenbank.getTypes("", 0, 0);
-			Datenbank.getTypes("", 4, 0);
+			
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 6; j++) {
-					String tempTypes = Datenbank.getTypes(count, 0);
-					typesbuttons.get(count).setBounds(100 * j + 50, 30 * i + 350, 85, 25);
-					typesbuttons.get(count).setMargin(new Insets(2, 2, 2, 2));
-					typesbuttons.get(count).setText(Datenbank.getTypes(count, 0));
-					typesbuttons.get(count).setBackground(Color.decode(Datenbank.types_color.get(count)));
-					typesbuttons.get(count).addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent evt) {
-							typesbuttons_ActionPerformed(evt, tempTypes);
-						}
-					});
+					
 					attackerPanel.add(typesbuttons.get(count));
 					typesbuttons.get(count).setVisible(false);
 					count++;
 				}
 			}
-			nothingButton.setBounds(50, 440, 585, 25);
-			nothingButton.setText("Nothing");
-			nothingButton.setMargin(new Insets(2, 2, 2, 2));
-			nothingButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					nothingButton_ActionPerformed(evt);
-				}
-			});
-			nothingButton.setBackground(Color.WHITE);
+			
 			nothingButton.setVisible(false);
 			attackerPanel.add(nothingButton);
 			break;
 		case 2:
-			currentTypeLabel.setBounds(150, 140, 350, 50);
 			defenderPanel.add(currentTypeLabel);
-			currentTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 			currentTypeLabel.setVisible(false);
 
-			defenderType.setBounds(50, 310, 350, 50);
-			defenderPanel.add(defenderType);
 			defenderType.setText("Attacker:");
-			defenderType.setFont(new Font("Dialog", Font.BOLD, 18));
+			defenderPanel.add(defenderType);
 			defenderType.setVisible(false);
 
-			modeLabel.setBounds(600, 110, 350, 50);
 			defenderPanel.add(modeLabel);
-			modeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 			modeLabel.setVisible(false);
 
-			usedType.setBounds(20, 200, 70, 450);
 			defenderPanel.add(usedType);
 			usedType.setVisible(false);
-			usedType.setEditable(false);
-			usedType.setEditorKit(new HTMLEditorKit());
 
-			resultsPressed.setBounds(100, 200, 420, 450);
 			defenderPanel.add(resultsPressed);
 			resultsPressed.setVisible(false);
-			resultsPressed.setEditable(false);
-			resultsPressed.setEditorKit(new HTMLEditorKit());
 
-			resultsShouldPressed.setBounds(530, 200, 420, 450);
 			defenderPanel.add(resultsShouldPressed);
 			resultsShouldPressed.setVisible(false);
-			resultsShouldPressed.setEditable(false);
-			resultsShouldPressed.setEditorKit(new HTMLEditorKit());
 
-			Datenbank.getTypes("", 0, 0);
-			rech.setCurrentType(Datenbank.getTypes(rech.getRand(Datenbank.Types.size()), 0));
-			currentTypeLabel.setText("Defender: " + rech.getCurrentType());
-			backButton.setBounds(0, 0, 100, 50);
-			backButton.setText("Back");
-			backButton.setMargin(new Insets(2, 2, 2, 2));
-			backButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-
-					backButton_ActionPerformed(evt, 0);
-				}
-			});
 			defenderPanel.add(backButton);
+			backButton.setVisible(true);
 
-			effectiveButton.setBounds(150, 200, 100, 50);
-			effectiveButton.setText("Effective");
-			effectiveButton.setMargin(new Insets(2, 2, 2, 2));
-			effectiveButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					effectiveButton_ActionPerformed(evt);
-				}
-			});
 			defenderPanel.add(effectiveButton);
-
-			notEffectiveButton.setBounds(275, 200, 100, 50);
-			notEffectiveButton.setText("Not Effective");
-			notEffectiveButton.setMargin(new Insets(2, 2, 2, 2));
-			notEffectiveButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					notEffectiveButton_ActionPerformed(evt);
-				}
-			});
+			effectiveButton.setVisible(true);
+			
 			defenderPanel.add(notEffectiveButton);
-
-			immuneButton.setBounds(400, 200, 100, 50);
-			immuneButton.setText("Immune");
-			immuneButton.setMargin(new Insets(2, 2, 2, 2));
-			immuneButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					immuneButton_ActionPerformed(evt);
-				}
-			});
+			notEffectiveButton.setVisible(true);
+			
 			defenderPanel.add(immuneButton);
-
-			randomButton.setBounds(275, 275, 100, 50);
-			randomButton.setText("Random");
-			randomButton.setMargin(new Insets(2, 2, 2, 2));
-			randomButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					randomButton_ActionPerformed(evt);
-				}
-			});
+			immuneButton.setVisible(true);
+			
 			defenderPanel.add(randomButton);
-
+			randomButton.setVisible(true);
+			
+			currentTypeLabel.setText("Defender: " + rech.getCurrentType());
+			
 			count = 0;
 
 			for (int i = 0; i < 18; i++) {
 				typesbuttons.add(new JButton());
 			}
 			// Typen Ersteller der Buttons
-			Datenbank.getTypes("", 0, 0);
-			Datenbank.getTypes("", 4, 0);
+			
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 6; j++) {
-					String tempTypes = Datenbank.getTypes(count, 0);
-					typesbuttons.get(count).setBounds(100 * j + 50, 30 * i + 350, 85, 25);
-					typesbuttons.get(count).setMargin(new Insets(2, 2, 2, 2));
-					typesbuttons.get(count).setText(Datenbank.getTypes(count, 0));
-					typesbuttons.get(count).setBackground(Color.decode(Datenbank.types_color.get(count)));
-					typesbuttons.get(count).addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent evt) {
-							typesbuttons_ActionPerformed(evt, tempTypes);
-						}
-					});
 					defenderPanel.add(typesbuttons.get(count));
 					typesbuttons.get(count).setVisible(false);
 					count++;
 				}
 			}
-			nothingButton.setBounds(50, 440, 585, 25);
-			nothingButton.setText("Nothing");
-			nothingButton.setMargin(new Insets(2, 2, 2, 2));
-			nothingButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					nothingButton_ActionPerformed(evt);
-				}
-			});
-			nothingButton.setBackground(Color.WHITE);
+			
 			nothingButton.setVisible(false);
 			defenderPanel.add(nothingButton);
 			break;
-		case 3:
-			oneTypeButton.setBounds(150, 200, 100, 50);
-			oneTypeButton.setText("One Piece");
-			oneTypeButton.setMargin(new Insets(2, 2, 2, 2));
-			oneTypeButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					oneTypeButton_ActionPerformed(evt);
-				}
-			});
-			oneTypeButton.setVisible(true);
-			
+		case 3:	
+			oneTypeButton.setVisible(true);	
 			chooseSumOfTypesPanel.add(oneTypeButton);
-		
-			twoTypeButton.setBounds(275, 200, 100, 50);
-			twoTypeButton.setText("Two Piece");
-			twoTypeButton.setMargin(new Insets(2, 2, 2, 2));
-			twoTypeButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					twoTypeButton_ActionPerformed(evt);
-				}
-			});
+
 			twoTypeButton.setVisible(true);
 			chooseSumOfTypesPanel.add(twoTypeButton);
 			break;
 		case 4:
-			TypeLabel.setBounds(150, 140, 350, 50);
 			twoTypesDefenderPanel.add(TypeLabel);
-			TypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 			TypeLabel.setVisible(true);
 			
-			attackTypeLabel.setBounds(150,350,350,50);
 			twoTypesDefenderPanel.add(attackTypeLabel);
-			attackTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 			attackTypeLabel.setVisible(true);
 			
-			usedType.setBounds(20, 200, 70, 450);
 			twoTypesDefenderPanel.add(usedType);
 			usedType.setVisible(false);
-			usedType.setEditable(false);
-			usedType.setEditorKit(new HTMLEditorKit());
 			
-			resultsPressed.setBounds(100, 200, 420, 450);
 			twoTypesDefenderPanel.add(resultsPressed);
 			resultsPressed.setVisible(false);
-			resultsPressed.setEditable(false);
-			resultsPressed.setEditorKit(new HTMLEditorKit());
 
-			resultsShouldPressed.setBounds(530, 200, 420, 450);
 			twoTypesDefenderPanel.add(resultsShouldPressed);
 			resultsShouldPressed.setVisible(false);
-			resultsShouldPressed.setEditable(false);
-			resultsShouldPressed.setEditorKit(new HTMLEditorKit());
 			
-			for (int i = 0; i < 6; i++) {
-				multiplicatorButtons.add(new JButton());
-			}
-			count = 0;
 			for (int j = 0; j < 6; j++) {
-				double tempMultiplicator;
-				multiplicatorButtons.get(count).setBounds(100 * j + 100, 300, 85, 25);
-				multiplicatorButtons.get(count).setMargin(new Insets(2, 2, 2, 2));
-				switch(j) {
-				case 0:
-					multiplicatorButtons.get(count).setText("0");
-					tempMultiplicator = 0;
-					multiplicatorButtons.get(count).addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent evt) {
-							multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
-						}
-					});
-					break;
-				case 1:
-					multiplicatorButtons.get(count).setText("0.25");
-					tempMultiplicator = 0.25;
-					multiplicatorButtons.get(count).addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent evt) {
-							multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
-						}
-					});
-					break;
-				case 2:
-					multiplicatorButtons.get(count).setText("0.5");
-					tempMultiplicator = 0.5;
-					multiplicatorButtons.get(count).addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent evt) {
-							multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
-						}
-					});
-					break;
-				case 3:
-					multiplicatorButtons.get(count).setText("1");
-					tempMultiplicator = 1;
-					multiplicatorButtons.get(count).addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent evt) {
-							multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
-						}
-					});
-					break;
-				case 4:
-					multiplicatorButtons.get(count).setText("2");
-					tempMultiplicator = 2;
-					multiplicatorButtons.get(count).addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent evt) {
-							multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
-						}
-					});
-					break;
-				case 5:
-					multiplicatorButtons.get(count).setText("4");
-					tempMultiplicator = 4;
-					multiplicatorButtons.get(count).addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent evt) {
-							multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
-						}
-					});
-					break;
-				}
 				
-				twoTypesDefenderPanel.add(multiplicatorButtons.get(count));
-				multiplicatorButtons.get(count).setVisible(true);
-				count++;
+				twoTypesDefenderPanel.add(multiplicatorButtons.get(j));
+				multiplicatorButtons.get(j).setVisible(true);
+				j++;
 			}
 			break;
 		case 5:
@@ -715,22 +722,30 @@ public class Fenster extends JFrame {
 			});
 			battlePanel.add(tempButton);
 
-			break;
-			
-			
-//			randomButton.setBounds(275, 275, 100, 50);
-//			randomButton.setText("Random");
-//			randomButton.setMargin(new Insets(2, 2, 2, 2));
-//			randomButton.addActionListener(new ActionListener() {
-//				public void actionPerformed(ActionEvent evt) {
-//					randomButton_ActionPerformed(evt);
-//				}
-//			});
-//			twoTypesDefenderPanel.add(randomButton);
-			
-			
+			break;	
 			
 		}
+	}
+	
+	public JPanel getCurrentPanel(int tempPanel) {
+		switch(tempPanel) {
+		case 0:
+			return menuPanel;
+		case 1:
+			return attackerPanel;
+		case 2:
+			return defenderPanel;		
+		case 3:
+			return chooseSumOfTypesPanel;
+		case 4:
+			return twoTypesDefenderPanel;	
+		case 5:
+			return battlePanel;
+		default:
+			System.out.println("Error");
+			return null;
+		}
+			
 	}
 
 	public JLabel getTypeLabel() {

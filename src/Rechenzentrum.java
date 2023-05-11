@@ -31,13 +31,13 @@ public class Rechenzentrum {
 	private String[] nameMode = { "Effective", "Not Effective", "Immune" };
 	private String[] attackerOrDefender = { "", "Attacker: ", "Defender: " };
 	private Fenster fenster;
+	private int currentPanel = 0;
 
 	public void init_Gui(Fenster Fenster) {
 		this.fenster = Fenster;
 	}
 
 	public Rechenzentrum() {
-
 	}
 
 	public void effectiveButton_ActionPerformedMethode() {
@@ -152,7 +152,7 @@ public class Rechenzentrum {
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
 						;
-						backButton_ActionPerformedMethod(evt, 1);
+						done();
 						continue;
 					}
 				}
@@ -199,7 +199,7 @@ public class Rechenzentrum {
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
-						backButton_ActionPerformedMethod(evt, 1);
+						done();
 						continue;
 					}
 				}
@@ -245,7 +245,7 @@ public class Rechenzentrum {
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
-						backButton_ActionPerformedMethod(evt, 1);
+						done();
 						continue;
 					}
 				}
@@ -265,70 +265,25 @@ public class Rechenzentrum {
 		}
 	}
 
-	public void backButton_ActionPerformedMethod(ActionEvent evt, int done) {
-		int tempMode = getMode() - 1;
+	public void backButton_ActionPerformedMethod(ActionEvent evt) {
+		
 		setMode(0);
-		fenster.getModeLabel().setVisible(false);
-		fenster.getNothingButton().setVisible(false);
-		fenster.getDefenderType().setVisible(false);
+		
 		clearCompareTypes();
 		clearComparedTypes();
+		clearAllCompareTypes();
+		clearAllComparedTypes();
+		usedTypeText ="<html><b>";
+		resultPressedText ="<html><b>";
+		resultShouldPressedText ="<html><b>";
 		System.out.println("Pressed:                      " + getAllComparedTypes());
 		System.out.println("What you should have pressed: " + getAllCompareTypes());
-		if (done == 0) {
-			fenster.getCurrentTypeLabel().setVisible(false);
-			fenster.getEffectiveButton().setVisible(true);
-			fenster.getNotEffectiveButton().setVisible(true);
-			fenster.getImmuneButton().setVisible(true);
-			fenster.getRandomButton().setVisible(true);
-			fenster.getResultsPressed().setVisible(false);
-			fenster.getResultsShouldPressed().setVisible(false);
-			fenster.getUsedType().setVisible(false);
-			fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
-		}
-
-		for (int i = 0; i < 18; i++) {
-			fenster.getTypesbuttons().get(i).setVisible(false);
-		}
-
-		if (done == 1) {
-			fenster.getCurrentTypeLabel().setText("Results:");
-			fenster.getCurrentTypeLabel().setBounds(150, 140, 350, 50);
-
-			fenster.getModeLabel().setText(nameMode[tempMode]);
-			fenster.getModeLabel().setVisible(true);
-
-			for (int i = 0; i < 18; i++) {
-				fenster.getTypesbuttons().get(i).setVisible(false);
-
-				for (int j = 0; j < getAllComparedTypes().get(i).size(); j++) {
-					if (getAllCompareTypes().get(i).contains(getAllComparedTypes().get(i).get(j))) {
-						resultPressedText = resultPressedText + "<font face=\"arial\" color=\"green\"> "
-								+ getAllComparedTypes().get(i).get(j);
-					} else {
-						resultPressedText = resultPressedText + "<font face=\"arial\" color=\"red\"> "
-								+ getAllComparedTypes().get(i).get(j);
-					}
-					resultShouldPressedText = resultShouldPressedText + "<font face=\"arial\" color=\"black\"> "
-							+ getAllCompareTypes().get(i).get(j);
-				}
-				resultPressedText = resultPressedText + "<hr>" + "<b>";
-				resultShouldPressedText = resultShouldPressedText + "<hr>" + "<b>";
-			}
-			resultPressedText = resultPressedText + " </b></font></html>";
-			fenster.getResultsPressed().setText(resultPressedText);
-			resultShouldPressedText = resultShouldPressedText + " </b></font></html>";
-			fenster.getResultsShouldPressed().setText(resultShouldPressedText);
-			usedTypeText = usedTypeText + " </b></font></html>";
-			fenster.getUsedType().setText(usedTypeText);
-			clearAllComparedTypes();
-			clearAllCompareTypes();
-			fenster.getResultsPressed().setVisible(true);
-			fenster.getResultsShouldPressed().setVisible(true);
-			fenster.getUsedType().setVisible(true);
-		}
 
 		clearUsedTypes();
+		fenster.getCp().removeAll();
+		fenster.setContentPane(fenster.getMenuPanel());	
+		currentPanel = 0;
+		fenster.revalidate();
 	}
 
 	public void nothingButton_ActionPerformedMethod(ActionEvent evt) {
@@ -368,7 +323,7 @@ public class Rechenzentrum {
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
-						backButton_ActionPerformedMethod(evt, 1);
+						done();
 						continue;
 					}
 				}
@@ -406,7 +361,7 @@ public class Rechenzentrum {
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
 
-						backButton_ActionPerformedMethod(evt, 1);
+						done();
 						continue;
 					}
 				}
@@ -445,7 +400,7 @@ public class Rechenzentrum {
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
-						backButton_ActionPerformedMethod(evt, 1);
+						done();
 						continue;
 					}
 				}
@@ -466,42 +421,52 @@ public class Rechenzentrum {
 	}
 
 	public void attackerSideButton_ActionPerformedMethod() {
-		fenster.getCp().remove(fenster.getMenuPanel());
-		fenster.getCp().add(fenster.getAttackerPanel());
-		fenster.revalidate();
+		fenster.getCp().removeAll();
+		fenster.setContentPane(fenster.getAttackerPanel());	
 		panelMode = 1;
-		fenster.setCurrentPanel(1);
+		currentPanel = 1;		
+		fenster.setCurrentPanel(currentPanel);		
+		fenster.revalidate();
+		
 	}
 
 	public void defenderSideButton_ActionPerformedMethod() {
-		fenster.getCp().remove(fenster.getMenuPanel());
-		fenster.getCp().add(fenster.getChooseSumOfTypesPanel());
+		fenster.getCp().removeAll();
+		fenster.setContentPane(fenster.getChooseSumOfTypesPanel());
+		currentPanel = 3;
+		fenster.setCurrentPanel(currentPanel);	
 		fenster.revalidate();
-		fenster.setCurrentPanel(3);
+		
 	}
 
 	public void battleModeButton_ActionPerformedMethod() {
-		fenster.getCp().remove(fenster.getMenuPanel());
-		fenster.getCp().add(fenster.getBattlePanel());
-		fenster.revalidate();
+		fenster.getCp().removeAll();
+		fenster.setContentPane(fenster.getBattlePanel());
+		
 		panelMode = 3;
-		fenster.setCurrentPanel(5);
+		currentPanel = 5;
+		fenster.setCurrentPanel(currentPanel);
+		fenster.revalidate();
 	}
 
 	public void oneTypeButton_ActionPerformedMethod() {
-		fenster.getCp().remove(fenster.getChooseSumOfTypesPanel());
-		fenster.getCp().add(fenster.getDefenderPanel());
-		fenster.revalidate();
+		fenster.getCp().removeAll();
+		fenster.setContentPane(fenster.getDefenderPanel());
 		panelMode = 2;
-		fenster.setCurrentPanel(2);
+		currentPanel = 2;
+		fenster.setCurrentPanel(currentPanel);
+		fenster.revalidate();
+		
 	}
 
 	public void twoTypeButton_ActionPerformedMethod() {
-		fenster.getCp().remove(fenster.getChooseSumOfTypesPanel());
-		fenster.getCp().add(fenster.getTwoTypesDefenderPanel());
-		fenster.revalidate();
+		fenster.getCp().removeAll();
+		fenster.setContentPane(fenster.getTwoTypesDefenderPanel());
 		panelMode = 2;
-		fenster.setCurrentPanel(4);
+		currentPanel = 4;
+		fenster.setCurrentPanel(currentPanel);
+		fenster.revalidate();
+		
 		do {
 			Datenbank.getTypes("", 0, 0);
 			int i = getRand(Datenbank.Types.size());
@@ -514,7 +479,7 @@ public class Rechenzentrum {
 			setCurrentType(Datenbank.getTypes(j, 0));
 			secondType = getCurrentType();
 			Datenbank.getPokemonNumber(firstType, secondType);
-			
+
 		} while (Datenbank.PokemonNumbers.size() <= 0);
 		fenster.getTypeLabel().setText("Defender: " + firstType + "/" + secondType);
 		System.out.println(firstType + "/" + secondType);
@@ -574,7 +539,7 @@ public class Rechenzentrum {
 		pressedMultiplicator.add(tempMultiplicator);
 		if (comparedTypes.size() < 6) {
 			comparedTypes.add(currentType);
-			
+
 			while (comparedTypes.contains(currentType)) {
 				rand = getRand(Datenbank.Types.size());
 				setCurrentType(Datenbank.getTypes(rand, 0));
@@ -588,21 +553,20 @@ public class Rechenzentrum {
 			for (int i = 0; i < 6; i++) {
 				fenster.getMultiplicatorButtons(i).setVisible(false);
 			}
-			for(int i = 0; i < 7; i++) {
-				if(pressedMultiplicator.get(i).equals(overallMultiplicator.get(MultiplicatorIndex.get(i)))) {
-				resultPressedText = resultPressedText + "<font face=\"arial\" color=\"green\"> " + pressedMultiplicator.get(i) + "<hr>"
-						+ "<b>";
-				}else {
-					resultPressedText = resultPressedText + "<font face=\"arial\" color=\"red\"> " + pressedMultiplicator.get(i) + "<hr>"
-							+ "<b>";
+			for (int i = 0; i < 7; i++) {
+				if (pressedMultiplicator.get(i).equals(overallMultiplicator.get(MultiplicatorIndex.get(i)))) {
+					resultPressedText = resultPressedText + "<font face=\"arial\" color=\"green\"> "
+							+ pressedMultiplicator.get(i) + "<hr>" + "<b>";
+				} else {
+					resultPressedText = resultPressedText + "<font face=\"arial\" color=\"red\"> "
+							+ pressedMultiplicator.get(i) + "<hr>" + "<b>";
 				}
-				resultShouldPressedText = resultShouldPressedText + "<font face=\"arial\" color=\"black\"> " + overallMultiplicator.get(MultiplicatorIndex.get(i)) + "<hr>"
-						+ "<b>";
+				resultShouldPressedText = resultShouldPressedText + "<font face=\"arial\" color=\"black\"> "
+						+ overallMultiplicator.get(MultiplicatorIndex.get(i)) + "<hr>" + "<b>";
 				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + comparedTypes.get(i) + "<hr>"
 						+ "<b>";
 			}
-			
-			
+
 			resultPressedText = resultPressedText + "</b></font></html>";
 			resultShouldPressedText = resultShouldPressedText + "</b></font></html>";
 			usedTypeText = usedTypeText + "</b></font></html>";
@@ -615,6 +579,53 @@ public class Rechenzentrum {
 		}
 
 		System.out.println(comparedTypes);
+	}
+
+	public void done() {
+		int tempMode = getMode() - 1;
+		setMode(0);
+		fenster.getModeLabel().setVisible(false);
+		fenster.getNothingButton().setVisible(false);
+		fenster.getDefenderType().setVisible(false);
+		clearCompareTypes();
+		clearComparedTypes();
+		System.out.println("Pressed:                      " + getAllComparedTypes());
+		System.out.println("What you should have pressed: " + getAllCompareTypes());
+		fenster.getCurrentTypeLabel().setText("Results:");
+		fenster.getCurrentTypeLabel().setBounds(150, 140, 350, 50);
+
+		fenster.getModeLabel().setText(nameMode[tempMode]);
+		fenster.getModeLabel().setVisible(true);
+
+		for (int i = 0; i < 18; i++) {
+			fenster.getTypesbuttons().get(i).setVisible(false);
+
+			for (int j = 0; j < getAllComparedTypes().get(i).size(); j++) {
+				if (getAllCompareTypes().get(i).contains(getAllComparedTypes().get(i).get(j))) {
+					resultPressedText = resultPressedText + "<font face=\"arial\" color=\"green\"> "
+							+ getAllComparedTypes().get(i).get(j);
+				} else {
+					resultPressedText = resultPressedText + "<font face=\"arial\" color=\"red\"> "
+							+ getAllComparedTypes().get(i).get(j);
+				}
+				resultShouldPressedText = resultShouldPressedText + "<font face=\"arial\" color=\"black\"> "
+						+ getAllCompareTypes().get(i).get(j);
+			}
+			resultPressedText = resultPressedText + "<hr>" + "<b>";
+			resultShouldPressedText = resultShouldPressedText + "<hr>" + "<b>";
+		}
+		resultPressedText = resultPressedText + " </b></font></html>";
+		fenster.getResultsPressed().setText(resultPressedText);
+		resultShouldPressedText = resultShouldPressedText + " </b></font></html>";
+		fenster.getResultsShouldPressed().setText(resultShouldPressedText);
+		usedTypeText = usedTypeText + " </b></font></html>";
+		fenster.getUsedType().setText(usedTypeText);
+		clearAllComparedTypes();
+		clearAllCompareTypes();
+		fenster.getResultsPressed().setVisible(true);
+		fenster.getResultsShouldPressed().setVisible(true);
+		fenster.getUsedType().setVisible(true);
+		clearUsedTypes();
 	}
 
 	public String getCurrentType() {
