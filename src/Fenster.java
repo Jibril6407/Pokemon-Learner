@@ -23,6 +23,10 @@ public class Fenster extends JFrame {
 	private JPanel battlePanel = new JPanel();
 	private JPanel chooseSumOfTypesPanel = new JPanel();
 	private JPanel twoTypesDefenderPanel = new JPanel();
+	private JPanel chooseOpponent = new JPanel();
+	private JPanel trainerPanel = new JPanel();
+	private JPanel gymLeaderPanel = new JPanel();
+	
 
 	private JButton attackerSide = new JButton();
 	private JButton defenderSide = new JButton();
@@ -30,19 +34,19 @@ public class Fenster extends JFrame {
 
 	private JButton oneTypeButton = new JButton();
 	private JButton twoTypeButton = new JButton();
-	private JButton tempButton = new JButton();
+	
+	private JButton trainerButton = new JButton();
+	private JButton gymLeaderButton = new JButton();
 
 	private JButton backButton = new JButton();
 	private JButton effectiveButton = new JButton();
 	private JButton notEffectiveButton = new JButton();
 	private JButton immuneButton = new JButton();
-	private JButton randomButton = new JButton();
 	private JButton nothingButton = new JButton();
 	private ArrayList<JButton> typesbuttons = new ArrayList<JButton>();
 	private ArrayList<JButton> multiplicatorButtons = new ArrayList<JButton>();
 	private Rechenzentrum rech = null;
 	private Container cp;
-	private int pokecount = 0;
 
 	public Fenster(Rechenzentrum r) {
 		// Frame-Initialisierung
@@ -69,6 +73,9 @@ public class Fenster extends JFrame {
 		battlePanel.setLayout(null);
 		chooseSumOfTypesPanel.setLayout(null);
 		twoTypesDefenderPanel.setLayout(null);
+		chooseOpponent.setLayout(null);
+		trainerPanel.setLayout(null);
+		gymLeaderPanel.setLayout(null);
 
 		attackerSide.setBounds(150, 200, 100, 50);
 		attackerSide.setText("Attacker");
@@ -108,6 +115,10 @@ public class Fenster extends JFrame {
 		setVisible(true);
 	} // end of public Fenster
 
+	public JPanel getChooseOpponentPanel() {
+		return chooseOpponent;
+	}
+
 	// Anfang Methoden
 	public void attackerSideButton_ActionPerformed(ActionEvent evt) {
 
@@ -140,12 +151,6 @@ public class Fenster extends JFrame {
 	public void immuneButton_ActionPerformed(ActionEvent evt) {
 
 		rech.immuneButton_ActionPerformedMethod();
-
-	}
-
-	public void randomButton_ActionPerformed(ActionEvent evt) {
-
-		rech.randomButton_ActionPerformedMethod();
 
 	}
 
@@ -250,14 +255,6 @@ public class Fenster extends JFrame {
 
 	public void setImmuneButton(JButton immuneButton) {
 		this.immuneButton = immuneButton;
-	}
-
-	public JButton getRandomButton() {
-		return randomButton;
-	}
-
-	public void setRandomButton(JButton randomButton) {
-		this.randomButton = randomButton;
 	}
 
 	public JButton getNothingButton() {
@@ -378,15 +375,6 @@ public class Fenster extends JFrame {
 		immuneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				immuneButton_ActionPerformed(evt);
-			}
-		});
-
-		randomButton.setBounds(275, 275, 100, 50);
-		randomButton.setText("Random");
-		randomButton.setMargin(new Insets(2, 2, 2, 2));
-		randomButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				randomButton_ActionPerformed(evt);
 			}
 		});
 		
@@ -523,33 +511,24 @@ public class Fenster extends JFrame {
 				break;
 			}
 			count++;
-		}
-		
-//			ImageIcon imageIcon = new ImageIcon();
-//			imageIcon = new ImageIcon("Pokemon Pixel Icons/"+pokecount+".png");
-//			Image image = imageIcon.getImage(); 
-//			Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH); 
-//			imageIcon = new ImageIcon(newimg);
-//			picLabel = new JLabel(imageIcon);
-//			picLabel.setBounds(100, 100, 300, 300);
-//			picLabel.setVisible(true);
-//			
-//			battlePanel.add(picLabel);
-//			
-//			tempButton.setBounds(0, 0, 100, 50);
-//			tempButton.setText("Temp");
-//			tempButton.setMargin(new Insets(2, 2, 2, 2));
-//			tempButton.addActionListener(new ActionListener() {
-//				public void actionPerformed(ActionEvent evt) {
-//					pokecount++;
-//					setPicLabel(pokecount);
-//					
-//				}
-//			});
-
-				
-			
-		
+		}	
+		trainerButton.setBounds(150, 200, 100, 50);
+		trainerButton.setText("Trainer Battle");
+		trainerButton.setMargin(new Insets(2, 2, 2, 2));
+		trainerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				//trainerButton_ActionPerformed(evt);
+			}
+		});
+	
+		gymLeaderButton.setBounds(275, 200, 100, 50);
+		gymLeaderButton.setText("Gym Battle");
+		gymLeaderButton.setMargin(new Insets(2, 2, 2, 2));
+		gymLeaderButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				//gymLeaderButton_ActionPerformed(evt);
+			}
+		});
 	
 	}
 	
@@ -589,9 +568,6 @@ public class Fenster extends JFrame {
 			
 			attackerPanel.add(immuneButton);
 			immuneButton.setVisible(true);
-			
-			attackerPanel.add(randomButton);
-			randomButton.setVisible(true);
 			
 			currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
 			
@@ -645,9 +621,6 @@ public class Fenster extends JFrame {
 			defenderPanel.add(immuneButton);
 			immuneButton.setVisible(true);
 			
-			defenderPanel.add(randomButton);
-			randomButton.setVisible(true);
-			
 			currentTypeLabel.setText("Defender: " + rech.getCurrentType());
 			
 			count = 0;
@@ -674,6 +647,10 @@ public class Fenster extends JFrame {
 
 			twoTypeButton.setVisible(true);
 			chooseSumOfTypesPanel.add(twoTypeButton);
+			
+			chooseSumOfTypesPanel.add(backButton);
+			backButton.setVisible(true);
+			
 			break;
 		case 4:
 			twoTypesDefenderPanel.add(TypeLabel);
@@ -691,37 +668,25 @@ public class Fenster extends JFrame {
 			twoTypesDefenderPanel.add(resultsShouldPressed);
 			resultsShouldPressed.setVisible(false);
 			
+			twoTypesDefenderPanel.add(backButton);
+			backButton.setVisible(true);
+			
 			for (int j = 0; j < 6; j++) {
 				
 				twoTypesDefenderPanel.add(multiplicatorButtons.get(j));
 				multiplicatorButtons.get(j).setVisible(true);
-				j++;
 			}
 			break;
-		case 5:
-			ImageIcon imageIcon = new ImageIcon();
-			imageIcon = new ImageIcon("Pokemon Pixel Icons/"+pokecount+".png");
-			Image image = imageIcon.getImage(); 
-			Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH); 
-			imageIcon = new ImageIcon(newimg);
-			picLabel = new JLabel(imageIcon);
-			picLabel.setBounds(100, 100, 300, 300);
-			picLabel.setVisible(true);
+		case 5:			
+			chooseOpponent.add(backButton);
+			backButton.setVisible(true);
 			
-			battlePanel.add(picLabel);
-			
-			tempButton.setBounds(0, 0, 100, 50);
-			tempButton.setText("Temp");
-			tempButton.setMargin(new Insets(2, 2, 2, 2));
-			tempButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					pokecount++;
-					setPicLabel(pokecount);
-					
-				}
-			});
-			battlePanel.add(tempButton);
+			chooseOpponent.add(trainerButton);
+			trainerButton.setVisible(true);
 
+			chooseOpponent.add(gymLeaderButton);
+			gymLeaderButton.setVisible(true);
+		
 			break;	
 			
 		}

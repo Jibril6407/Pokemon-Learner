@@ -53,7 +53,6 @@ public class Rechenzentrum {
 			fenster.getEffectiveButton().setVisible(false);
 			fenster.getNotEffectiveButton().setVisible(false);
 			fenster.getImmuneButton().setVisible(false);
-			fenster.getRandomButton().setVisible(false);
 			fenster.getNothingButton().setVisible(true);
 			for (int i = 0; i < 18; i++) {
 				fenster.getTypesbuttons().get(i).setVisible(true);
@@ -75,7 +74,6 @@ public class Rechenzentrum {
 			fenster.getEffectiveButton().setVisible(false);
 			fenster.getNotEffectiveButton().setVisible(false);
 			fenster.getImmuneButton().setVisible(false);
-			fenster.getRandomButton().setVisible(false);
 			fenster.getNothingButton().setVisible(true);
 			for (int i = 0; i < 18; i++) {
 				fenster.getTypesbuttons().get(i).setVisible(true);
@@ -96,20 +94,12 @@ public class Rechenzentrum {
 			fenster.getEffectiveButton().setVisible(false);
 			fenster.getNotEffectiveButton().setVisible(false);
 			fenster.getImmuneButton().setVisible(false);
-			fenster.getRandomButton().setVisible(false);
 			fenster.getNothingButton().setVisible(true);
 			for (int i = 0; i < 18; i++) {
 				fenster.getTypesbuttons().get(i).setVisible(true);
 			}
 
 		}
-	}
-
-	public void randomButton_ActionPerformedMethod() {
-		Datenbank.getTypes("", 0, 0);
-		int i = getRand(Datenbank.Types.size());
-		setCurrentType(Datenbank.getTypes(i, 0));
-
 	}
 
 	public void typesbuttons_ActionPerformedMethod(ActionEvent evt, String tempTypes) {
@@ -278,8 +268,8 @@ public class Rechenzentrum {
 		resultShouldPressedText ="<html><b>";
 		System.out.println("Pressed:                      " + getAllComparedTypes());
 		System.out.println("What you should have pressed: " + getAllCompareTypes());
-
 		clearUsedTypes();
+		
 		fenster.getCp().removeAll();
 		fenster.setContentPane(fenster.getMenuPanel());	
 		currentPanel = 0;
@@ -441,8 +431,7 @@ public class Rechenzentrum {
 
 	public void battleModeButton_ActionPerformedMethod() {
 		fenster.getCp().removeAll();
-		fenster.setContentPane(fenster.getBattlePanel());
-		
+		fenster.setContentPane(fenster.getChooseOpponentPanel());		
 		panelMode = 3;
 		currentPanel = 5;
 		fenster.setCurrentPanel(currentPanel);
