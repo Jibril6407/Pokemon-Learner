@@ -182,6 +182,12 @@ public class Fenster extends JFrame {
 	public void multiplicatorButtons_ActionPerformed(ActionEvent evt,double tempMultiplicator) {
 		rech.multiplicatorButtons_ActionPerformedMethod(evt, tempMultiplicator);
 	}
+	
+	public void gymLeaderButton_ActionPerformed(ActionEvent evt) {
+		rech.gymLeaderButton_ActionPerformed();
+	} 
+	
+	
 	// Ende Methoden
 
 	// Getter und Setter
@@ -312,6 +318,12 @@ public class Fenster extends JFrame {
 	public void setBattlePanel(JPanel battlePanel) {
 		this.battlePanel = battlePanel;
 	}
+	
+	
+	public JPanel getGymLeaderPanel() {
+		return gymLeaderPanel;
+	}
+
 	public void initPanel() {
 		
 		currentTypeLabel.setBounds(150, 140, 350, 50);
@@ -526,7 +538,7 @@ public class Fenster extends JFrame {
 		gymLeaderButton.setMargin(new Insets(2, 2, 2, 2));
 		gymLeaderButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				//gymLeaderButton_ActionPerformed(evt);
+				gymLeaderButton_ActionPerformed(evt);
 			}
 		});
 	

@@ -569,6 +569,15 @@ public class Rechenzentrum {
 
 		System.out.println(comparedTypes);
 	}
+	
+	public void gymLeaderButton_ActionPerformed() {
+		fenster.getCp().removeAll();
+		fenster.setContentPane(fenster.getGymLeaderPanel());
+		panelMode = 2;
+		currentPanel = 7;
+		fenster.setCurrentPanel(currentPanel);
+		fenster.revalidate();
+	}
 
 	public void done() {
 		int tempMode = getMode() - 1;
