@@ -431,8 +431,7 @@ public class Rechenzentrum {
 
 	public void battleModeButton_ActionPerformedMethod() {
 		fenster.getCp().removeAll();
-		fenster.setContentPane(fenster.getChooseOpponentPanel());		
-		panelMode = 3;
+		fenster.setContentPane(fenster.getChooseOpponentPanel());
 		currentPanel = 5;
 		fenster.setCurrentPanel(currentPanel);
 		fenster.revalidate();
@@ -521,6 +520,16 @@ public class Rechenzentrum {
 		int poke = getRand(Datenbank.PokemonNumbers.size());
 		fenster.setPicLabel(Datenbank.PokemonNumbers.get(poke));
 
+	}
+	
+	public void trainerButton_ActionPerformedMethod() {
+		fenster.getCp().removeAll();
+		fenster.setContentPane(fenster.getBuildTeamPanel());
+		panelMode = 2;
+		currentPanel = 6;
+		fenster.setCurrentPanel(currentPanel);
+		fenster.revalidate();
+		
 	}
 
 	public void multiplicatorButtons_ActionPerformedMethod(ActionEvent evt, double tempMultiplicator) {
