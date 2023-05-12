@@ -8,8 +8,8 @@ import java.util.*;
 public class Fenster extends JFrame {
 
 	private JLabel currentTypeLabel = new JLabel();
-	private JLabel TypeLabel = new JLabel(); 
-	private JLabel attackTypeLabel = new JLabel(); 
+	private JLabel TypeLabel = new JLabel();
+	private JLabel attackTypeLabel = new JLabel();
 	private JLabel defenderType = new JLabel();
 	private JLabel modeLabel = new JLabel();
 	private JLabel picLabel = new JLabel();
@@ -26,7 +26,7 @@ public class Fenster extends JFrame {
 	private JPanel chooseOpponent = new JPanel();
 	private JPanel trainerPanel = new JPanel();
 	private JPanel gymLeaderPanel = new JPanel();
-	
+	private JPanel buildTeamPanel = new JPanel();
 
 	private JButton attackerSide = new JButton();
 	private JButton defenderSide = new JButton();
@@ -34,7 +34,7 @@ public class Fenster extends JFrame {
 
 	private JButton oneTypeButton = new JButton();
 	private JButton twoTypeButton = new JButton();
-	
+
 	private JButton trainerButton = new JButton();
 	private JButton gymLeaderButton = new JButton();
 
@@ -76,6 +76,7 @@ public class Fenster extends JFrame {
 		chooseOpponent.setLayout(null);
 		trainerPanel.setLayout(null);
 		gymLeaderPanel.setLayout(null);
+		buildTeamPanel.setLayout(null);
 
 		attackerSide.setBounds(150, 200, 100, 50);
 		attackerSide.setText("Attacker");
@@ -109,7 +110,7 @@ public class Fenster extends JFrame {
 		});
 		menuPanel.add(battleMode);
 		battleMode.setVisible(true);
-		
+
 		initPanel();
 
 		setVisible(true);
@@ -133,7 +134,7 @@ public class Fenster extends JFrame {
 	public void battleModeButton_ActionPerformed(ActionEvent evt) {
 
 		rech.battleModeButton_ActionPerformedMethod();
-		
+
 	}
 
 	public void effectiveButton_ActionPerformed(ActionEvent evt) {
@@ -178,17 +179,24 @@ public class Fenster extends JFrame {
 
 		rech.twoTypeButton_ActionPerformedMethod();
 	}
-	
-	public void multiplicatorButtons_ActionPerformed(ActionEvent evt,double tempMultiplicator) {
+
+	public void multiplicatorButtons_ActionPerformed(ActionEvent evt, double tempMultiplicator) {
 		rech.multiplicatorButtons_ActionPerformedMethod(evt, tempMultiplicator);
 	}
-	
+	public void trainerButton_ActionPerformed(ActionEvent evt) {
+		rech.trainerButton_ActionPerformedMethod();
+	}
+
 	public void gymLeaderButton_ActionPerformed(ActionEvent evt) {
 		rech.gymLeaderButton_ActionPerformed();
-	} 
-	
-	
+	}
+
+
 	// Ende Methoden
+
+	public JPanel getBuildTeamPanel() {
+		return buildTeamPanel;
+	}
 
 	// Getter und Setter
 	public JLabel getCurrentTypeLabel() {
@@ -318,26 +326,26 @@ public class Fenster extends JFrame {
 	public void setBattlePanel(JPanel battlePanel) {
 		this.battlePanel = battlePanel;
 	}
-	
-	
+
+
 	public JPanel getGymLeaderPanel() {
 		return gymLeaderPanel;
 	}
 
 	public void initPanel() {
-		
+
 		currentTypeLabel.setBounds(150, 140, 350, 50);
 		currentTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 		currentTypeLabel.setVisible(false);
-		
+
 		defenderType.setBounds(50, 310, 350, 50);
 		defenderType.setFont(new Font("Dialog", Font.BOLD, 18));
 		defenderType.setVisible(false);
-		
+
 		modeLabel.setBounds(600, 110, 350, 50);
 		modeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 		modeLabel.setVisible(false);
-		
+
 		usedType.setBounds(20, 200, 70, 450);
 		usedType.setVisible(false);
 		usedType.setEditable(false);
@@ -352,7 +360,7 @@ public class Fenster extends JFrame {
 		resultsShouldPressed.setVisible(false);
 		resultsShouldPressed.setEditable(false);
 		resultsShouldPressed.setEditorKit(new HTMLEditorKit());
-		
+
 		backButton.setBounds(0, 0, 100, 50);
 		backButton.setText("Back");
 		backButton.setMargin(new Insets(2, 2, 2, 2));
@@ -389,11 +397,10 @@ public class Fenster extends JFrame {
 				immuneButton_ActionPerformed(evt);
 			}
 		});
-		
 
 		Datenbank.getTypes("", 0, 0);
 		rech.setCurrentType(Datenbank.getTypes(rech.getRand(Datenbank.Types.size()), 0));
-		
+
 		int count = 0;
 
 		for (int i = 0; i < 18; i++) {
@@ -427,7 +434,7 @@ public class Fenster extends JFrame {
 		});
 		nothingButton.setBackground(Color.WHITE);
 		nothingButton.setVisible(false);
-		
+
 		oneTypeButton.setBounds(150, 200, 100, 50);
 		oneTypeButton.setText("One Piece");
 		oneTypeButton.setMargin(new Insets(2, 2, 2, 2));
@@ -437,7 +444,7 @@ public class Fenster extends JFrame {
 			}
 		});
 		oneTypeButton.setVisible(true);
-	
+
 		twoTypeButton.setBounds(275, 200, 100, 50);
 		twoTypeButton.setText("Two Piece");
 		twoTypeButton.setMargin(new Insets(2, 2, 2, 2));
@@ -447,17 +454,15 @@ public class Fenster extends JFrame {
 			}
 		});
 		twoTypeButton.setVisible(true);
-		
 
 		TypeLabel.setBounds(150, 140, 350, 50);
 		TypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 		TypeLabel.setVisible(true);
-		
-		attackTypeLabel.setBounds(150,350,350,50);
+
+		attackTypeLabel.setBounds(150, 350, 350, 50);
 		attackTypeLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 		attackTypeLabel.setVisible(true);
-		
-		
+
 		for (int i = 0; i < 6; i++) {
 			multiplicatorButtons.add(new JButton());
 		}
@@ -466,7 +471,7 @@ public class Fenster extends JFrame {
 			double tempMultiplicator;
 			multiplicatorButtons.get(count).setBounds(100 * j + 100, 300, 85, 25);
 			multiplicatorButtons.get(count).setMargin(new Insets(2, 2, 2, 2));
-			switch(j) {
+			switch (j) {
 			case 0:
 				multiplicatorButtons.get(count).setText("0");
 				tempMultiplicator = 0;
@@ -523,16 +528,16 @@ public class Fenster extends JFrame {
 				break;
 			}
 			count++;
-		}	
+		}
 		trainerButton.setBounds(150, 200, 100, 50);
 		trainerButton.setText("Trainer Battle");
 		trainerButton.setMargin(new Insets(2, 2, 2, 2));
 		trainerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				//trainerButton_ActionPerformed(evt);
+				trainerButton_ActionPerformed(evt);
 			}
 		});
-	
+
 		gymLeaderButton.setBounds(275, 200, 100, 50);
 		gymLeaderButton.setText("Gym Battle");
 		gymLeaderButton.setMargin(new Insets(2, 2, 2, 2));
@@ -541,9 +546,9 @@ public class Fenster extends JFrame {
 				gymLeaderButton_ActionPerformed(evt);
 			}
 		});
-	
+
 	}
-	
+
 	public void setCurrentPanel(int tempCase) {
 		switch (tempCase) {
 		case 0:
@@ -556,7 +561,7 @@ public class Fenster extends JFrame {
 			defenderType.setText("Defender:");
 			attackerPanel.add(defenderType);
 			defenderType.setVisible(false);
-	
+
 			attackerPanel.add(modeLabel);
 			modeLabel.setVisible(false);
 
@@ -571,33 +576,33 @@ public class Fenster extends JFrame {
 
 			attackerPanel.add(backButton);
 			backButton.setVisible(true);
-			
+
 			attackerPanel.add(effectiveButton);
 			effectiveButton.setVisible(true);
-			
+
 			attackerPanel.add(notEffectiveButton);
 			notEffectiveButton.setVisible(true);
-			
+
 			attackerPanel.add(immuneButton);
 			immuneButton.setVisible(true);
-			
+
 			currentTypeLabel.setText("Attacker: " + rech.getCurrentType());
-			
+
 			int count = 0;
 
 			for (int i = 0; i < 18; i++) {
 				typesbuttons.add(new JButton());
 			}
-			
+
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 6; j++) {
-					
+
 					attackerPanel.add(typesbuttons.get(count));
 					typesbuttons.get(count).setVisible(false);
 					count++;
 				}
 			}
-			
+
 			nothingButton.setVisible(false);
 			attackerPanel.add(nothingButton);
 			break;
@@ -626,22 +631,22 @@ public class Fenster extends JFrame {
 
 			defenderPanel.add(effectiveButton);
 			effectiveButton.setVisible(true);
-			
+
 			defenderPanel.add(notEffectiveButton);
 			notEffectiveButton.setVisible(true);
-			
+
 			defenderPanel.add(immuneButton);
 			immuneButton.setVisible(true);
-			
+
 			currentTypeLabel.setText("Defender: " + rech.getCurrentType());
-			
+
 			count = 0;
 
 			for (int i = 0; i < 18; i++) {
 				typesbuttons.add(new JButton());
 			}
 			// Typen Ersteller der Buttons
-			
+
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 6; j++) {
 					defenderPanel.add(typesbuttons.get(count));
@@ -649,80 +654,80 @@ public class Fenster extends JFrame {
 					count++;
 				}
 			}
-			
+
 			nothingButton.setVisible(false);
 			defenderPanel.add(nothingButton);
 			break;
-		case 3:	
-			oneTypeButton.setVisible(true);	
+		case 3:
+			oneTypeButton.setVisible(true);
 			chooseSumOfTypesPanel.add(oneTypeButton);
 
 			twoTypeButton.setVisible(true);
 			chooseSumOfTypesPanel.add(twoTypeButton);
-			
+
 			chooseSumOfTypesPanel.add(backButton);
 			backButton.setVisible(true);
-			
+
 			break;
 		case 4:
 			twoTypesDefenderPanel.add(TypeLabel);
 			TypeLabel.setVisible(true);
-			
+
 			twoTypesDefenderPanel.add(attackTypeLabel);
 			attackTypeLabel.setVisible(true);
-			
+
 			twoTypesDefenderPanel.add(usedType);
 			usedType.setVisible(false);
-			
+
 			twoTypesDefenderPanel.add(resultsPressed);
 			resultsPressed.setVisible(false);
 
 			twoTypesDefenderPanel.add(resultsShouldPressed);
 			resultsShouldPressed.setVisible(false);
-			
+
 			twoTypesDefenderPanel.add(backButton);
 			backButton.setVisible(true);
-			
+
 			for (int j = 0; j < 6; j++) {
-				
+
 				twoTypesDefenderPanel.add(multiplicatorButtons.get(j));
 				multiplicatorButtons.get(j).setVisible(true);
 			}
 			break;
-		case 5:			
+		case 5:
 			chooseOpponent.add(backButton);
 			backButton.setVisible(true);
-			
+
 			chooseOpponent.add(trainerButton);
 			trainerButton.setVisible(true);
 
 			chooseOpponent.add(gymLeaderButton);
 			gymLeaderButton.setVisible(true);
-		
-			break;	
-			
+
+			break;
+
 		}
 	}
-	
+
 	public JPanel getCurrentPanel(int tempPanel) {
-		switch(tempPanel) {
+		switch (tempPanel) {
 		case 0:
 			return menuPanel;
 		case 1:
 			return attackerPanel;
 		case 2:
-			return defenderPanel;		
+			return defenderPanel;
 		case 3:
 			return chooseSumOfTypesPanel;
 		case 4:
-			return twoTypesDefenderPanel;	
+			return twoTypesDefenderPanel;
 		case 5:
 			return battlePanel;
 		default:
 			System.out.println("Error");
 			return null;
 		}
-			
+
 	}
 
 	public JLabel getTypeLabel() {
@@ -820,21 +825,20 @@ public class Fenster extends JFrame {
 	public void setMultiplicatorButtons(ArrayList<JButton> multiplicatorButtons) {
 		this.multiplicatorButtons = multiplicatorButtons;
 	}
-	
-	public void setPicLabel(int i) {	
-		
-		ImageIcon imageIcon = new ImageIcon("Pokemon Pixel Icons/"+i+".png");
-		Image image = imageIcon.getImage(); 
-		Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_REPLICATE); 
+
+	public void setPicLabel(int i) {
+
+		ImageIcon imageIcon = new ImageIcon("Pokemon Pixel Icons/" + i + ".png");
+		Image image = imageIcon.getImage();
+		Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_REPLICATE);
 		imageIcon = new ImageIcon(newimg);
 		picLabel = new JLabel(imageIcon);
 		picLabel.setBounds(450, -40, 300, 300);
 		picLabel.setVisible(true);
 		picLabel.setIcon(imageIcon);
 		twoTypesDefenderPanel.add(picLabel);
-		
-	}
 
+	}
 
 	// Ende von Getter und Settern
 
