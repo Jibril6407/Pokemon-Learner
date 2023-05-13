@@ -33,6 +33,8 @@ public class Rechenzentrum {
 	private Fenster fenster;
 	private int currentPanel = 0;
 
+	private ArrayList<Integer> chosenPokemon = new ArrayList<Integer>();
+
 	public void init_Gui(Fenster Fenster) {
 		this.fenster = Fenster;
 	}
@@ -256,22 +258,22 @@ public class Rechenzentrum {
 	}
 
 	public void backButton_ActionPerformedMethod(ActionEvent evt) {
-		
+
 		setMode(0);
-		
+
 		clearCompareTypes();
 		clearComparedTypes();
 		clearAllCompareTypes();
 		clearAllComparedTypes();
-		usedTypeText ="<html><b>";
-		resultPressedText ="<html><b>";
-		resultShouldPressedText ="<html><b>";
+		usedTypeText = "<html><b>";
+		resultPressedText = "<html><b>";
+		resultShouldPressedText = "<html><b>";
 		System.out.println("Pressed:                      " + getAllComparedTypes());
 		System.out.println("What you should have pressed: " + getAllCompareTypes());
 		clearUsedTypes();
-		
+
 		fenster.getCp().removeAll();
-		fenster.setContentPane(fenster.getMenuPanel());	
+		fenster.setContentPane(fenster.getMenuPanel());
 		currentPanel = 0;
 		fenster.revalidate();
 	}
@@ -412,21 +414,21 @@ public class Rechenzentrum {
 
 	public void attackerSideButton_ActionPerformedMethod() {
 		fenster.getCp().removeAll();
-		fenster.setContentPane(fenster.getAttackerPanel());	
+		fenster.setContentPane(fenster.getAttackerPanel());
 		panelMode = 1;
-		currentPanel = 1;		
-		fenster.setCurrentPanel(currentPanel);		
+		currentPanel = 1;
+		fenster.setCurrentPanel(currentPanel);
 		fenster.revalidate();
-		
+
 	}
 
 	public void defenderSideButton_ActionPerformedMethod() {
 		fenster.getCp().removeAll();
 		fenster.setContentPane(fenster.getChooseSumOfTypesPanel());
 		currentPanel = 3;
-		fenster.setCurrentPanel(currentPanel);	
+		fenster.setCurrentPanel(currentPanel);
 		fenster.revalidate();
-		
+
 	}
 
 	public void battleModeButton_ActionPerformedMethod() {
@@ -444,7 +446,7 @@ public class Rechenzentrum {
 		currentPanel = 2;
 		fenster.setCurrentPanel(currentPanel);
 		fenster.revalidate();
-		
+
 	}
 
 	public void twoTypeButton_ActionPerformedMethod() {
@@ -454,7 +456,7 @@ public class Rechenzentrum {
 		currentPanel = 4;
 		fenster.setCurrentPanel(currentPanel);
 		fenster.revalidate();
-		
+
 		do {
 			Datenbank.getTypes("", 0, 0);
 			int i = getRand(Datenbank.Types.size());
@@ -518,10 +520,10 @@ public class Rechenzentrum {
 		fenster.getAttackTypeLabel().setText("Attack with: " + currentType);
 
 		int poke = getRand(Datenbank.PokemonNumbers.size());
-		fenster.setPicLabel(Datenbank.PokemonNumbers.get(poke));
+		fenster.setPicLabel(Datenbank.PokemonNumbers.get(poke), 0);
 
 	}
-	
+
 	public void trainerButton_ActionPerformedMethod() {
 		fenster.getCp().removeAll();
 		fenster.setContentPane(fenster.getBuildTeamPanel());
@@ -529,7 +531,7 @@ public class Rechenzentrum {
 		currentPanel = 6;
 		fenster.setCurrentPanel(currentPanel);
 		fenster.revalidate();
-		
+
 	}
 
 	public void multiplicatorButtons_ActionPerformedMethod(ActionEvent evt, double tempMultiplicator) {
@@ -578,7 +580,7 @@ public class Rechenzentrum {
 
 		System.out.println(comparedTypes);
 	}
-	
+
 	public void gymLeaderButton_ActionPerformed() {
 		fenster.getCp().removeAll();
 		fenster.setContentPane(fenster.getGymLeaderPanel());
@@ -586,6 +588,23 @@ public class Rechenzentrum {
 		currentPanel = 7;
 		fenster.setCurrentPanel(currentPanel);
 		fenster.revalidate();
+	}
+
+	public void selectButton_ActionPerformed(int i) {
+		fenster.setPicLabel(i, 1);
+		Datenbank.getPokemonTypes(i);
+		fenster.setType1Label(Datenbank.type1);
+		fenster.setType2Label(Datenbank.type2);
+	}
+
+	public void chooseButton_ActionPerformed(int i) {
+		if (chosenPokemon.size() < 6 && !chosenPokemon.contains(i)) {
+			chosenPokemon.add(i);
+		} else if (!(chosenPokemon.size() < 6)) {
+			System.out.println("You cannot choose more than 6 Pokemon!");
+		} else {
+			System.out.println("You can pick every Pokemon only one Time!");
+		}
 	}
 
 	public void done() {

@@ -13,6 +13,9 @@ public class Fenster extends JFrame {
 	private JLabel defenderType = new JLabel();
 	private JLabel modeLabel = new JLabel();
 	private JLabel picLabel = new JLabel();
+	private JLabel type1Label = new JLabel();
+	private JLabel type2Label = new JLabel();
+
 	private JTextPane usedType = new JTextPane();
 	private JTextPane resultsPressed = new JTextPane();
 	private JTextPane resultsShouldPressed = new JTextPane();
@@ -43,6 +46,12 @@ public class Fenster extends JFrame {
 	private JButton notEffectiveButton = new JButton();
 	private JButton immuneButton = new JButton();
 	private JButton nothingButton = new JButton();
+
+	private JComboBox<String> choosePokeName = new JComboBox<String>();
+	private JComboBox<Integer> choosePokeNumber = new JComboBox<Integer>();
+	private JButton selectButton = new JButton();
+	private JButton chooseButton = new JButton();
+
 	private ArrayList<JButton> typesbuttons = new ArrayList<JButton>();
 	private ArrayList<JButton> multiplicatorButtons = new ArrayList<JButton>();
 	private Rechenzentrum rech = null;
@@ -183,6 +192,7 @@ public class Fenster extends JFrame {
 	public void multiplicatorButtons_ActionPerformed(ActionEvent evt, double tempMultiplicator) {
 		rech.multiplicatorButtons_ActionPerformedMethod(evt, tempMultiplicator);
 	}
+
 	public void trainerButton_ActionPerformed(ActionEvent evt) {
 		rech.trainerButton_ActionPerformedMethod();
 	}
@@ -191,6 +201,13 @@ public class Fenster extends JFrame {
 		rech.gymLeaderButton_ActionPerformed();
 	}
 
+	public void selectButton_ActionPerformed(int i) {
+		rech.selectButton_ActionPerformed(i);
+	}
+	
+	public void chooseButton_ActionPerformed(int i) {
+		rech.chooseButton_ActionPerformed(i);
+	}
 
 	// Ende Methoden
 
@@ -326,7 +343,6 @@ public class Fenster extends JFrame {
 	public void setBattlePanel(JPanel battlePanel) {
 		this.battlePanel = battlePanel;
 	}
-
 
 	public JPanel getGymLeaderPanel() {
 		return gymLeaderPanel;
@@ -547,6 +563,56 @@ public class Fenster extends JFrame {
 			}
 		});
 
+		choosePokeName.setBounds(55, 100, 150, 30);
+		choosePokeNumber.setBounds(0, 100, 55, 30);
+
+		Datenbank.getPokemonNames(0);
+		for (int i = 0; i < Datenbank.Pokemon_Names.size(); i++) {
+			choosePokeName.addItem(Datenbank.Pokemon_Names.get(i));
+			choosePokeNumber.addItem(i + 1);
+		}
+		choosePokeName.setMaximumRowCount(20);
+		choosePokeNumber.setMaximumRowCount(20);
+
+		choosePokeName.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent evt) {
+				choosePokeNumber.setSelectedIndex(choosePokeName.getSelectedIndex());
+			}
+		});
+		choosePokeNumber.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				choosePokeName.setSelectedIndex(choosePokeNumber.getSelectedIndex());
+			}
+		});
+
+		selectButton.setBounds(0, 495, 205, 30);
+		selectButton.setText("Select");
+		selectButton.setMargin(new Insets(2, 2, 2, 2));
+		selectButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				selectButton_ActionPerformed(choosePokeNumber.getSelectedIndex() + 1);
+			}
+		});
+
+		type1Label.setBounds(450, 150, 100, 50);
+		type1Label.setFont(new Font("Dialog", Font.BOLD, 18));
+		type1Label.setText("Type 1");
+		type1Label.setVisible(true);
+
+		type2Label.setBounds(600, 150, 100, 50);
+		type2Label.setFont(new Font("Dialog", Font.BOLD, 18));
+		type2Label.setText("Type 2");
+		type2Label.setVisible(true);
+		
+		chooseButton.setBounds(500, 495, 205, 30);
+		chooseButton.setText("Choose");
+		chooseButton.setMargin(new Insets(2, 2, 2, 2));
+		chooseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				chooseButton_ActionPerformed(choosePokeNumber.getSelectedIndex() + 1);
+			}
+		});
+
 	}
 
 	public void setCurrentPanel(int tempCase) {
@@ -705,6 +771,29 @@ public class Fenster extends JFrame {
 			gymLeaderButton.setVisible(true);
 
 			break;
+		case 6:
+			buildTeamPanel.add(backButton);
+			backButton.setVisible(true);
+
+			buildTeamPanel.add(choosePokeName);
+			choosePokeName.setVisible(true);
+
+			buildTeamPanel.add(choosePokeNumber);
+			choosePokeNumber.setVisible(true);
+
+			buildTeamPanel.add(selectButton);
+			selectButton.setVisible(true);
+
+			buildTeamPanel.add(type1Label);
+			type1Label.setVisible(true);
+
+			buildTeamPanel.add(type2Label);
+			type2Label.setVisible(true);
+			
+			buildTeamPanel.add(chooseButton);
+			chooseButton.setVisible(true);
+
+			break;
 
 		}
 	}
@@ -826,18 +915,40 @@ public class Fenster extends JFrame {
 		this.multiplicatorButtons = multiplicatorButtons;
 	}
 
-	public void setPicLabel(int i) {
+	public void setPicLabel(int i, int j) {
 
 		ImageIcon imageIcon = new ImageIcon("Pokemon Pixel Icons/" + i + ".png");
 		Image image = imageIcon.getImage();
 		Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_REPLICATE);
 		imageIcon = new ImageIcon(newimg);
-		picLabel = new JLabel(imageIcon);
-		picLabel.setBounds(450, -40, 300, 300);
 		picLabel.setVisible(true);
 		picLabel.setIcon(imageIcon);
-		twoTypesDefenderPanel.add(picLabel);
 
+		if (j == 0) {
+			twoTypesDefenderPanel.add(picLabel);
+			picLabel.setBounds(450, -40, 300, 300);
+
+		} else if (j == 1) {
+			buildTeamPanel.add(picLabel);
+			picLabel.setBounds(220, 50, 300, 300);
+			buildTeamPanel.repaint();
+
+		}
+
+	}
+
+	public void setType1Label(String s) {
+		if (s != null) {
+			type1Label.setText(s);
+		}
+	}
+
+	public void setType2Label(String s) {
+		if (s != null) {
+			type2Label.setText(s);
+		}else {
+			type2Label.setText("");
+		}
 	}
 
 	// Ende von Getter und Settern

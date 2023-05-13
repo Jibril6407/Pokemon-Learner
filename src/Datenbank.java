@@ -10,7 +10,11 @@ public class Datenbank {
 	public static ArrayList<String> effective_against_Types = new ArrayList<String>();
 	public static ArrayList<String> not_effective_against_Types = new ArrayList<String>();
 	public static ArrayList<String> immune_Types = new ArrayList<String>();
-	public static ArrayList<Integer> PokemonNumbers = new ArrayList<Integer>(); 
+	public static ArrayList<Integer> PokemonNumbers = new ArrayList<Integer>();
+	public static ArrayList<String> Pokemon_Names = new ArrayList<String>();
+	public static String type1;
+	public static String type2;
+	
 
 	// Ladet den LDBC-Treiber(connection zur Datenbank)
 	static {
@@ -185,24 +189,71 @@ public class Datenbank {
 		}
 
 	}
+
 	public static void getPokemonNumber(String firstType, String secondType) {
 		try {
 			Statement stmt = con.createStatement();
 
-				ResultSet rs = stmt.executeQuery("Select Pokedex_Number From Pokemon_Number_Types WHERE Primary_Type IS '"+firstType+"' AND Secondary_Type IS '"+secondType+"' OR Primary_Type IS '"+secondType+"' AND Secondary_Type IS '"+firstType+"'");
+			ResultSet rs = stmt.executeQuery("Select Pokedex_Number From Pokemon_Number_Types WHERE Primary_Type IS '"
+					+ firstType + "' AND Secondary_Type IS '" + secondType + "' OR Primary_Type IS '" + secondType
+					+ "' AND Secondary_Type IS '" + firstType + "'");
+			int columns = rs.getMetaData().getColumnCount();
+			PokemonNumbers.clear();
+			while (rs.next()) {
+				for (int i = 1; i <= columns; i++) {
+					PokemonNumbers.add(rs.getInt(i));
+				}
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+	}
+
+	public static void getPokemonNames(int j) {
+		if (j == 0) {
+
+			try {
+				Statement stmt = con.createStatement();
+
+				ResultSet rs = stmt.executeQuery("Select Pokemon_Name From Pokemon_Number_Types");
 				int columns = rs.getMetaData().getColumnCount();
 				PokemonNumbers.clear();
 				while (rs.next()) {
 					for (int i = 1; i <= columns; i++) {
-						PokemonNumbers.add(rs.getInt(i));
+						Pokemon_Names.add(rs.getString(i));
 					}
-			}
+				}
 				rs.close();
 				stmt.close();
-		}catch (SQLException e) {
+			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			
+
 			}
-}
+		}
+	}
+
+	public static void getPokemonTypes(int j) {
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt.executeQuery("Select Primary_type from Pokemon_Number_Types where Pokedex_Number IS '"+ j +"'");
+			type1 = rs.getString(1);
+			
+			rs = stmt.executeQuery("Select Secondary_type from Pokemon_Number_Types where Pokedex_Number IS '"+ j +"'");
+			type2 = rs.getString(1);
+			
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+
+	}
 }
