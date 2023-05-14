@@ -30,6 +30,7 @@ public class Rechenzentrum {
 	private String usedTypeText = "<html><b>";
 	private String[] nameMode = { "Effective", "Not Effective", "Immune" };
 	private String[] attackerOrDefender = { "", "Attacker: ", "Defender: " };
+	private boolean trainerOrGym;
 	private Fenster fenster;
 	private int currentPanel = 0;
 
@@ -260,7 +261,7 @@ public class Rechenzentrum {
 	public void backButton_ActionPerformedMethod(ActionEvent evt) {
 
 		setMode(0);
-
+		chosenPokemon.clear();
 		clearCompareTypes();
 		clearComparedTypes();
 		clearAllCompareTypes();
@@ -529,6 +530,7 @@ public class Rechenzentrum {
 		fenster.setContentPane(fenster.getBuildTeamPanel());
 		panelMode = 2;
 		currentPanel = 6;
+		trainerOrGym = false;
 		fenster.setCurrentPanel(currentPanel);
 		fenster.revalidate();
 
@@ -583,9 +585,10 @@ public class Rechenzentrum {
 
 	public void gymLeaderButton_ActionPerformed() {
 		fenster.getCp().removeAll();
-		fenster.setContentPane(fenster.getGymLeaderPanel());
+		fenster.setContentPane(fenster.getBuildTeamPanel());
 		panelMode = 2;
-		currentPanel = 7;
+		currentPanel = 6;
+		trainerOrGym = true;
 		fenster.setCurrentPanel(currentPanel);
 		fenster.revalidate();
 	}
@@ -604,6 +607,23 @@ public class Rechenzentrum {
 			System.out.println("You cannot choose more than 6 Pokemon!");
 		} else {
 			System.out.println("You can pick every Pokemon only one Time!");
+		}
+	}
+
+	public void confirmButton_ActionPerformed() {
+
+		if (!trainerOrGym) {
+			fenster.getCp().removeAll();
+			fenster.setContentPane(fenster.getTrainerPanel());
+			currentPanel = 7;
+			fenster.setCurrentPanel(currentPanel);
+			fenster.revalidate();
+		} else if (trainerOrGym) {
+			fenster.getCp().removeAll();
+			fenster.setContentPane(fenster.getGymLeaderPanel());
+			currentPanel = 8;
+			fenster.setCurrentPanel(currentPanel);
+			fenster.revalidate();
 		}
 	}
 

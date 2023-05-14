@@ -51,6 +51,7 @@ public class Fenster extends JFrame {
 	private JComboBox<Integer> choosePokeNumber = new JComboBox<Integer>();
 	private JButton selectButton = new JButton();
 	private JButton chooseButton = new JButton();
+	private JButton confirmButton = new JButton();
 
 	private ArrayList<JButton> typesbuttons = new ArrayList<JButton>();
 	private ArrayList<JButton> multiplicatorButtons = new ArrayList<JButton>();
@@ -204,9 +205,13 @@ public class Fenster extends JFrame {
 	public void selectButton_ActionPerformed(int i) {
 		rech.selectButton_ActionPerformed(i);
 	}
-	
+
 	public void chooseButton_ActionPerformed(int i) {
 		rech.chooseButton_ActionPerformed(i);
+	}
+
+	public void confirmButton_ActionPerformed(ActionEvent evt) {
+		rech.confirmButton_ActionPerformed();
 	}
 
 	// Ende Methoden
@@ -603,13 +608,22 @@ public class Fenster extends JFrame {
 		type2Label.setFont(new Font("Dialog", Font.BOLD, 18));
 		type2Label.setText("Type 2");
 		type2Label.setVisible(true);
-		
+
 		chooseButton.setBounds(500, 495, 205, 30);
 		chooseButton.setText("Choose");
 		chooseButton.setMargin(new Insets(2, 2, 2, 2));
 		chooseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				chooseButton_ActionPerformed(choosePokeNumber.getSelectedIndex() + 1);
+			}
+		});
+
+		confirmButton.setBounds(885, 0, 100, 50);
+		confirmButton.setText("Start Battle");
+		confirmButton.setMargin(new Insets(2, 2, 2, 2));
+		confirmButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				confirmButton_ActionPerformed(evt);
 			}
 		});
 
@@ -789,9 +803,24 @@ public class Fenster extends JFrame {
 
 			buildTeamPanel.add(type2Label);
 			type2Label.setVisible(true);
-			
+
 			buildTeamPanel.add(chooseButton);
 			chooseButton.setVisible(true);
+
+			buildTeamPanel.add(confirmButton);
+			confirmButton.setVisible(true);
+
+			break;
+
+		case 7:
+			trainerPanel.add(backButton);
+			backButton.setVisible(true);
+			break;
+
+		case 8:
+
+			gymLeaderPanel.add(backButton);
+			backButton.setVisible(true);
 
 			break;
 
@@ -915,6 +944,10 @@ public class Fenster extends JFrame {
 		this.multiplicatorButtons = multiplicatorButtons;
 	}
 
+	public JPanel getTrainerPanel() {
+		return trainerPanel;
+	}
+
 	public void setPicLabel(int i, int j) {
 
 		ImageIcon imageIcon = new ImageIcon("Pokemon Pixel Icons/" + i + ".png");
@@ -946,7 +979,7 @@ public class Fenster extends JFrame {
 	public void setType2Label(String s) {
 		if (s != null) {
 			type2Label.setText(s);
-		}else {
+		} else {
 			type2Label.setText("");
 		}
 	}
