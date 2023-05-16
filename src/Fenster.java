@@ -40,6 +40,12 @@ public class Fenster extends JFrame {
 
 	private JButton trainerButton = new JButton();
 	private JButton gymLeaderButton = new JButton();
+	
+	private JButton fightButton0 = new JButton();
+	private JButton fightButton1 = new JButton();
+	private JButton changeButton = new JButton();
+	private JButton backToAttackButton = new JButton();
+	private JButton chooseAttackButton = new JButton();
 
 	private JButton backButton = new JButton();
 	private JButton effectiveButton = new JButton();
@@ -212,6 +218,26 @@ public class Fenster extends JFrame {
 
 	public void confirmButton_ActionPerformed(ActionEvent evt) {
 		rech.confirmButton_ActionPerformed();
+	}
+	
+	public void fightButton0_ActionPerformed(ActionEvent evt) {
+		rech.fightButton0_ActionPerformed();
+	}
+	
+	public void changeButton_ActionPerformed(ActionEvent evt) {
+		rech.changeButton_ActionPerformed();
+	}
+	
+	public void backToAttackButton_ActionPerformed(ActionEvent evt) {
+		rech.backToAttackButton_ActionPerformed();
+	}
+	
+	public void chooseAttackButton_ActionPerformed(ActionEvent evt) {
+		rech.chooseAttackButton_ActionPerformed();
+	}
+	
+	public void fightButton1_ActionPerformed(ActionEvent evt) {
+		rech.fightButton1_ActionPerformed();
 	}
 
 	// Ende Methoden
@@ -567,7 +593,52 @@ public class Fenster extends JFrame {
 				gymLeaderButton_ActionPerformed(evt);
 			}
 		});
-
+		// Von 
+		fightButton0.setBounds(150, 200, 100, 50);
+		fightButton0.setText("Attacke 1");
+		fightButton0.setMargin(new Insets(2, 2, 2, 2));
+		fightButton0.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				fightButton0_ActionPerformed(evt);
+			}
+		});
+		
+		fightButton1.setBounds(150, 200, 100, 50);
+		fightButton1.setText("Attacke 2");
+		fightButton1.setMargin(new Insets(2, 2, 2, 2));
+		fightButton1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				fightButton1_ActionPerformed(evt);
+			}
+		});
+		
+		changeButton.setBounds(500, 500, 100, 50);
+		changeButton.setText("Tauschen");
+		changeButton.setMargin(new Insets(2, 2, 2, 2));
+		changeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				changeButton_ActionPerformed(evt);
+			}
+		});
+		
+		backToAttackButton.setBounds(150, 200, 100, 50);
+		backToAttackButton.setText("Zurück");
+		backToAttackButton.setMargin(new Insets(2, 2, 2, 2));
+		backToAttackButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				backToAttackButton_ActionPerformed(evt);
+			}
+		});
+		
+		chooseAttackButton.setBounds(400, 500, 100, 50);
+		chooseAttackButton.setText("Angriffe");
+		chooseAttackButton.setMargin(new Insets(2, 2, 2, 2));
+		chooseAttackButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				chooseAttackButton_ActionPerformed(evt);
+			}
+		});
+		// bis
 		choosePokeName.setBounds(55, 100, 150, 30);
 		choosePokeNumber.setBounds(0, 100, 55, 30);
 
@@ -813,14 +884,29 @@ public class Fenster extends JFrame {
 			break;
 
 		case 7:
+			
 			trainerPanel.add(backButton);
 			backButton.setVisible(true);
+			
+			trainerPanel.add(changeButton);
+			changeButton.setVisible(true);
+			
+			trainerPanel.add(chooseAttackButton);
+			chooseAttackButton.setVisible(true);
+			
+			
 			break;
 
 		case 8:
 
 			gymLeaderPanel.add(backButton);
 			backButton.setVisible(true);
+			
+			trainerPanel.add(changeButton);
+			changeButton.setVisible(true);
+			
+			trainerPanel.add(chooseAttackButton);
+			chooseAttackButton.setVisible(true);
 
 			break;
 

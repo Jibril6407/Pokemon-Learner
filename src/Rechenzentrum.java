@@ -438,7 +438,29 @@ public class Rechenzentrum {
 		currentPanel = 5;
 		fenster.setCurrentPanel(currentPanel);
 		fenster.revalidate();
+		
 	}
+
+	public void fightButton0_ActionPerformed() {
+		
+	}
+
+	public void fightButton1_ActionPerformed() {
+
+	}
+	public void changeButton_ActionPerformed() {
+
+	}
+
+	public void backToAttackButton_ActionPerformed() {
+
+	}
+
+	public void chooseAttackButton_ActionPerformed() {
+
+	}
+
+	
 
 	public void oneTypeButton_ActionPerformedMethod() {
 		fenster.getCp().removeAll();
@@ -625,6 +647,7 @@ public class Rechenzentrum {
 			fenster.setCurrentPanel(currentPanel);
 			fenster.revalidate();
 		}
+		// hier
 	}
 
 	public void done() {
