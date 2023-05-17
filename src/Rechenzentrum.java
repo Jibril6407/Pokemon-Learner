@@ -1,4 +1,3 @@
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -43,7 +42,7 @@ public class Rechenzentrum {
 	public Rechenzentrum() {
 	}
 
-	public void effectiveButton_ActionPerformedMethode() {
+	public void effectiveButton_ActionPerformedMethod() {
 		setMode(1);
 		if (fenster.getEffectiveButton().getText() == "Effective") {
 			fenster.getCurrentTypeLabel().setVisible(true);
@@ -105,7 +104,7 @@ public class Rechenzentrum {
 		}
 	}
 
-	public void typesbuttons_ActionPerformedMethod(ActionEvent evt, String tempTypes) {
+	public void typesbuttons_ActionPerformedMethod(String tempTypes) {
 
 		if (getComparedTypes().contains(tempTypes)) {
 			System.out.println("That type was already guessed!");
@@ -144,7 +143,6 @@ public class Rechenzentrum {
 
 					if (getUsedTypes().size() == 18) {
 						clearUsedTypes();
-						;
 						done();
 						continue;
 					}
@@ -258,7 +256,7 @@ public class Rechenzentrum {
 		}
 	}
 
-	public void backButton_ActionPerformedMethod(ActionEvent evt) {
+	public void backButton_ActionPerformedMethod() {
 
 		setMode(0);
 		chosenPokemon.clear();
@@ -274,12 +272,12 @@ public class Rechenzentrum {
 		clearUsedTypes();
 
 		fenster.getCp().removeAll();
-		fenster.setContentPane(fenster.getMenuPanel());
 		currentPanel = 0;
+		fenster.setContentPane(fenster.getPanel(currentPanel));
 		fenster.revalidate();
 	}
 
-	public void nothingButton_ActionPerformedMethod(ActionEvent evt) {
+	public void nothingButton_ActionPerformedMethod() {
 
 		if (getNothingButtonPressed() == 1) {
 			System.out.println("You already Pressed Nothing!");
@@ -415,48 +413,48 @@ public class Rechenzentrum {
 
 	public void attackerSideButton_ActionPerformedMethod() {
 		fenster.getCp().removeAll();
-		fenster.setContentPane(fenster.getAttackerPanel());
 		panelMode = 1;
 		currentPanel = 1;
-		fenster.setCurrentPanel(currentPanel);
+		fenster.setContentPane(fenster.getPanel(currentPanel));
+		fenster.setPanel(currentPanel);
 		fenster.revalidate();
 
 	}
 
 	public void defenderSideButton_ActionPerformedMethod() {
 		fenster.getCp().removeAll();
-		fenster.setContentPane(fenster.getChooseSumOfTypesPanel());
 		currentPanel = 3;
-		fenster.setCurrentPanel(currentPanel);
+		fenster.setContentPane(fenster.getPanel(currentPanel));
+		fenster.setPanel(currentPanel);
 		fenster.revalidate();
 
 	}
 
 	public void battleModeButton_ActionPerformedMethod() {
 		fenster.getCp().removeAll();
-		fenster.setContentPane(fenster.getChooseOpponentPanel());
 		currentPanel = 5;
-		fenster.setCurrentPanel(currentPanel);
+		fenster.setContentPane(fenster.getPanel(currentPanel));
+		fenster.setPanel(currentPanel);
 		fenster.revalidate();
 		
 	}
 
-	public void fightButton0_ActionPerformed() {
+	public void fightButton0_ActionPerformedMethod() {
 		
 	}
 
-	public void fightButton1_ActionPerformed() {
+	public void fightButton1_ActionPerformedMethod() {
 
 	}
-	public void changeButton_ActionPerformed() {
-
-	}
-
-	public void backToAttackButton_ActionPerformed() {
+	public void changeButton_ActionPerformedMethod() {
 
 	}
 
-	public void chooseAttackButton_ActionPerformed() {
+	public void backToAttackButton_ActionPerformedMethod() {
+
+	}
+
+	public void chooseAttackButton_ActionPerformedMethod() {
 
 	}
 
@@ -464,20 +462,20 @@ public class Rechenzentrum {
 
 	public void oneTypeButton_ActionPerformedMethod() {
 		fenster.getCp().removeAll();
-		fenster.setContentPane(fenster.getDefenderPanel());
 		panelMode = 2;
 		currentPanel = 2;
-		fenster.setCurrentPanel(currentPanel);
+		fenster.setContentPane(fenster.getPanel(currentPanel));
+		fenster.setPanel(currentPanel);
 		fenster.revalidate();
 
 	}
 
 	public void twoTypeButton_ActionPerformedMethod() {
 		fenster.getCp().removeAll();
-		fenster.setContentPane(fenster.getTwoTypesDefenderPanel());
 		panelMode = 2;
 		currentPanel = 4;
-		fenster.setCurrentPanel(currentPanel);
+		fenster.setContentPane(fenster.getPanel(currentPanel));
+		fenster.setPanel(currentPanel);
 		fenster.revalidate();
 
 		do {
@@ -549,16 +547,16 @@ public class Rechenzentrum {
 
 	public void trainerButton_ActionPerformedMethod() {
 		fenster.getCp().removeAll();
-		fenster.setContentPane(fenster.getBuildTeamPanel());
 		panelMode = 2;
 		currentPanel = 6;
 		trainerOrGym = false;
-		fenster.setCurrentPanel(currentPanel);
+		fenster.setContentPane(fenster.getPanel(currentPanel));
+		fenster.setPanel(currentPanel);
 		fenster.revalidate();
 
 	}
 
-	public void multiplicatorButtons_ActionPerformedMethod(ActionEvent evt, double tempMultiplicator) {
+	public void multiplicatorButtons_ActionPerformedMethod(double tempMultiplicator) {
 		int rand = getRand(Datenbank.Types.size());
 		pressedMultiplicator.add(tempMultiplicator);
 		if (comparedTypes.size() < 6) {
@@ -605,24 +603,24 @@ public class Rechenzentrum {
 		System.out.println(comparedTypes);
 	}
 
-	public void gymLeaderButton_ActionPerformed() {
+	public void gymLeaderButton_ActionPerformedMethod() {
 		fenster.getCp().removeAll();
-		fenster.setContentPane(fenster.getBuildTeamPanel());
 		panelMode = 2;
 		currentPanel = 6;
+		fenster.setContentPane(fenster.getPanel(currentPanel));	
 		trainerOrGym = true;
-		fenster.setCurrentPanel(currentPanel);
+		fenster.setPanel(currentPanel);
 		fenster.revalidate();
 	}
 
-	public void selectButton_ActionPerformed(int i) {
+	public void selectButton_ActionPerformedMethod(int i) {
 		fenster.setPicLabel(i, 1);
 		Datenbank.getPokemonTypes(i);
 		fenster.setType1Label(Datenbank.type1);
 		fenster.setType2Label(Datenbank.type2);
 	}
 
-	public void chooseButton_ActionPerformed(int i) {
+	public void chooseButton_ActionPerformedMethod(int i) {
 		if (chosenPokemon.size() < 6 && !chosenPokemon.contains(i)) {
 			chosenPokemon.add(i);
 		} else if (!(chosenPokemon.size() < 6)) {
@@ -632,19 +630,19 @@ public class Rechenzentrum {
 		}
 	}
 
-	public void confirmButton_ActionPerformed() {
+	public void confirmButton_ActionPerformedMethod() {
 
 		if (!trainerOrGym) {
 			fenster.getCp().removeAll();
-			fenster.setContentPane(fenster.getTrainerPanel());
 			currentPanel = 7;
-			fenster.setCurrentPanel(currentPanel);
+			fenster.setContentPane(fenster.getPanel(currentPanel));
+			fenster.setPanel(currentPanel);
 			fenster.revalidate();
 		} else if (trainerOrGym) {
 			fenster.getCp().removeAll();
-			fenster.setContentPane(fenster.getGymLeaderPanel());
 			currentPanel = 8;
-			fenster.setCurrentPanel(currentPanel);
+			fenster.setContentPane(fenster.getPanel(currentPanel));
+			fenster.setPanel(currentPanel);
 			fenster.revalidate();
 		}
 		// hier

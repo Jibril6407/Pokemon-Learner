@@ -26,7 +26,7 @@ public class Fenster extends JFrame {
 	private JPanel battlePanel = new JPanel();
 	private JPanel chooseSumOfTypesPanel = new JPanel();
 	private JPanel twoTypesDefenderPanel = new JPanel();
-	private JPanel chooseOpponent = new JPanel();
+	private JPanel chooseOpponentPanel = new JPanel();
 	private JPanel trainerPanel = new JPanel();
 	private JPanel gymLeaderPanel = new JPanel();
 	private JPanel buildTeamPanel = new JPanel();
@@ -89,7 +89,7 @@ public class Fenster extends JFrame {
 		battlePanel.setLayout(null);
 		chooseSumOfTypesPanel.setLayout(null);
 		twoTypesDefenderPanel.setLayout(null);
-		chooseOpponent.setLayout(null);
+		chooseOpponentPanel.setLayout(null);
 		trainerPanel.setLayout(null);
 		gymLeaderPanel.setLayout(null);
 		buildTeamPanel.setLayout(null);
@@ -99,7 +99,7 @@ public class Fenster extends JFrame {
 		attackerSide.setMargin(new Insets(2, 2, 2, 2));
 		attackerSide.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				attackerSideButton_ActionPerformed(evt);
+				rech.attackerSideButton_ActionPerformedMethod();
 			}
 		});
 		menuPanel.add(attackerSide);
@@ -110,7 +110,7 @@ public class Fenster extends JFrame {
 		defenderSide.setBounds(275, 200, 100, 50);
 		defenderSide.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				defenderSideButton_ActionPerformed(evt);
+				rech.defenderSideButton_ActionPerformedMethod();
 			}
 		});
 		menuPanel.add(defenderSide);
@@ -121,7 +121,7 @@ public class Fenster extends JFrame {
 		battleMode.setMargin(new Insets(2, 2, 2, 2));
 		battleMode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				battleModeButton_ActionPerformed(evt);
+				rech.battleModeButton_ActionPerformedMethod();
 			}
 		});
 		menuPanel.add(battleMode);
@@ -132,252 +132,75 @@ public class Fenster extends JFrame {
 		setVisible(true);
 	} // end of public Fenster
 
-	public JPanel getChooseOpponentPanel() {
-		return chooseOpponent;
-	}
-
-	// Anfang Methoden
-	public void attackerSideButton_ActionPerformed(ActionEvent evt) {
-
-		rech.attackerSideButton_ActionPerformedMethod();
-	}
-
-	public void defenderSideButton_ActionPerformed(ActionEvent evt) {
-
-		rech.defenderSideButton_ActionPerformedMethod();
-	}
-
-	public void battleModeButton_ActionPerformed(ActionEvent evt) {
-
-		rech.battleModeButton_ActionPerformedMethod();
-
-	}
-
-	public void effectiveButton_ActionPerformed(ActionEvent evt) {
-
-		rech.effectiveButton_ActionPerformedMethode();
-
-	} // end of jButton1_ActionPerformed
-
-	public void notEffectiveButton_ActionPerformed(ActionEvent evt) {
-
-		rech.notEffectiveButton_ActionPerformedMethod();
-
-	}
-
-	public void immuneButton_ActionPerformed(ActionEvent evt) {
-
-		rech.immuneButton_ActionPerformedMethod();
-
-	}
-
-	public void typesbuttons_ActionPerformed(ActionEvent evt, String tempTypes) {
-
-		rech.typesbuttons_ActionPerformedMethod(evt, tempTypes);
-	}
-
-	public void backButton_ActionPerformed(ActionEvent evt) {
-
-		rech.backButton_ActionPerformedMethod(evt);
-	}
-
-	public void nothingButton_ActionPerformed(ActionEvent evt) {
-
-		rech.nothingButton_ActionPerformedMethod(evt);
-	}
-
-	public void oneTypeButton_ActionPerformed(ActionEvent evt) {
-
-		rech.oneTypeButton_ActionPerformedMethod();
-	}
-
-	public void twoTypeButton_ActionPerformed(ActionEvent evt) {
-
-		rech.twoTypeButton_ActionPerformedMethod();
-	}
-
-	public void multiplicatorButtons_ActionPerformed(ActionEvent evt, double tempMultiplicator) {
-		rech.multiplicatorButtons_ActionPerformedMethod(evt, tempMultiplicator);
-	}
-
-	public void trainerButton_ActionPerformed(ActionEvent evt) {
-		rech.trainerButton_ActionPerformedMethod();
-	}
-
-	public void gymLeaderButton_ActionPerformed(ActionEvent evt) {
-		rech.gymLeaderButton_ActionPerformed();
-	}
-
-	public void selectButton_ActionPerformed(int i) {
-		rech.selectButton_ActionPerformed(i);
-	}
-
-	public void chooseButton_ActionPerformed(int i) {
-		rech.chooseButton_ActionPerformed(i);
-	}
-
-	public void confirmButton_ActionPerformed(ActionEvent evt) {
-		rech.confirmButton_ActionPerformed();
-	}
-	
-	public void fightButton0_ActionPerformed(ActionEvent evt) {
-		rech.fightButton0_ActionPerformed();
-	}
-	
-	public void changeButton_ActionPerformed(ActionEvent evt) {
-		rech.changeButton_ActionPerformed();
-	}
-	
-	public void backToAttackButton_ActionPerformed(ActionEvent evt) {
-		rech.backToAttackButton_ActionPerformed();
-	}
-	
-	public void chooseAttackButton_ActionPerformed(ActionEvent evt) {
-		rech.chooseAttackButton_ActionPerformed();
-	}
-	
-	public void fightButton1_ActionPerformed(ActionEvent evt) {
-		rech.fightButton1_ActionPerformed();
-	}
-
-	// Ende Methoden
-
-	public JPanel getBuildTeamPanel() {
-		return buildTeamPanel;
-	}
-
-	// Getter und Setter
 	public JLabel getCurrentTypeLabel() {
 		return currentTypeLabel;
-	}
-
-	public void setCurrentTypeLabel(JLabel currentTypeLabel) {
-		this.currentTypeLabel = currentTypeLabel;
-	}
-
+	}	
 	public JLabel getDefenderType() {
 		return defenderType;
 	}
-
-	public void setDefenderType(JLabel defenderType) {
-		this.defenderType = defenderType;
-	}
-
 	public JTextPane getUsedType() {
 		return usedType;
 	}
-
-	public void setUsedType(JTextPane usedType) {
-		this.usedType = usedType;
-	}
-
 	public JTextPane getResultsPressed() {
 		return resultsPressed;
 	}
-
-	public void setResultsPressed(JTextPane resultsPressed) {
-		this.resultsPressed = resultsPressed;
-	}
-
 	public JTextPane getResultsShouldPressed() {
 		return resultsShouldPressed;
 	}
-
-	public void setResultsShouldPressed(JTextPane resultsShouldPressed) {
-		this.resultsShouldPressed = resultsShouldPressed;
-	}
-
 	public JButton getBackButton() {
 		return backButton;
 	}
-
-	public void setBackButton(JButton backButton) {
-		this.backButton = backButton;
-	}
-
 	public JButton getEffectiveButton() {
 		return effectiveButton;
 	}
-
-	public void setEffectiveButton(JButton effectiveButton) {
-		this.effectiveButton = effectiveButton;
-	}
-
 	public JButton getNotEffectiveButton() {
 		return notEffectiveButton;
 	}
-
-	public void setNotEffectiveButton(JButton notEffectiveButton) {
-		this.notEffectiveButton = notEffectiveButton;
-	}
-
 	public JButton getImmuneButton() {
 		return immuneButton;
 	}
-
-	public void setImmuneButton(JButton immuneButton) {
-		this.immuneButton = immuneButton;
-	}
-
 	public JButton getNothingButton() {
 		return nothingButton;
 	}
-
-	public void setNothingButton(JButton nothingButton) {
-		this.nothingButton = nothingButton;
-	}
-
 	public ArrayList<JButton> getTypesbuttons() {
 		return typesbuttons;
 	}
-
-	public void setTypesbuttons(ArrayList<JButton> typesbuttons) {
-		this.typesbuttons = typesbuttons;
-	}
-
 	public Rechenzentrum getRech() {
 		return rech;
 	}
-
-	public void setRech(Rechenzentrum rech) {
-		this.rech = rech;
+	public JLabel getTypeLabel() {
+		return TypeLabel;
+	}
+	public JLabel getAttackTypeLabel() {
+		return attackTypeLabel;
+	}
+	public JButton getAttackerSide() {
+		return attackerSide;
+	}
+	public JButton getDefenderSide() {
+		return defenderSide;
+	}
+	public JButton getBattleMode() {
+		return battleMode;
+	}
+	public Container getCp() {
+		return cp;
+	}
+	public JLabel getModeLabel() {
+		return modeLabel;
 	}
 
-	public JPanel getMenuPanel() {
-		return menuPanel;
+	public JButton getOneTypeButton() {
+		return oneTypeButton;
 	}
-
-	public void setMenuPanel(JPanel menuPanel) {
-		this.menuPanel = menuPanel;
+	public JButton getTwoTypeButton() {
+		return twoTypeButton;
 	}
-
-	public JPanel getAttackerPanel() {
-		return attackerPanel;
+	
+	public JButton getMultiplicatorButtons(int temp) {
+		return multiplicatorButtons.get(temp);
 	}
-
-	public void setAttackerPanel(JPanel attackerPanel) {
-
-	}
-
-	public JPanel getDefenderPanel() {
-		return defenderPanel;
-	}
-
-	public void setDefenderPanel(JPanel defenderPanel) {
-		this.defenderPanel = defenderPanel;
-	}
-
-	public JPanel getBattlePanel() {
-		return battlePanel;
-	}
-
-	public void setBattlePanel(JPanel battlePanel) {
-		this.battlePanel = battlePanel;
-	}
-
-	public JPanel getGymLeaderPanel() {
-		return gymLeaderPanel;
-	}
+	
 
 	public void initPanel() {
 
@@ -414,7 +237,7 @@ public class Fenster extends JFrame {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 
-				backButton_ActionPerformed(evt);
+				rech.backButton_ActionPerformedMethod();
 			}
 		});
 
@@ -423,7 +246,7 @@ public class Fenster extends JFrame {
 		effectiveButton.setMargin(new Insets(2, 2, 2, 2));
 		effectiveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				effectiveButton_ActionPerformed(evt);
+				rech.effectiveButton_ActionPerformedMethod();
 			}
 		});
 
@@ -432,7 +255,7 @@ public class Fenster extends JFrame {
 		notEffectiveButton.setMargin(new Insets(2, 2, 2, 2));
 		notEffectiveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				notEffectiveButton_ActionPerformed(evt);
+				rech.notEffectiveButton_ActionPerformedMethod();
 			}
 		});
 
@@ -441,7 +264,7 @@ public class Fenster extends JFrame {
 		immuneButton.setMargin(new Insets(2, 2, 2, 2));
 		immuneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				immuneButton_ActionPerformed(evt);
+				rech.immuneButton_ActionPerformedMethod();
 			}
 		});
 
@@ -465,7 +288,7 @@ public class Fenster extends JFrame {
 				typesbuttons.get(count).setBackground(Color.decode(Datenbank.types_color.get(count)));
 				typesbuttons.get(count).addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						typesbuttons_ActionPerformed(evt, tempTypes);
+						rech.typesbuttons_ActionPerformedMethod(tempTypes);
 					}
 				});
 				count++;
@@ -476,7 +299,7 @@ public class Fenster extends JFrame {
 		nothingButton.setMargin(new Insets(2, 2, 2, 2));
 		nothingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				nothingButton_ActionPerformed(evt);
+				rech.nothingButton_ActionPerformedMethod();
 			}
 		});
 		nothingButton.setBackground(Color.WHITE);
@@ -487,7 +310,7 @@ public class Fenster extends JFrame {
 		oneTypeButton.setMargin(new Insets(2, 2, 2, 2));
 		oneTypeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				oneTypeButton_ActionPerformed(evt);
+				rech.oneTypeButton_ActionPerformedMethod();
 			}
 		});
 		oneTypeButton.setVisible(true);
@@ -497,7 +320,7 @@ public class Fenster extends JFrame {
 		twoTypeButton.setMargin(new Insets(2, 2, 2, 2));
 		twoTypeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				twoTypeButton_ActionPerformed(evt);
+				rech.twoTypeButton_ActionPerformedMethod();
 			}
 		});
 		twoTypeButton.setVisible(true);
@@ -524,7 +347,7 @@ public class Fenster extends JFrame {
 				tempMultiplicator = 0;
 				multiplicatorButtons.get(count).addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+						rech.multiplicatorButtons_ActionPerformedMethod(tempMultiplicator);
 					}
 				});
 				break;
@@ -533,7 +356,7 @@ public class Fenster extends JFrame {
 				tempMultiplicator = 0.25;
 				multiplicatorButtons.get(count).addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+						rech.multiplicatorButtons_ActionPerformedMethod(tempMultiplicator);
 					}
 				});
 				break;
@@ -542,7 +365,7 @@ public class Fenster extends JFrame {
 				tempMultiplicator = 0.5;
 				multiplicatorButtons.get(count).addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+						rech.multiplicatorButtons_ActionPerformedMethod(tempMultiplicator);
 					}
 				});
 				break;
@@ -551,7 +374,7 @@ public class Fenster extends JFrame {
 				tempMultiplicator = 1;
 				multiplicatorButtons.get(count).addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+						rech.multiplicatorButtons_ActionPerformedMethod(tempMultiplicator);
 					}
 				});
 				break;
@@ -560,7 +383,7 @@ public class Fenster extends JFrame {
 				tempMultiplicator = 2;
 				multiplicatorButtons.get(count).addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+						rech.multiplicatorButtons_ActionPerformedMethod(tempMultiplicator);
 					}
 				});
 				break;
@@ -569,7 +392,7 @@ public class Fenster extends JFrame {
 				tempMultiplicator = 4;
 				multiplicatorButtons.get(count).addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						multiplicatorButtons_ActionPerformed(evt, tempMultiplicator);
+						rech.multiplicatorButtons_ActionPerformedMethod(tempMultiplicator);
 					}
 				});
 				break;
@@ -581,7 +404,7 @@ public class Fenster extends JFrame {
 		trainerButton.setMargin(new Insets(2, 2, 2, 2));
 		trainerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				trainerButton_ActionPerformed(evt);
+				rech.trainerButton_ActionPerformedMethod();
 			}
 		});
 
@@ -590,7 +413,7 @@ public class Fenster extends JFrame {
 		gymLeaderButton.setMargin(new Insets(2, 2, 2, 2));
 		gymLeaderButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				gymLeaderButton_ActionPerformed(evt);
+				rech.gymLeaderButton_ActionPerformedMethod();
 			}
 		});
 		// Von 
@@ -599,7 +422,7 @@ public class Fenster extends JFrame {
 		fightButton0.setMargin(new Insets(2, 2, 2, 2));
 		fightButton0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				fightButton0_ActionPerformed(evt);
+				rech.fightButton0_ActionPerformedMethod();
 			}
 		});
 		
@@ -608,7 +431,7 @@ public class Fenster extends JFrame {
 		fightButton1.setMargin(new Insets(2, 2, 2, 2));
 		fightButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				fightButton1_ActionPerformed(evt);
+				rech.fightButton1_ActionPerformedMethod();
 			}
 		});
 		
@@ -617,7 +440,7 @@ public class Fenster extends JFrame {
 		changeButton.setMargin(new Insets(2, 2, 2, 2));
 		changeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				changeButton_ActionPerformed(evt);
+				rech.changeButton_ActionPerformedMethod();
 			}
 		});
 		
@@ -626,7 +449,7 @@ public class Fenster extends JFrame {
 		backToAttackButton.setMargin(new Insets(2, 2, 2, 2));
 		backToAttackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				backToAttackButton_ActionPerformed(evt);
+				rech.backToAttackButton_ActionPerformedMethod();
 			}
 		});
 		
@@ -635,7 +458,7 @@ public class Fenster extends JFrame {
 		chooseAttackButton.setMargin(new Insets(2, 2, 2, 2));
 		chooseAttackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				chooseAttackButton_ActionPerformed(evt);
+				rech.chooseAttackButton_ActionPerformedMethod();
 			}
 		});
 		// bis
@@ -666,7 +489,7 @@ public class Fenster extends JFrame {
 		selectButton.setMargin(new Insets(2, 2, 2, 2));
 		selectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				selectButton_ActionPerformed(choosePokeNumber.getSelectedIndex() + 1);
+				rech.selectButton_ActionPerformedMethod(choosePokeNumber.getSelectedIndex() + 1);
 			}
 		});
 
@@ -685,7 +508,7 @@ public class Fenster extends JFrame {
 		chooseButton.setMargin(new Insets(2, 2, 2, 2));
 		chooseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				chooseButton_ActionPerformed(choosePokeNumber.getSelectedIndex() + 1);
+				rech.chooseButton_ActionPerformedMethod(choosePokeNumber.getSelectedIndex() + 1);
 			}
 		});
 
@@ -694,13 +517,13 @@ public class Fenster extends JFrame {
 		confirmButton.setMargin(new Insets(2, 2, 2, 2));
 		confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				confirmButton_ActionPerformed(evt);
+				rech.confirmButton_ActionPerformedMethod();
 			}
 		});
 
 	}
 
-	public void setCurrentPanel(int tempCase) {
+	public void setPanel(int tempCase) {
 		switch (tempCase) {
 		case 0:
 			System.out.println("lil");
@@ -846,13 +669,13 @@ public class Fenster extends JFrame {
 			}
 			break;
 		case 5:
-			chooseOpponent.add(backButton);
+			chooseOpponentPanel.add(backButton);
 			backButton.setVisible(true);
 
-			chooseOpponent.add(trainerButton);
+			chooseOpponentPanel.add(trainerButton);
 			trainerButton.setVisible(true);
 
-			chooseOpponent.add(gymLeaderButton);
+			chooseOpponentPanel.add(gymLeaderButton);
 			gymLeaderButton.setVisible(true);
 
 			break;
@@ -913,7 +736,7 @@ public class Fenster extends JFrame {
 		}
 	}
 
-	public JPanel getCurrentPanel(int tempPanel) {
+	public JPanel getPanel(int tempPanel) {
 		switch (tempPanel) {
 		case 0:
 			return menuPanel;
@@ -926,6 +749,14 @@ public class Fenster extends JFrame {
 		case 4:
 			return twoTypesDefenderPanel;
 		case 5:
+			return chooseOpponentPanel;
+		case 6:
+			return buildTeamPanel;
+		case 7:
+			return trainerPanel;
+		case 8:
+			return gymLeaderPanel;
+		case 9: 
 			return battlePanel;
 		default:
 			System.out.println("Error");
@@ -934,105 +765,7 @@ public class Fenster extends JFrame {
 
 	}
 
-	public JLabel getTypeLabel() {
-		return TypeLabel;
-	}
-
-	public void setFirstTypeLabel(JLabel firstTypeLabel) {
-		this.TypeLabel = firstTypeLabel;
-	}
-
-	public JLabel getAttackTypeLabel() {
-		return attackTypeLabel;
-	}
-
-	public void setAttackTypeLabel(JLabel secondTypeLabel) {
-		this.attackTypeLabel = secondTypeLabel;
-	}
-
-	public JButton getAttackerSide() {
-		return attackerSide;
-	}
-
-	public void setAttackerSide(JButton attackerSide) {
-		this.attackerSide = attackerSide;
-	}
-
-	public JButton getDefenderSide() {
-		return defenderSide;
-	}
-
-	public void setDefenderSide(JButton defenderSide) {
-		this.defenderSide = defenderSide;
-	}
-
-	public JButton getBattleMode() {
-		return battleMode;
-	}
-
-	public void setBattleMode(JButton battleMode) {
-		this.battleMode = battleMode;
-	}
-
-	public Container getCp() {
-		return cp;
-	}
-
-	public void setCp(Container cp) {
-		this.cp = cp;
-	}
-
-	public JLabel getModeLabel() {
-		return modeLabel;
-	}
-
-	public void setModeLabel(JLabel modeLabel) {
-		this.modeLabel = modeLabel;
-	}
-
-	public JPanel getChooseSumOfTypesPanel() {
-		return chooseSumOfTypesPanel;
-	}
-
-	public void setChooseSumOfTypesPanel(JPanel chooseSumOfTypesPanel) {
-		this.chooseSumOfTypesPanel = chooseSumOfTypesPanel;
-	}
-
-	public JButton getOneTypeButton() {
-		return oneTypeButton;
-	}
-
-	public void setOneTypeButton(JButton oneTypeButton) {
-		this.oneTypeButton = oneTypeButton;
-	}
-
-	public JButton getTwoTypeButton() {
-		return twoTypeButton;
-	}
-
-	public void setTwoTypeButton(JButton twoTypeButton) {
-		this.twoTypeButton = twoTypeButton;
-	}
-
-	public JPanel getTwoTypesDefenderPanel() {
-		return twoTypesDefenderPanel;
-	}
-
-	public void setTwoTypesDefenderPanel(JPanel twoTypesDefenderPanel) {
-		this.twoTypesDefenderPanel = twoTypesDefenderPanel;
-	}
-
-	public JButton getMultiplicatorButtons(int temp) {
-		return multiplicatorButtons.get(temp);
-	}
-
-	public void setMultiplicatorButtons(ArrayList<JButton> multiplicatorButtons) {
-		this.multiplicatorButtons = multiplicatorButtons;
-	}
-
-	public JPanel getTrainerPanel() {
-		return trainerPanel;
-	}
+	
 
 	public void setPicLabel(int i, int j) {
 
