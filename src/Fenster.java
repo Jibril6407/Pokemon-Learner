@@ -445,7 +445,7 @@ public class Fenster extends JFrame {
 		});
 		
 		backToAttackButton.setBounds(150, 200, 100, 50);
-		backToAttackButton.setText("Zurück");
+		backToAttackButton.setText("Zurï¿½ck");
 		backToAttackButton.setMargin(new Insets(2, 2, 2, 2));
 		backToAttackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -725,10 +725,10 @@ public class Fenster extends JFrame {
 			gymLeaderPanel.add(backButton);
 			backButton.setVisible(true);
 			
-			trainerPanel.add(changeButton);
+			gymLeaderPanel.add(changeButton);
 			changeButton.setVisible(true);
 			
-			trainerPanel.add(chooseAttackButton);
+			gymLeaderPanel.add(chooseAttackButton);
 			chooseAttackButton.setVisible(true);
 
 			break;

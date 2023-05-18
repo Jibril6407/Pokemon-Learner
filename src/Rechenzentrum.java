@@ -43,13 +43,13 @@ public class Rechenzentrum {
 	}
 
 	public void effectiveButton_ActionPerformedMethod() {
-		setMode(1);
+		mode = 1;
 		if (fenster.getEffectiveButton().getText() == "Effective") {
 			fenster.getCurrentTypeLabel().setVisible(true);
 			fenster.getDefenderType().setVisible(true);
-			Datenbank.getTypes(getCurrentType(), 1, getPanelMode());
+			Datenbank.getTypes(currentType, 1, panelMode);
 
-			clearCompareTypes();
+			compareTypes.clear();
 			addCompareTypes(1);
 
 			fenster.getEffectiveButton().setVisible(false);
@@ -64,13 +64,13 @@ public class Rechenzentrum {
 	}
 
 	public void notEffectiveButton_ActionPerformedMethod() {
-		setMode(2);
+		mode = 2;
 		if (fenster.getNotEffectiveButton().getText() == "Not Effective") {
 			fenster.getCurrentTypeLabel().setVisible(true);
 			fenster.getDefenderType().setVisible(true);
-			Datenbank.getTypes(getCurrentType(), 2, getPanelMode());
+			Datenbank.getTypes(currentType, 2, panelMode);
 
-			clearCompareTypes();
+			compareTypes.clear();
 			addCompareTypes(2);
 
 			fenster.getEffectiveButton().setVisible(false);
@@ -84,13 +84,13 @@ public class Rechenzentrum {
 	}
 
 	public void immuneButton_ActionPerformedMethod() {
-		setMode(3);
+		mode = 3;
 		if (fenster.getImmuneButton().getText() == "Immune") {
 			fenster.getCurrentTypeLabel().setVisible(true);
 			fenster.getDefenderType().setVisible(true);
-			Datenbank.getTypes(getCurrentType(), 3, getPanelMode());
+			Datenbank.getTypes(currentType, 3, panelMode);
 
-			clearCompareTypes();
+			compareTypes.clear();
 			addCompareTypes(3);
 
 			fenster.getEffectiveButton().setVisible(false);
@@ -106,147 +106,147 @@ public class Rechenzentrum {
 
 	public void typesbuttons_ActionPerformedMethod(String tempTypes) {
 
-		if (getComparedTypes().contains(tempTypes)) {
+		if (comparedTypes.contains(tempTypes)) {
 			System.out.println("That type was already guessed!");
 			return;
 		}
-		setGuessTries(getGuessTries() + 1);
-		switch (getMode()) {
+		guessTries++;
+		switch (mode) {
 		case 1:
-			if (getCompareTypes().contains(tempTypes)) {
-				setComparedTypes(tempTypes);
+			if (compareTypes.contains(tempTypes)) {
+				comparedTypes.add(tempTypes);
 
 				System.out.println("Right");
 			} else {
 				System.out.println("Wrong");
-				setComparedTypes(tempTypes);
+				comparedTypes.add(tempTypes);
 			}
-			if (getCompareTypes().size() == 0) {
-				setCompareTypes("Nothing");
+			if (compareTypes.size() == 0) {
+				compareTypes.add("Nothing");
 			}
 
-			if (getGuessTries() >= getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>"
+			if (guessTries >= compareTypes.size()) {
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>"
 						+ "<b>";
-				setAllCompareTypes(getCompareTypes());
-				setAllComparedTypes(getComparedTypes());
-				setUsedTypes();
-				clearComparedTypes();
+				setAllCompareTypes(compareTypes);
+				setAllComparedTypes(comparedTypes);
+				usedTypes.add(currentType);
+				comparedTypes.clear();
 				int i = getRand(Datenbank.Types.size());
-				setCurrentType(Datenbank.getTypes(i, 0));
-				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
+				currentType = Datenbank.getTypes(i, 0);
+				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + currentType);
 
-				while (getUsedTypes().contains(getCurrentType())) {
+				while (usedTypes.contains(currentType)) {
 					i = getRand(Datenbank.Types.size());
-					setCurrentType(Datenbank.getTypes(i, 0));
-					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
+					currentType = Datenbank.getTypes(i, 0);
+					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + currentType);
 
-					if (getUsedTypes().size() == 18) {
-						clearUsedTypes();
+					if (usedTypes.size() == 18) {
+						usedTypes.clear();
 						done();
 						continue;
 					}
 				}
 
-				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode(), getPanelMode());
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), mode, panelMode);
 
-				clearCompareTypes();
+				compareTypes.clear();
 				;
 				addCompareTypes(1);
-				setGuessTries(0);
-				setNothingButtonPressed(0);
+				guessTries = 0;
+				nothingButtonPressed = 0;
 			}
 
 			break;
 		case 2:
-			System.out.println(getCompareTypes());
-			if (getCompareTypes().contains(tempTypes)) {
-				setComparedTypes(tempTypes);
+			System.out.println(compareTypes);
+			if (compareTypes.contains(tempTypes)) {
+				comparedTypes.add(tempTypes);
 
 				System.out.println("Right");
 			} else {
 				System.out.println("Wrong");
-				setComparedTypes(tempTypes);
+				comparedTypes.add(tempTypes);
 			}
-			if (getCompareTypes().size() == 0) {
-				getCompareTypes().add("Nothing");
+			if (compareTypes.size() == 0) {
+				compareTypes.add("Nothing");
 			}
 
-			if (getGuessTries() >= getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>"
+			if (guessTries >= compareTypes.size()) {
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>"
 						+ "<b>";
-				setAllCompareTypes(getCompareTypes());
-				setAllComparedTypes(getComparedTypes());
-				setUsedTypes();
-				clearComparedTypes();
+				setAllCompareTypes(compareTypes);
+				setAllComparedTypes(comparedTypes);
+				usedTypes.add(currentType);
+				comparedTypes.clear();
 				int i = getRand(Datenbank.Types.size());
-				setCurrentType(Datenbank.getTypes(i, 0));
-				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
+				currentType = Datenbank.getTypes(i, 0);
+				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + currentType);
 
-				while (getUsedTypes().contains(getCurrentType())) {
+				while (usedTypes.contains(currentType)) {
 					i = getRand(Datenbank.Types.size());
-					setCurrentType(Datenbank.getTypes(i, 0));
-					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
+					currentType = Datenbank.getTypes(i, 0);
+					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + currentType);
 
-					if (getUsedTypes().size() == 18) {
-						clearUsedTypes();
+					if (usedTypes.size() == 18) {
+						usedTypes.clear();
 						done();
 						continue;
 					}
 				}
 
-				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode(), getPanelMode());
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), mode, panelMode);
 
-				clearCompareTypes();
+				compareTypes.clear();
 				addCompareTypes(2);
-				setGuessTries(0);
-				setNothingButtonPressed(0);
+				guessTries = 0;
+				nothingButtonPressed = 0;
 			}
 
 			break;
 		case 3:
-			System.out.println(getCompareTypes());
-			if (getCompareTypes().contains(tempTypes)) {
-				setComparedTypes(tempTypes);
+			System.out.println(compareTypes);
+			if (compareTypes.contains(tempTypes)) {
+				comparedTypes.add(tempTypes);
 
 				System.out.println("Right");
 			} else {
 				System.out.println("Wrong");
-				setComparedTypes(tempTypes);
+				comparedTypes.add(tempTypes);
 			}
-			if (getCompareTypes().size() == 0) {
-				getCompareTypes().add("Nothing");
+			if (compareTypes.size() == 0) {
+				compareTypes.add("Nothing");
 			}
 
-			if (getGuessTries() >= getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>"
+			if (guessTries >= compareTypes.size()) {
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>"
 						+ "<b>";
-				setAllCompareTypes(getCompareTypes());
-				setAllComparedTypes(getComparedTypes());
-				setUsedTypes();
-				clearComparedTypes();
+				setAllCompareTypes(compareTypes);
+				setAllComparedTypes(comparedTypes);
+				usedTypes.add(currentType);
+				comparedTypes.clear();
 				int i = getRand(Datenbank.Types.size());
-				setCurrentType(Datenbank.getTypes(i, 0));
-				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
+				currentType = Datenbank.getTypes(i, 0);
+				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + currentType);
 
-				while (getUsedTypes().contains(getCurrentType())) {
+				while (usedTypes.contains(currentType)) {
 					i = getRand(Datenbank.Types.size());
-					setCurrentType(Datenbank.getTypes(i, 0));
-					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
+					currentType = Datenbank.getTypes(i, 0);
+					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + currentType);
 
-					if (getUsedTypes().size() == 18) {
-						clearUsedTypes();
+					if (usedTypes.size() == 18) {
+						usedTypes.clear();
 						done();
 						continue;
 					}
 				}
 
-				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode(), getPanelMode());
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), mode, panelMode);
 
-				clearCompareTypes();
+				compareTypes.clear();
 				addCompareTypes(3);
-				setGuessTries(0);
-				setNothingButtonPressed(0);
+				guessTries = 0;
+				nothingButtonPressed = 0;
 
 			}
 
@@ -258,18 +258,18 @@ public class Rechenzentrum {
 
 	public void backButton_ActionPerformedMethod() {
 
-		setMode(0);
+		mode = 0;
 		chosenPokemon.clear();
-		clearCompareTypes();
-		clearComparedTypes();
-		clearAllCompareTypes();
-		clearAllComparedTypes();
+		compareTypes.clear();
+		comparedTypes.clear();
+		allCompareTypes.clear();
+		allComparedTypes.clear();
 		usedTypeText = "<html><b>";
 		resultPressedText = "<html><b>";
 		resultShouldPressedText = "<html><b>";
 		System.out.println("Pressed:                      " + getAllComparedTypes());
 		System.out.println("What you should have pressed: " + getAllCompareTypes());
-		clearUsedTypes();
+		usedTypes.clear();
 
 		fenster.getCp().removeAll();
 		currentPanel = 0;
@@ -279,129 +279,129 @@ public class Rechenzentrum {
 
 	public void nothingButton_ActionPerformedMethod() {
 
-		if (getNothingButtonPressed() == 1) {
+		if (nothingButtonPressed == 1) {
 			System.out.println("You already Pressed Nothing!");
 			return;
 		}
 
 		int i = getRand(Datenbank.Types.size());
-		setGuessTries(getGuessTries() + 1);
-		setNothingButtonPressed(getNothingButtonPressed() + 1);
+		guessTries++;
+		nothingButtonPressed++;
 
-		switch (getMode()) {
+		switch (mode) {
 		case 1:
 
-			setComparedTypes("Nothing");
-			if (getCompareTypes().size() == 0) {
-				setCompareTypes("Nothing");
+			comparedTypes.add("Nothing");
+			if (compareTypes.size() == 0) {
+				compareTypes.add("Nothing");
 			}
 
-			if (getGuessTries() >= getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>"
+			if (guessTries >= compareTypes.size()) {
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>"
 						+ "<b>";
-				setAllCompareTypes(getCompareTypes());
-				setAllComparedTypes(getComparedTypes());
-				setUsedTypes();
-				clearComparedTypes();
+				setAllCompareTypes(compareTypes);
+				setAllComparedTypes(comparedTypes);
+				usedTypes.add(currentType);
+				comparedTypes.clear();
 				i = getRand(Datenbank.Types.size());
-				setCurrentType(Datenbank.getTypes(i, 0));
-				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
+				currentType = Datenbank.getTypes(i, 0);
+				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + currentType);
 
-				while (getUsedTypes().contains(getCurrentType())) {
+				while (usedTypes.contains(currentType)) {
 					i = getRand(Datenbank.Types.size());
-					setCurrentType(Datenbank.getTypes(i, 0));
-					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
+					currentType = Datenbank.getTypes(i, 0);
+					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + currentType);
 
-					if (getUsedTypes().size() == 18) {
-						clearUsedTypes();
+					if (usedTypes.size() == 18) {
+						usedTypes.clear();
 						done();
 						continue;
 					}
 				}
 
-				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode(), getPanelMode());
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), mode, panelMode);
 
-				clearCompareTypes();
+				compareTypes.clear();
 				addCompareTypes(1);
-				setGuessTries(0);
-				setNothingButtonPressed(0);
+				guessTries = 0;
+				nothingButtonPressed = 0;
 			}
 
 			break;
 		case 2:
-			setComparedTypes("Nothing");
-			if (getCompareTypes().size() == 0) {
-				setCompareTypes("Nothing");
+			comparedTypes.add("Nothing");
+			if (compareTypes.size() == 0) {
+				compareTypes.add("Nothing");
 			}
-			if (getGuessTries() >= getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>"
+			if (guessTries >= compareTypes.size()) {
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>"
 						+ "<b>";
-				setAllCompareTypes(getCompareTypes());
-				setAllComparedTypes(getComparedTypes());
-				setUsedTypes();
-				clearComparedTypes();
+				setAllCompareTypes(compareTypes);
+				setAllComparedTypes(comparedTypes);
+				usedTypes.add(currentType);
+				comparedTypes.clear();
 				i = getRand(Datenbank.Types.size());
-				setCurrentType(Datenbank.getTypes(i, 0));
-				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
+				currentType = Datenbank.getTypes(i, 0);
+				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + currentType);
 
-				while (getUsedTypes().contains(getCurrentType())) {
+				while (usedTypes.contains(currentType)) {
 					i = getRand(Datenbank.Types.size());
-					setCurrentType(Datenbank.getTypes(i, 0));
-					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
+					currentType = Datenbank.getTypes(i, 0);
+					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + currentType);
 
-					if (getUsedTypes().size() == 18) {
-						clearUsedTypes();
+					if (usedTypes.size() == 18) {
+						usedTypes.clear();
 
 						done();
 						continue;
 					}
 				}
 
-				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode(), getPanelMode());
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), mode, panelMode);
 
-				clearCompareTypes();
+				compareTypes.clear();
 				addCompareTypes(2);
-				setGuessTries(0);
-				setNothingButtonPressed(0);
+				guessTries = 0;
+				nothingButtonPressed = 0;
 			}
 
 			break;
 		case 3:
-			setComparedTypes("Nothing");
-			if (getCompareTypes().size() == 0) {
-				setCompareTypes("Nothing");
+			comparedTypes.add("Nothing");
+			if (compareTypes.size() == 0) {
+				compareTypes.add("Nothing");
 			}
-			System.out.println(getUsedTypes());
+			System.out.println(usedTypes);
 
-			if (getGuessTries() >= getCompareTypes().size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + getCurrentType() + "<hr>"
+			if (guessTries >= compareTypes.size()) {
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>"
 						+ "<b>";
-				setAllCompareTypes(getCompareTypes());
-				setAllComparedTypes(getComparedTypes());
-				setUsedTypes();
-				clearComparedTypes();
+				setAllCompareTypes(compareTypes);
+				setAllComparedTypes(comparedTypes);
+				usedTypes.add(currentType);
+				comparedTypes.clear();
 				i = getRand(Datenbank.Types.size());
-				setCurrentType(Datenbank.getTypes(i, 0));
-				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
+				currentType = Datenbank.getTypes(i, 0);
+				fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + currentType);
 
-				while (getUsedTypes().contains(getCurrentType())) {
+				while (usedTypes.contains(currentType)) {
 					i = getRand(Datenbank.Types.size());
-					setCurrentType(Datenbank.getTypes(i, 0));
-					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + getCurrentType());
+					currentType = Datenbank.getTypes(i, 0);
+					fenster.getCurrentTypeLabel().setText(attackerOrDefender[panelMode] + currentType);
 
-					if (getUsedTypes().size() == 18) {
-						clearUsedTypes();
+					if (usedTypes.size() == 18) {
+						usedTypes.clear();
 						done();
 						continue;
 					}
 				}
 
-				Datenbank.getTypes(Datenbank.getTypes(i, 0), getMode(), getPanelMode());
+				Datenbank.getTypes(Datenbank.getTypes(i, 0), mode, panelMode);
 
-				clearCompareTypes();
+				compareTypes.clear();
 				addCompareTypes(3);
-				setGuessTries(0);
-				setNothingButtonPressed(0);
+				guessTries = 0;
+				nothingButtonPressed = 0;
 			}
 
 			break;
@@ -481,14 +481,14 @@ public class Rechenzentrum {
 		do {
 			Datenbank.getTypes("", 0, 0);
 			int i = getRand(Datenbank.Types.size());
-			setCurrentType(Datenbank.getTypes(i, 0));
-			firstType = getCurrentType();
+			currentType = Datenbank.getTypes(i, 0);
+			firstType = currentType;
 			int j = getRand(Datenbank.Types.size());
 			while (j == i) {
 				j = getRand(Datenbank.Types.size());
 			}
-			setCurrentType(Datenbank.getTypes(j, 0));
-			secondType = getCurrentType();
+			currentType = Datenbank.getTypes(j, 0);
+			secondType = currentType;
 			Datenbank.getPokemonNumber(firstType, secondType);
 
 		} while (Datenbank.PokemonNumbers.size() <= 0);
@@ -535,7 +535,7 @@ public class Rechenzentrum {
 
 		}
 		int rand = getRand(Datenbank.Types.size());
-		setCurrentType(Datenbank.getTypes(rand, 0));
+		currentType = Datenbank.getTypes(rand, 0);
 		MultiplicatorIndex.add(rand);
 
 		fenster.getAttackTypeLabel().setText("Attack with: " + currentType);
@@ -564,7 +564,7 @@ public class Rechenzentrum {
 
 			while (comparedTypes.contains(currentType)) {
 				rand = getRand(Datenbank.Types.size());
-				setCurrentType(Datenbank.getTypes(rand, 0));
+				currentType = Datenbank.getTypes(rand, 0);
 			}
 			MultiplicatorIndex.add(rand);
 			fenster.getAttackTypeLabel().setText("Attack with: " + currentType);
@@ -649,13 +649,13 @@ public class Rechenzentrum {
 	}
 
 	public void done() {
-		int tempMode = getMode() - 1;
-		setMode(0);
+		int tempMode = mode - 1;
+		mode = 0;
 		fenster.getModeLabel().setVisible(false);
 		fenster.getNothingButton().setVisible(false);
 		fenster.getDefenderType().setVisible(false);
-		clearCompareTypes();
-		clearComparedTypes();
+		compareTypes.clear();
+		comparedTypes.clear();
 		System.out.println("Pressed:                      " + getAllComparedTypes());
 		System.out.println("What you should have pressed: " + getAllCompareTypes());
 		fenster.getCurrentTypeLabel().setText("Results:");
@@ -687,24 +687,12 @@ public class Rechenzentrum {
 		fenster.getResultsShouldPressed().setText(resultShouldPressedText);
 		usedTypeText = usedTypeText + " </b></font></html>";
 		fenster.getUsedType().setText(usedTypeText);
-		clearAllComparedTypes();
-		clearAllCompareTypes();
+		allComparedTypes.clear();
+		allCompareTypes.clear();
 		fenster.getResultsPressed().setVisible(true);
 		fenster.getResultsShouldPressed().setVisible(true);
 		fenster.getUsedType().setVisible(true);
-		clearUsedTypes();
-	}
-
-	public String getCurrentType() {
-		return currentType;
-	}
-
-	public void setCurrentType(String currentType) {
-		this.currentType = currentType;
-	}
-
-	public void clearAllCompareTypes() {
-		allCompareTypes.clear();
+		usedTypes.clear();
 	}
 
 	public ArrayList<ArrayList<String>> getAllCompareTypes() {
@@ -715,9 +703,6 @@ public class Rechenzentrum {
 		allCompareTypes.add(new ArrayList<>(compareTypes));
 	}
 
-	public void clearAllComparedTypes() {
-		allComparedTypes.clear();
-	}
 
 	public ArrayList<ArrayList<String>> getAllComparedTypes() {
 		return allComparedTypes;
@@ -725,18 +710,6 @@ public class Rechenzentrum {
 
 	public void setAllComparedTypes(ArrayList<String> comparedTypes) {
 		allComparedTypes.add(new ArrayList<>(comparedTypes));
-	}
-
-	public void clearComparedTypes() {
-		comparedTypes.clear();
-	}
-
-	public ArrayList<String> getComparedTypes() {
-		return comparedTypes;
-	}
-
-	public void setComparedTypes(String tempTypes) {
-		comparedTypes.add(tempTypes);
 	}
 
 	public void addCompareTypes(int i) {
@@ -753,69 +726,16 @@ public class Rechenzentrum {
 		}
 	}
 
-	public void clearCompareTypes() {
-		compareTypes.clear();
-	}
-
-	public ArrayList<String> getCompareTypes() {
-		return compareTypes;
-	}
-
-	public void setCompareTypes(String tempTypes) {
-		compareTypes.add(tempTypes);
-	}
-
-	public void clearUsedTypes() {
-		usedTypes.clear();
-	}
-
-	public ArrayList<String> getUsedTypes() {
-		return usedTypes;
-	}
-
-	public void setUsedTypes() {
-		usedTypes.add(currentType);
-	}
-
 	public int getRand(int i) {
 		random = rand.nextInt(i);
 		return random;
 	}
-
-	public void setRand(Random rand) {
-		this.rand = rand;
+	
+	public String getCurrentType() {
+		return currentType;
 	}
-
-	public int getMode() {
-		return mode;
-	}
-
-	public void setMode(int mode) {
-		this.mode = mode;
-	}
-
-	public int getGuessTries() {
-		return guessTries;
-	}
-
-	public void setGuessTries(int guessTries) {
-		this.guessTries = guessTries;
-	}
-
-	public int getNothingButtonPressed() {
-		return nothingButtonPressed;
-	}
-
-	public void setNothingButtonPressed(int nothingButtonPressed) {
-		this.nothingButtonPressed = nothingButtonPressed;
-	}
-
-	public int getPanelMode() {
-		return panelMode;
-	}
-
-	public void setPanelMode(int panelMode) {
-		this.panelMode = panelMode;
+	public void setCurrentType(String s) {
+		currentType = s;
 	}
 
 }
