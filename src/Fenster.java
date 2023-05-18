@@ -869,7 +869,7 @@ public class Fenster extends JFrame {
 		pokeOpponentPic.setIcon(imageIcon);
 		
 		trainerPanel.add(pokeOpponentPic);
-		pokeOpponentPic.setBounds(620, 50, 200, 200);
+		pokeOpponentPic.setBounds(620, 40, 200, 200);
 		trainerPanel.repaint();
 		
 	}
