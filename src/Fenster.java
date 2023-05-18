@@ -252,6 +252,10 @@ public class Fenster extends JFrame {
 		return choosePokeNumber;
 	}
 
+	public ArrayList<JButton> getChangeButtons() {
+		return changeButtons;
+	}
+
 	public void initPanel() {
 
 		currentTypeLabel.setBounds(150, 140, 350, 50);
@@ -550,11 +554,13 @@ public class Fenster extends JFrame {
 			pokeLabels.add(new JLabel());
 		}
 		for (int j = 0; j < 6; j++) {
+			int tempInt = j;
 				changeButtons.get(j).setBounds(750, 55*j + 100, 100, 50);
 				changeButtons.get(j).setMargin(new Insets(2, 2, 2, 2));
 				changeButtons.get(j).setText("Change");
 				changeButtons.get(j).addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
+						rech.changePokemon(tempInt);
 					}
 				});
 				

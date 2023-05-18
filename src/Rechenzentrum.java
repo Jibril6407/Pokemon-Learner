@@ -35,6 +35,9 @@ public class Rechenzentrum {
 
 	private int currentPokemon = 0;
 	private int currentOpponentPokemon = 0;
+	
+	private int deadPokemon = 0;
+	private int deadOpponentPokemon = 0;
 
 	private ArrayList<Integer> chosenPokemon = new ArrayList<Integer>();
 	private ArrayList<String> type1 = new ArrayList<String>();
@@ -461,12 +464,17 @@ public class Rechenzentrum {
 			opponentMove();
 
 			if (opponentPokemonKP.get(currentOpponentPokemon) <= 0) {
+				deadOpponentPokemon++;
+				if(deadOpponentPokemon >= chosenPokemon.size()) {
+					System.out.println("You won!");
+				}
 				currentOpponentPokemon++;
 				fenster.setFightPics(chosenPokemon.get(currentPokemon), opponentPokemon.get(currentOpponentPokemon));
 				fenster.getInfoOpponentPokemonLabel()
 						.setText(opponentType1.get(currentOpponentPokemon) + "/"
 								+ opponentType2.get(currentOpponentPokemon) + " "
 								+ opponentPokemonKP.get(currentOpponentPokemon) + " KP");
+				
 			}
 		}
 
@@ -491,12 +499,18 @@ public class Rechenzentrum {
 			opponentMove();
 
 			if (opponentPokemonKP.get(currentOpponentPokemon) <= 0) {
+				deadOpponentPokemon++;
+				if(deadOpponentPokemon >= chosenPokemon.size()) {
+					System.out.println("You won!");
+				}
 				currentOpponentPokemon++;
 				fenster.setFightPics(chosenPokemon.get(currentPokemon), opponentPokemon.get(currentOpponentPokemon));
 				fenster.getInfoOpponentPokemonLabel()
 						.setText(opponentType1.get(currentOpponentPokemon) + "/"
 								+ opponentType2.get(currentOpponentPokemon) + " "
 								+ opponentPokemonKP.get(currentOpponentPokemon) + " KP");
+				
+				
 			}
 		}
 	}
@@ -512,13 +526,18 @@ public class Rechenzentrum {
 					+ pokemonKP.get(currentPokemon) + " KP");
 
 			if (pokemonKP.get(currentPokemon) <= 0) {
-				currentPokemon++;
-				fenster.setFightPics(chosenPokemon.get(currentPokemon), opponentPokemon.get(currentOpponentPokemon));
-				fenster.getInfoPokemonLabel().setText(type1.get(currentPokemon) + "/" + type2.get(currentPokemon) + " "
-						+ pokemonKP.get(currentPokemon) + " KP");
-
-				fenster.getFightButton0().setText(type1.get(currentPokemon) + " Angriff");
-				fenster.getFightButton1().setText(type2.get(currentPokemon) + " Angriff");
+				deadPokemon++;
+				if(deadPokemon >= chosenPokemon.size()) {
+					System.out.println("You lost!");
+				}
+				fenster.getChangeButtons().get(currentPokemon).setText("Dead");
+				fenster.getCp().removeAll();
+				currentPanel = 9;
+				fenster.setContentPane(fenster.getPanel(currentPanel));
+				fenster.setPanel(currentPanel);
+				fenster.revalidate();
+				
+				
 			}
 		} else {
 			double z = getMultiplicator(opponentType2.get(currentOpponentPokemon), type1.get(currentPokemon),
@@ -528,13 +547,17 @@ public class Rechenzentrum {
 					+ pokemonKP.get(currentPokemon) + " KP");
 
 			if (pokemonKP.get(currentPokemon) <= 0) {
-				currentPokemon++;
-				fenster.setFightPics(chosenPokemon.get(currentPokemon), opponentPokemon.get(currentOpponentPokemon));
-				fenster.getInfoPokemonLabel().setText(type1.get(currentPokemon) + "/" + type2.get(currentPokemon) + " "
-						+ pokemonKP.get(currentPokemon) + " KP");
-
-				fenster.getFightButton0().setText(type1.get(currentPokemon) + " Angriff");
-				fenster.getFightButton1().setText(type2.get(currentPokemon) + " Angriff");
+				deadPokemon++;
+				if(deadPokemon >= chosenPokemon.size()) {
+					System.out.println("You lost!");
+				}
+				fenster.getChangeButtons().get(currentPokemon).setText("Dead");
+				fenster.getCp().removeAll();
+				currentPanel = 9;
+				fenster.setContentPane(fenster.getPanel(currentPanel));
+				fenster.setPanel(currentPanel);
+				fenster.revalidate();
+				
 			}
 		}
 
@@ -635,26 +658,6 @@ public class Rechenzentrum {
 		fenster.setPanel(currentPanel);
 		fenster.revalidate();
 
-		int rand = getRand(1008);
-
-		for (int x = 0; x < 6; x++) {
-
-			while (opponentPokemon.contains(rand)) {
-				rand = getRand(1008);
-			}
-
-			opponentPokemon.add(rand);
-
-			Datenbank.getPokemonTypes(rand);
-			opponentType1.add(Datenbank.type1);
-			opponentType2.add(Datenbank.type2);
-			opponentPokemonKP.add(10.0);
-			pokemonKP.add(10.0);
-
-		}
-		fenster.getInfoOpponentPokemonLabel()
-				.setText(opponentType1.get(0) + "/" + opponentType2.get(0) + " " + opponentPokemonKP.get(0) + " KP");
-
 	}
 
 	public void multiplicatorButtons_ActionPerformedMethod(double tempMultiplicator) {
@@ -744,6 +747,25 @@ public class Rechenzentrum {
 			System.out.println("W�hl bitte nen Pokemon Ralf!");
 			return;
 		}
+		int rand = getRand(1008);
+
+		for (int x = 0; x < chosenPokemon.size(); x++) {
+
+			while (opponentPokemon.contains(rand)) {
+				rand = getRand(1008);
+			}
+
+			opponentPokemon.add(rand);
+
+			Datenbank.getPokemonTypes(rand);
+			opponentType1.add(Datenbank.type1);
+			opponentType2.add(Datenbank.type2);
+			opponentPokemonKP.add(10.0);
+			pokemonKP.add(10.0);
+
+		}
+		fenster.getInfoOpponentPokemonLabel()
+				.setText(opponentType1.get(0) + "/" + opponentType2.get(0) + " " + opponentPokemonKP.get(0) + " KP");
 		fenster.getInfoPokemonLabel().setText(type1.get(0) + "/" + type2.get(0) + " " + pokemonKP.get(0) + " KP");
 		fenster.setFightPics(chosenPokemon.get(0), opponentPokemon.get(0));
 		if (!trainerOrGym) {
@@ -759,7 +781,36 @@ public class Rechenzentrum {
 			fenster.setPanel(currentPanel);
 			fenster.revalidate();
 		}
+		
 		// hier
+	}
+	
+	public void changePokemon(int i) {
+		if(fenster.getChangeButtons().get(i).getText().equals("Change")) {
+		currentPokemon = i;
+		fenster.setFightPics(chosenPokemon.get(currentPokemon), opponentPokemon.get(currentOpponentPokemon));
+		fenster.getInfoPokemonLabel().setText(type1.get(currentPokemon) + "/" + type2.get(currentPokemon) + " "
+				+ pokemonKP.get(currentPokemon) + " KP");
+
+		fenster.getFightButton0().setText("Angriff");
+		fenster.getFightButton1().setText("Tauschen");
+		if (!trainerOrGym) {
+			fenster.getCp().removeAll();
+			currentPanel = 7;
+			fenster.setContentPane(fenster.getPanel(currentPanel));
+			fenster.setPanel(currentPanel);
+			fenster.revalidate();
+		} else if (trainerOrGym) {
+			fenster.getCp().removeAll();
+			currentPanel = 8;
+			fenster.setContentPane(fenster.getPanel(currentPanel));
+			fenster.setPanel(currentPanel);
+			fenster.revalidate();
+		}
+		}else {
+			System.out.println("Das Pokemon ist Tot!");
+		}
+		
 	}
 
 	public void done() {
