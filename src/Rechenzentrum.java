@@ -34,6 +34,12 @@ public class Rechenzentrum {
 	private int currentPanel = 0;
 
 	private ArrayList<Integer> chosenPokemon = new ArrayList<Integer>();
+	private ArrayList<String> type1 = new ArrayList<String>();
+	private ArrayList<String> type2 = new ArrayList<String>();
+
+	private ArrayList<Integer> opponentPokemon = new ArrayList<Integer>();
+	private ArrayList<String> opponentType1 = new ArrayList<String>();
+	private ArrayList<String> opponentType2 = new ArrayList<String>();
 
 	public void init_Gui(Fenster Fenster) {
 		this.fenster = Fenster;
@@ -126,8 +132,7 @@ public class Rechenzentrum {
 			}
 
 			if (guessTries >= compareTypes.size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>"
-						+ "<b>";
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>" + "<b>";
 				setAllCompareTypes(compareTypes);
 				setAllComparedTypes(comparedTypes);
 				usedTypes.add(currentType);
@@ -173,8 +178,7 @@ public class Rechenzentrum {
 			}
 
 			if (guessTries >= compareTypes.size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>"
-						+ "<b>";
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>" + "<b>";
 				setAllCompareTypes(compareTypes);
 				setAllComparedTypes(comparedTypes);
 				usedTypes.add(currentType);
@@ -219,8 +223,7 @@ public class Rechenzentrum {
 			}
 
 			if (guessTries >= compareTypes.size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>"
-						+ "<b>";
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>" + "<b>";
 				setAllCompareTypes(compareTypes);
 				setAllComparedTypes(comparedTypes);
 				usedTypes.add(currentType);
@@ -297,8 +300,7 @@ public class Rechenzentrum {
 			}
 
 			if (guessTries >= compareTypes.size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>"
-						+ "<b>";
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>" + "<b>";
 				setAllCompareTypes(compareTypes);
 				setAllComparedTypes(comparedTypes);
 				usedTypes.add(currentType);
@@ -334,8 +336,7 @@ public class Rechenzentrum {
 				compareTypes.add("Nothing");
 			}
 			if (guessTries >= compareTypes.size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>"
-						+ "<b>";
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>" + "<b>";
 				setAllCompareTypes(compareTypes);
 				setAllComparedTypes(comparedTypes);
 				usedTypes.add(currentType);
@@ -374,8 +375,7 @@ public class Rechenzentrum {
 			System.out.println(usedTypes);
 
 			if (guessTries >= compareTypes.size()) {
-				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>"
-						+ "<b>";
+				usedTypeText = usedTypeText + "<font face=\"arial\" color=\"black\"> " + currentType + "<hr>" + "<b>";
 				setAllCompareTypes(compareTypes);
 				setAllComparedTypes(comparedTypes);
 				usedTypes.add(currentType);
@@ -436,29 +436,29 @@ public class Rechenzentrum {
 		fenster.setContentPane(fenster.getPanel(currentPanel));
 		fenster.setPanel(currentPanel);
 		fenster.revalidate();
-		
-	}
-
-	public void fightButton0_ActionPerformedMethod() {
-		
-	}
-
-	public void fightButton1_ActionPerformedMethod() {
-
-	}
-	public void changeButton_ActionPerformedMethod() {
 
 	}
 
-	public void backToAttackButton_ActionPerformedMethod() {
-
+	// von
+	public void fightButton0_ActionPerformedMethod(String s) {
+		if (s == "Angriff") {
+			fenster.getFightButton0().setText(type1.get(0) + " Angriff");
+			// if() {
+			fenster.getFightButton1().setText(type2.get(0) + " Angriff");
+			// }
+		}
 	}
 
-	public void chooseAttackButton_ActionPerformedMethod() {
-
+	public void fightButton1_ActionPerformedMethod(String t) {
+		if (t == "Tauschen") {
+			fenster.getCp().removeAll();
+			currentPanel = 9;
+			fenster.setContentPane(fenster.getPanel(currentPanel));
+			fenster.setPanel(currentPanel);
+			fenster.revalidate();
+		}
 	}
-
-	
+	// bis
 
 	public void oneTypeButton_ActionPerformedMethod() {
 		fenster.getCp().removeAll();
@@ -554,6 +554,22 @@ public class Rechenzentrum {
 		fenster.setPanel(currentPanel);
 		fenster.revalidate();
 
+		int rand = getRand(1008);
+
+		for (int x = 0; x < 6; x++) {
+
+			while (opponentPokemon.contains(rand)) {
+				rand = getRand(1008);
+			}
+
+			opponentPokemon.add(rand);
+
+			Datenbank.getPokemonTypes(rand);
+			opponentType1.add(Datenbank.type1);
+			opponentType2.add(Datenbank.type2);
+
+		}
+
 	}
 
 	public void multiplicatorButtons_ActionPerformedMethod(double tempMultiplicator) {
@@ -607,7 +623,7 @@ public class Rechenzentrum {
 		fenster.getCp().removeAll();
 		panelMode = 2;
 		currentPanel = 6;
-		fenster.setContentPane(fenster.getPanel(currentPanel));	
+		fenster.setContentPane(fenster.getPanel(currentPanel));
 		trainerOrGym = true;
 		fenster.setPanel(currentPanel);
 		fenster.revalidate();
@@ -623,6 +639,8 @@ public class Rechenzentrum {
 	public void chooseButton_ActionPerformedMethod(int i) {
 		if (chosenPokemon.size() < 6 && !chosenPokemon.contains(i)) {
 			chosenPokemon.add(i);
+			type1.add(Datenbank.type1);
+			type2.add(Datenbank.type2);
 		} else if (!(chosenPokemon.size() < 6)) {
 			System.out.println("You cannot choose more than 6 Pokemon!");
 		} else {
@@ -703,7 +721,6 @@ public class Rechenzentrum {
 		allCompareTypes.add(new ArrayList<>(compareTypes));
 	}
 
-
 	public ArrayList<ArrayList<String>> getAllComparedTypes() {
 		return allComparedTypes;
 	}
@@ -730,10 +747,11 @@ public class Rechenzentrum {
 		random = rand.nextInt(i);
 		return random;
 	}
-	
+
 	public String getCurrentType() {
 		return currentType;
 	}
+
 	public void setCurrentType(String s) {
 		currentType = s;
 	}

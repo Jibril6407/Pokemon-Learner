@@ -213,7 +213,7 @@ public class Datenbank {
 		}
 	}
 
-	public static void getPokemonNames(int j) {
+	public static void getPokemonNames(int j, int tempNumber) {
 		if (j == 0) {
 
 			try {
@@ -234,6 +234,30 @@ public class Datenbank {
 				e.printStackTrace();
 
 			}
+		}
+		if (j == 1) {
+
+
+			try {
+				Statement stmt = con.createStatement();
+
+				ResultSet rs = stmt.executeQuery("Select Pokemon_Name From Pokemon_Number_Types Where Pokedex_Number = '" + 
+				tempNumber+"' "	);
+				int columns = rs.getMetaData().getColumnCount();
+				PokemonNumbers.clear();
+				while (rs.next()) {
+					for (int i = 1; i <= columns; i++) {
+						Pokemon_Names.add(rs.getString(i));
+					}
+				}
+				rs.close();
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+
+			}
+		
 		}
 	}
 
