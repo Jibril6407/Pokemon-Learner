@@ -449,7 +449,8 @@ public class Rechenzentrum {
 		}
 		
 		if(s.equals( type1.get(0) + " Angriff")) {
-		//	opponentPokemonKP = opponentPokemonKP - 1 *
+			System.out.println(getMultiplicator(type1.get(0),opponentType1.get(0),opponentType2.get(0)));
+			
 		}
 		
 	}
@@ -464,7 +465,7 @@ public class Rechenzentrum {
 		}
 		
 		if(t.equals( type2.get(0) + " Angriff")) {
-			System.out.println("Funktioniert2");
+			System.out.println(getMultiplicator(type2.get(0),opponentType1.get(0),opponentType2.get(0)));
 		}
 	}
 	// bis
@@ -581,10 +582,6 @@ public class Rechenzentrum {
 
 		}
 		fenster.getInfoOpponentPokemonLabel().setText(opponentType1.get(0) +"/"+ opponentType2.get(0) +" "+opponentPokemonKP.get(0) +" KP");
-//		System.out.println(pokemonKP);
-//		System.out.println(opponentType1);
-//		System.out.println(opponentType2);
-//		System.out.println(opponentPokemon);
 
 	}
 
@@ -672,7 +669,7 @@ public class Rechenzentrum {
 
 	public void confirmButton_ActionPerformedMethod() {
 		if(chosenPokemon.size() == 0){
-			System.out.println("Wähl bitte nen Pokemon Ralf!");
+			System.out.println("Wï¿½hl bitte nen Pokemon Ralf!");
 			return;
 		}
 		fenster.getInfoPokemonLabel().setText(type1.get(0)+"/"+ type2.get(0) +" "+ pokemonKP.get(0) +" KP");
@@ -798,8 +795,35 @@ public class Rechenzentrum {
 	public ArrayList<String> getType2() {
 		return type2;
 	}
-	public double getMultiplicator(){
+	public double getMultiplicator(String attackType, String defenderType1, String defenderType2){
+		double multiplicator1;
+		double multiplicator2;
 		
+		double multiplicator;					
+		Datenbank.getTypes(attackType,1,1);
+		Datenbank.getTypes(attackType,2,1);
+		Datenbank.getTypes(attackType,3,1);
+		if(Datenbank.effective_against_Types.contains(defenderType1)) {
+			multiplicator1 = 2;
+		}else if(Datenbank.not_effective_against_Types.contains(defenderType1)) {
+			multiplicator1 = 0.5;
+		}else if(Datenbank.immune_Types.contains(defenderType1)) {
+			multiplicator1 = 0;
+		}else {
+			multiplicator1 = 1;
+		}
+		if(Datenbank.effective_against_Types.contains(defenderType2)) {
+			multiplicator2 = 2;
+		}else if(Datenbank.not_effective_against_Types.contains(defenderType2)) {
+			multiplicator2 = 0.5;
+		}else if(Datenbank.immune_Types.contains(defenderType2)) {
+			multiplicator2 = 0;
+		}else {
+			multiplicator2 = 1;
+		}
+		multiplicator = multiplicator1 * multiplicator2;
+		
+		return multiplicator;
 	}
 
 	

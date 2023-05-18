@@ -512,12 +512,10 @@ public class Fenster extends JFrame {
 
 		type1Label.setBounds(450, 150, 100, 50);
 		type1Label.setFont(new Font("Dialog", Font.BOLD, 18));
-		type1Label.setText("Type 1");
 		type1Label.setVisible(true);
 
 		type2Label.setBounds(600, 150, 100, 50);
 		type2Label.setFont(new Font("Dialog", Font.BOLD, 18));
-		type2Label.setText("Type 2");
 		type2Label.setVisible(true);
 
 		chooseButton.setBounds(500, 475, 205, 30);
@@ -536,7 +534,7 @@ public class Fenster extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				rech.confirmButton_ActionPerformedMethod();
 			}
-		});
+		});	
 
 		infoPokemonLabel.setBounds(250, 550, 250, 150);
 		infoPokemonLabel.setFont(new Font("Dialog", Font.BOLD, 18));
@@ -720,7 +718,7 @@ public class Fenster extends JFrame {
 			gymLeaderButton.setVisible(true);
 
 			break;
-		case 6:
+		case 6:		
 			buildTeamPanel.add(backButton);
 			backButton.setVisible(true);
 
@@ -841,11 +839,11 @@ public class Fenster extends JFrame {
 
 		if (j == 0) {
 			twoTypesDefenderPanel.add(picLabel);
-			picLabel.setBounds(450, -40, 300, 300);
+			picLabel.setBounds(450, -40, 200, 200);
 
 		}if (j == 1) {
 			buildTeamPanel.add(picLabel);
-			picLabel.setBounds(220, 50, 300, 300);
+			picLabel.setBounds(220, 50, 200, 200);
 			buildTeamPanel.repaint();
 
 		}
@@ -861,7 +859,7 @@ public class Fenster extends JFrame {
 		pokePic.setIcon(imageIcon);
 		
 		trainerPanel.add(pokePic);
-		pokePic.setBounds(250, 400, 300, 300);
+		pokePic.setBounds(250, 420, 200, 200);
 		
 		imageIcon = new ImageIcon("Pokemon Pixel Icons/" + j + ".png");
 		image = imageIcon.getImage();
@@ -871,7 +869,7 @@ public class Fenster extends JFrame {
 		pokeOpponentPic.setIcon(imageIcon);
 		
 		trainerPanel.add(pokeOpponentPic);
-		pokeOpponentPic.setBounds(620, -40, 300, 300);
+		pokeOpponentPic.setBounds(620, 50, 200, 200);
 		trainerPanel.repaint();
 		
 	}
