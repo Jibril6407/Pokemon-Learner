@@ -48,6 +48,8 @@ public class Rechenzentrum {
 	private ArrayList<String> opponentType1 = new ArrayList<String>();
 	private ArrayList<String> opponentType2 = new ArrayList<String>();
 	private ArrayList<Double> opponentPokemonKP = new ArrayList<Double>();
+	
+	private boolean done = false;
 
 	public void init_Gui(Fenster Fenster) {
 		this.fenster = Fenster;
@@ -275,11 +277,27 @@ public class Rechenzentrum {
 		comparedTypes.clear();
 		allCompareTypes.clear();
 		allComparedTypes.clear();
+		
+		chosenPokemon.clear();
+		type1.clear();
+		type2.clear();
+		pokemonKP.clear();
+		opponentPokemon.clear();
+		opponentType1.clear();
+		opponentType2.clear();
+		opponentPokemonKP.clear();
+		
+		currentPokemon = 0;
+		currentOpponentPokemon = 0;	
+		deadPokemon = 0;
+		deadOpponentPokemon = 0;
+		
+		fenster.getFightButton0().setText("Angriff");
+		fenster.getFightButton1().setText("Tauschen");
+		
 		usedTypeText = "<html><b>";
 		resultPressedText = "<html><b>";
 		resultShouldPressedText = "<html><b>";
-		System.out.println("Pressed:                      " + getAllComparedTypes());
-		System.out.println("What you should have pressed: " + getAllCompareTypes());
 		usedTypes.clear();
 
 		fenster.getCp().removeAll();
@@ -462,11 +480,19 @@ public class Rechenzentrum {
 					.setText(opponentType1.get(currentOpponentPokemon) + "/" + opponentType2.get(currentOpponentPokemon)
 							+ " " + opponentPokemonKP.get(currentOpponentPokemon) + " KP");
 			opponentMove();
+			if(done) {
+				return;
+			}
+			
+			fenster.getFightButton0().setText("Angriff");
+			fenster.getFightButton1().setText("Tauschen");
 
 			if (opponentPokemonKP.get(currentOpponentPokemon) <= 0) {
 				deadOpponentPokemon++;
 				if(deadOpponentPokemon >= chosenPokemon.size()) {
 					System.out.println("You won!");
+					backButton_ActionPerformedMethod();
+					return;
 				}
 				currentOpponentPokemon++;
 				fenster.setFightPics(chosenPokemon.get(currentPokemon), opponentPokemon.get(currentOpponentPokemon));
@@ -497,11 +523,20 @@ public class Rechenzentrum {
 					.setText(opponentType1.get(currentOpponentPokemon) + "/" + opponentType2.get(currentOpponentPokemon)
 							+ " " + opponentPokemonKP.get(currentOpponentPokemon) + " KP");
 			opponentMove();
+			if(done) {
+				done = false;
+				return;
+			}
+			
+			fenster.getFightButton0().setText("Angriff");
+			fenster.getFightButton1().setText("Tauschen");
 
 			if (opponentPokemonKP.get(currentOpponentPokemon) <= 0) {
 				deadOpponentPokemon++;
 				if(deadOpponentPokemon >= chosenPokemon.size()) {
 					System.out.println("You won!");
+					backButton_ActionPerformedMethod();
+					return;
 				}
 				currentOpponentPokemon++;
 				fenster.setFightPics(chosenPokemon.get(currentPokemon), opponentPokemon.get(currentOpponentPokemon));
@@ -529,6 +564,9 @@ public class Rechenzentrum {
 				deadPokemon++;
 				if(deadPokemon >= chosenPokemon.size()) {
 					System.out.println("You lost!");
+					backButton_ActionPerformedMethod();
+					done = true;
+					return;
 				}
 				fenster.getChangeButtons().get(currentPokemon).setText("Dead");
 				fenster.getCp().removeAll();
@@ -550,6 +588,9 @@ public class Rechenzentrum {
 				deadPokemon++;
 				if(deadPokemon >= chosenPokemon.size()) {
 					System.out.println("You lost!");
+					backButton_ActionPerformedMethod();
+					done = true;
+					return;
 				}
 				fenster.getChangeButtons().get(currentPokemon).setText("Dead");
 				fenster.getCp().removeAll();
@@ -654,6 +695,7 @@ public class Rechenzentrum {
 		panelMode = 2;
 		currentPanel = 6;
 		trainerOrGym = false;
+		pokeListPressed(1, 0);
 		fenster.setContentPane(fenster.getPanel(currentPanel));
 		fenster.setPanel(currentPanel);
 		fenster.revalidate();
@@ -713,6 +755,7 @@ public class Rechenzentrum {
 		currentPanel = 6;
 		fenster.setContentPane(fenster.getPanel(currentPanel));
 		trainerOrGym = true;
+		pokeListPressed(1, 0);
 		fenster.setPanel(currentPanel);
 		fenster.revalidate();
 	}
@@ -744,7 +787,7 @@ public class Rechenzentrum {
 
 	public void confirmButton_ActionPerformedMethod() {
 		if (chosenPokemon.size() == 0) {
-			System.out.println("W�hl bitte nen Pokemon Ralf!");
+			System.out.println("Wähl bitte nen Pokemon Ralf!");
 			return;
 		}
 		int rand = getRand(1008);
