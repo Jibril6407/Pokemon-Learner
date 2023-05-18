@@ -60,6 +60,13 @@ public class Fenster extends JFrame {
 
 	private ArrayList<JButton> typesbuttons = new ArrayList<JButton>();
 	private ArrayList<JButton> multiplicatorButtons = new ArrayList<JButton>();
+	
+	private JLabel pokePic = new JLabel();
+	private JLabel pokeOpponentPic = new JLabel();
+	
+	private ArrayList<JButton> changeButtons = new ArrayList<JButton>();
+	private ArrayList<JLabel> pokeLabels = new ArrayList<JLabel>();
+	
 	private Rechenzentrum rech = null;
 	private Container cp;
 
@@ -227,6 +234,22 @@ public class Fenster extends JFrame {
 
 	public JButton getFightButton1() {
 		return fightButton1;
+	}
+
+	public JLabel getInfoPokemonLabel() {
+		return infoPokemonLabel;
+	}
+
+	public JLabel getInfoOpponentPokemonLabel() {
+		return infoOpponentPokemonLabel;
+	}
+
+	public JComboBox<String> getChoosePokeName() {
+		return choosePokeName;
+	}
+
+	public JComboBox<Integer> getChoosePokeNumber() {
+		return choosePokeNumber;
 	}
 
 	public void initPanel() {
@@ -450,6 +473,7 @@ public class Fenster extends JFrame {
 		fightButton0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				rech.fightButton0_ActionPerformedMethod(fightButton0.getText());
+				//System.out.println(fightButton0.getText());
 			}
 		});
 
@@ -476,23 +500,15 @@ public class Fenster extends JFrame {
 
 		choosePokeName.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent evt) {
-				choosePokeNumber.setSelectedIndex(choosePokeName.getSelectedIndex());
+				rech.pokeListPressed(0, choosePokeName.getSelectedIndex());				
 			}
 		});
 		choosePokeNumber.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				choosePokeName.setSelectedIndex(choosePokeNumber.getSelectedIndex());
+				rech.pokeListPressed(1, choosePokeNumber.getSelectedIndex());
 			}
 		});
 
-		selectButton.setBounds(0, 495, 205, 30);
-		selectButton.setText("Select");
-		selectButton.setMargin(new Insets(2, 2, 2, 2));
-		selectButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				rech.selectButton_ActionPerformedMethod(choosePokeNumber.getSelectedIndex() + 1);
-			}
-		});
 
 		type1Label.setBounds(450, 150, 100, 50);
 		type1Label.setFont(new Font("Dialog", Font.BOLD, 18));
@@ -504,7 +520,7 @@ public class Fenster extends JFrame {
 		type2Label.setText("Type 2");
 		type2Label.setVisible(true);
 
-		chooseButton.setBounds(500, 495, 205, 30);
+		chooseButton.setBounds(500, 475, 205, 30);
 		chooseButton.setText("Choose");
 		chooseButton.setMargin(new Insets(2, 2, 2, 2));
 		chooseButton.addActionListener(new ActionListener() {
@@ -522,15 +538,30 @@ public class Fenster extends JFrame {
 			}
 		});
 
-		infoPokemonLabel.setBounds(250, 550, 100, 150);
+		infoPokemonLabel.setBounds(250, 550, 250, 150);
 		infoPokemonLabel.setFont(new Font("Dialog", Font.BOLD, 18));
-		infoPokemonLabel.setText("KP");
 		infoPokemonLabel.setVisible(true);
 		
-		infoOpponentPokemonLabel.setBounds(600, 150, 100, 150);
+		infoOpponentPokemonLabel.setBounds(600, 150, 250, 150);
 		infoOpponentPokemonLabel.setFont(new Font("Dialog", Font.BOLD, 18));
-		infoOpponentPokemonLabel.setText("KP");
 		infoOpponentPokemonLabel.setVisible(true);
+		
+		for (int i = 0; i < 6; i++) {
+			changeButtons.add(new JButton());
+			
+			pokeLabels.add(new JLabel());
+		}
+		for (int j = 0; j < 6; j++) {
+				changeButtons.get(j).setBounds(750, 55*j + 100, 100, 50);
+				changeButtons.get(j).setMargin(new Insets(2, 2, 2, 2));
+				changeButtons.get(j).setText("Change");
+				changeButtons.get(j).addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+					}
+				});
+				
+				pokeLabels.get(j).setBounds(500, 55*j + 100, 200, 50);
+			}
 	}
 
 	public void setPanel(int tempCase) {
@@ -755,9 +786,17 @@ public class Fenster extends JFrame {
 
 			break;
 
-		case 9:
-			changePokemonPanel.add(backButton);
-			backButton.setVisible(true);
+		case 9:		
+			for(int i = 0; i<rech.getType1().size(); i++){
+				changePokemonPanel.add(changeButtons.get(i));
+				changeButtons.get(i).setVisible(true);
+				
+				changePokemonPanel.add(pokeLabels.get(i));
+				pokeLabels.get(i).setVisible(true);		
+				
+				pokeLabels.get(i).setText("Type 1: "+rech.getType1().get(i)+ " Type2: "+ rech.getType2().get(i));
+			
+			}
 
 		}
 	}
@@ -804,13 +843,37 @@ public class Fenster extends JFrame {
 			twoTypesDefenderPanel.add(picLabel);
 			picLabel.setBounds(450, -40, 300, 300);
 
-		} else if (j == 1) {
+		}if (j == 1) {
 			buildTeamPanel.add(picLabel);
 			picLabel.setBounds(220, 50, 300, 300);
 			buildTeamPanel.repaint();
 
 		}
 
+	}
+	public void setFightPics(int i, int j){
+		
+		ImageIcon imageIcon = new ImageIcon("Pokemon Pixel Icons/" + i + ".png");
+		Image image = imageIcon.getImage();
+		Image newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_REPLICATE);
+		imageIcon = new ImageIcon(newimg);
+		pokePic.setVisible(true);
+		pokePic.setIcon(imageIcon);
+		
+		trainerPanel.add(pokePic);
+		pokePic.setBounds(250, 400, 300, 300);
+		
+		imageIcon = new ImageIcon("Pokemon Pixel Icons/" + j + ".png");
+		image = imageIcon.getImage();
+		newimg = image.getScaledInstance(200, 200, java.awt.Image.SCALE_REPLICATE);
+		imageIcon = new ImageIcon(newimg);
+		pokeOpponentPic.setVisible(true);
+		pokeOpponentPic.setIcon(imageIcon);
+		
+		trainerPanel.add(pokeOpponentPic);
+		pokeOpponentPic.setBounds(620, -40, 300, 300);
+		trainerPanel.repaint();
+		
 	}
 
 	public void setType1Label(String s) {

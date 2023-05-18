@@ -36,10 +36,12 @@ public class Rechenzentrum {
 	private ArrayList<Integer> chosenPokemon = new ArrayList<Integer>();
 	private ArrayList<String> type1 = new ArrayList<String>();
 	private ArrayList<String> type2 = new ArrayList<String>();
+	private ArrayList<Double> pokemonKP = new ArrayList<Double>(); 
 
 	private ArrayList<Integer> opponentPokemon = new ArrayList<Integer>();
 	private ArrayList<String> opponentType1 = new ArrayList<String>();
 	private ArrayList<String> opponentType2 = new ArrayList<String>();
+	private ArrayList<Double> opponentPokemonKP = new ArrayList<Double>();
 
 	public void init_Gui(Fenster Fenster) {
 		this.fenster = Fenster;
@@ -443,10 +445,13 @@ public class Rechenzentrum {
 	public void fightButton0_ActionPerformedMethod(String s) {
 		if (s == "Angriff") {
 			fenster.getFightButton0().setText(type1.get(0) + " Angriff");
-			// if() {
-			fenster.getFightButton1().setText(type2.get(0) + " Angriff");
-			// }
+			fenster.getFightButton1().setText(type2.get(0) + " Angriff");	
 		}
+		
+		if(s.equals( type1.get(0) + " Angriff")) {
+		//	opponentPokemonKP = opponentPokemonKP - 1 *
+		}
+		
 	}
 
 	public void fightButton1_ActionPerformedMethod(String t) {
@@ -456,6 +461,10 @@ public class Rechenzentrum {
 			fenster.setContentPane(fenster.getPanel(currentPanel));
 			fenster.setPanel(currentPanel);
 			fenster.revalidate();
+		}
+		
+		if(t.equals( type2.get(0) + " Angriff")) {
+			System.out.println("Funktioniert2");
 		}
 	}
 	// bis
@@ -567,8 +576,15 @@ public class Rechenzentrum {
 			Datenbank.getPokemonTypes(rand);
 			opponentType1.add(Datenbank.type1);
 			opponentType2.add(Datenbank.type2);
+			opponentPokemonKP.add(10.0);
+			pokemonKP.add(10.0);
 
 		}
+		fenster.getInfoOpponentPokemonLabel().setText(opponentType1.get(0) +"/"+ opponentType2.get(0) +" "+opponentPokemonKP.get(0) +" KP");
+//		System.out.println(pokemonKP);
+//		System.out.println(opponentType1);
+//		System.out.println(opponentType2);
+//		System.out.println(opponentPokemon);
 
 	}
 
@@ -576,7 +592,7 @@ public class Rechenzentrum {
 		int rand = getRand(Datenbank.Types.size());
 		pressedMultiplicator.add(tempMultiplicator);
 		if (comparedTypes.size() < 6) {
-			comparedTypes.add(currentType);
+			comparedTypes.add(currentType); 
 
 			while (comparedTypes.contains(currentType)) {
 				rand = getRand(Datenbank.Types.size());
@@ -629,11 +645,17 @@ public class Rechenzentrum {
 		fenster.revalidate();
 	}
 
-	public void selectButton_ActionPerformedMethod(int i) {
-		fenster.setPicLabel(i, 1);
-		Datenbank.getPokemonTypes(i);
+	public void pokeListPressed(int i, int index){
+		if(i == 0){
+			fenster.getChoosePokeNumber().setSelectedIndex(index);
+		}else if(i == 1){
+			fenster.getChoosePokeName().setSelectedIndex(index);
+		}
+		fenster.setPicLabel(index+1, 1);
+		Datenbank.getPokemonTypes(index+1);
 		fenster.setType1Label(Datenbank.type1);
 		fenster.setType2Label(Datenbank.type2);
+		
 	}
 
 	public void chooseButton_ActionPerformedMethod(int i) {
@@ -649,7 +671,12 @@ public class Rechenzentrum {
 	}
 
 	public void confirmButton_ActionPerformedMethod() {
-
+		if(chosenPokemon.size() == 0){
+			System.out.println("Wähl bitte nen Pokemon Ralf!");
+			return;
+		}
+		fenster.getInfoPokemonLabel().setText(type1.get(0)+"/"+ type2.get(0) +" "+ pokemonKP.get(0) +" KP");
+		fenster.setFightPics(chosenPokemon.get(0),opponentPokemon.get(0));
 		if (!trainerOrGym) {
 			fenster.getCp().removeAll();
 			currentPanel = 7;
@@ -756,4 +783,24 @@ public class Rechenzentrum {
 		currentType = s;
 	}
 
+	public ArrayList<String> getOpponentType1() {
+		return opponentType1;
+	}
+
+	public ArrayList<String> getOpponentType2() {
+		return opponentType2;
+	}
+	
+	public ArrayList<String> getType1() {
+		return type1;
+	}
+
+	public ArrayList<String> getType2() {
+		return type2;
+	}
+	public double getMultiplicator(){
+		
+	}
+
+	
 }
